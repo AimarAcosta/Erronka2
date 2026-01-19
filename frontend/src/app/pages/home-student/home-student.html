@@ -80,7 +80,7 @@
                   [(ngModel)]="newReunion.titulo"
                   name="titulo"
                   required
-                  placeholder="Adib: Duda examen..."
+                  [placeholder]="'MEETING.TITLE_PLACEHOLDER' | translate"
                 />
               </div>
               <div class="form-group">
@@ -96,8 +96,8 @@
                 <small>{{ selectedCentro.DMUNI }}, {{ selectedCentro.DTERRE }}</small>
               </div>
               <div class="selected-centro-preview" *ngIf="!selectedCentro">
-                <strong>CIFP ELORRIETA-ERREKA MARI LHII</strong>
-                <small>Bilbao, Bizkaia {{ 'MEETING.DEFAULT_CENTER' | translate }}</small>
+                <strong>ELORRIETA-ERREKA MARI</strong>
+                <small>BILBAO, BIZKAIA {{ 'MEETING.DEFAULT_CENTER' | translate }}</small>
               </div>
               <button type="button" class="btn-change-centro" (click)="toggleCentroSelector()">
                 <i class="bi bi-pin-map"></i> {{ showCentroSelector ? ('MEETING.CLOSE' | translate) : ('MEETING.CHANGE_CENTER' | translate) }}

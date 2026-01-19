@@ -1,43 +1,47 @@
 <div class="centro-selector">
   <div *ngIf="isLoading" class="loading-indicator">
-    <i class="bi bi-hourglass-split spinning"></i> Zentroak kargatzen...
+    <i class="bi bi-hourglass-split spinning"></i> {{ 'CENTER.LOADING' | translate }}
   </div>
 
   <div *ngIf="!isLoading">
     <div class="filters-section">
-      <h6><i class="bi bi-funnel"></i> Iragazi Zentroak</h6>
+      <h6><i class="bi bi-funnel"></i> {{ 'CENTER.FILTER' | translate }}</h6>
       <div class="filters-row">
         <div class="filter-group">
-          <label>Mota (DTITUC)</label>
+          <label>{{ 'CENTER.TYPE' | translate }}</label>
           <select [(ngModel)]="filterTipo" (change)="applyFilters()">
-            <option value="">Guztiak</option>
+            <option value="">{{ 'CENTER.ALL' | translate }}</option>
             <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
           </select>
         </div>
-        
+
         <div class="filter-group">
-          <label>Lurraldea (DTERRE)</label>
+          <label>{{ 'CENTER.TERRITORY' | translate }}</label>
           <select [(ngModel)]="filterTerritorio" (change)="onTerritorioChange()">
-            <option value="">Guztiak</option>
+            <option value="">{{ 'CENTER.ALL' | translate }}</option>
             <option *ngFor="let terr of territorios" [value]="terr">{{ terr }}</option>
           </select>
         </div>
-        
+
         <div class="filter-group">
-          <label>Udalerria (DMUNI)</label>
-          <select [(ngModel)]="filterMunicipio" (change)="applyFilters()" [disabled]="!filterTerritorio">
-            <option value="">Guztiak</option>
+          <label>{{ 'CENTER.MUNICIPALITY' | translate }}</label>
+          <select
+            [(ngModel)]="filterMunicipio"
+            (change)="applyFilters()"
+            [disabled]="!filterTerritorio"
+          >
+            <option value="">{{ 'CENTER.ALL' | translate }}</option>
             <option *ngFor="let muni of municipios" [value]="muni">{{ muni }}</option>
           </select>
         </div>
-        
+
         <button class="btn-clear" (click)="clearFilters()">
-          <i class="bi bi-x-circle"></i> Garbitu
+          <i class="bi bi-x-circle"></i> {{ 'CENTER.CLEAR' | translate }}
         </button>
       </div>
-      
+
       <div class="filter-count">
-        <i class="bi bi-building"></i> {{ filteredCentros.length }} zentro aurkitu
+        <i class="bi bi-building"></i> {{ filteredCentros.length }} {{ 'CENTER.FOUND' | translate }}
       </div>
     </div>
 
@@ -46,7 +50,7 @@
     </div>
 
     <div class="selected-centro" *ngIf="selectedCentro">
-      <h6><i class="bi bi-geo-alt-fill"></i> Hautatutako Zentroa</h6>
+      <h6><i class="bi bi-geo-alt-fill"></i> {{ 'CENTER.SELECTED' | translate }}</h6>
       <div class="centro-info">
         <div class="centro-name">{{ selectedCentro.DNOMBRE }}</div>
         <div class="centro-address">
@@ -54,7 +58,9 @@
         </div>
         <div class="centro-location">
           <span><i class="bi bi-mailbox"></i> {{ selectedCentro.CPOSTAL }}</span>
-          <span><i class="bi bi-geo"></i> {{ selectedCentro.DMUNI }}, {{ selectedCentro.DTERRE }}</span>
+          <span
+            ><i class="bi bi-geo"></i> {{ selectedCentro.DMUNI }}, {{ selectedCentro.DTERRE }}</span
+          >
         </div>
         <div class="centro-contact" *ngIf="selectedCentro.TELEFONO">
           <i class="bi bi-telephone"></i> {{ selectedCentro.TELEFONO }}
@@ -63,19 +69,18 @@
     </div>
 
     <div class="centros-list">
-      <h6><i class="bi bi-list-ul"></i> Zentroen Zerrenda</h6>
+      <h6><i class="bi bi-list-ul"></i> {{ 'CENTER.LIST' | translate }}</h6>
       <div class="list-container">
-        <div 
-          *ngFor="let centro of filteredCentros" 
+        <div
+          *ngFor="let centro of filteredCentros"
           class="centro-item"
           [class.selected]="centro.CCODIGO === selectedCentroId"
-          (click)="selectCentro(centro)">
+          (click)="selectCentro(centro)"
+        >
           <div class="centro-item-name">{{ centro.DNOMBRE }}</div>
           <div class="centro-item-info">
-            <span class="badge" [class.badge-public]="centro.DTITUC === 'Publico'" 
-                               [class.badge-private]="centro.DTITUC === 'Privado'"
-                               [class.badge-other]="centro.DTITUC === 'Otro publico'">
-              {{ centro.DTITUC }}
+            <span class="badge badge-tipo">
+              {{ centro.TIPO_CENTRO }}
             </span>
             <span>{{ centro.DMUNI }}</span>
           </div>

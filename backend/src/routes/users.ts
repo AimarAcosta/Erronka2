@@ -88,6 +88,38 @@ router.get('/search/:query', async (req, res) => {
   }
 });
 
+router.get('/students/search', async (req, res) => {
+  try {
+    const { nombre, apellidos, dni, ciclo } = req.query;
+    
+    let queryBuilder = userRepository()
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.tipo', 'tipo')
+      .leftJoinAndSelect('user.matriculaciones', 'matriculacion')
+      .leftJoinAndSelect('matriculacion.ciclo', 'ciclo')
+      .where('user.tipo_id = :tipoId', { tipoId: 4 });
+
+    if (nombre) {
+      queryBuilder = queryBuilder.andWhere('LOWER(user.nombre) LIKE :nombre', { nombre: `%${(nombre as string).toLowerCase()}%` });
+    }
+    if (apellidos) {
+      queryBuilder = queryBuilder.andWhere('LOWER(user.apellidos) LIKE :apellidos', { apellidos: `%${(apellidos as string).toLowerCase()}%` });
+    }
+    if (dni) {
+      queryBuilder = queryBuilder.andWhere('LOWER(user.dni) LIKE :dni', { dni: `%${(dni as string).toLowerCase()}%` });
+    }
+    if (ciclo) {
+      queryBuilder = queryBuilder.andWhere('ciclo.id = :cicloId', { cicloId: parseInt(ciclo as string) });
+    }
+
+    const students = await queryBuilder.orderBy('user.apellidos', 'ASC').getMany();
+    res.json(students);
+  } catch (error) {
+    console.error('Error en búsqueda de estudiantes:', error);
+    res.status(500).json({ error: 'Error al buscar estudiantes' });
+  }
+});
+
 router.get('/:id', async (req, res) => {
   try {
     const user = await userRepository().findOne({

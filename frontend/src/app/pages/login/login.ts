@@ -13,7 +13,6 @@ import { Subscription } from 'rxjs';
   standalone: true,
   imports: [FormsModule, CommonModule, TranslatePipe],
   templateUrl: './login.html',
-  styleUrls: ['./login.css'],
 })
 export class Login implements OnInit, OnDestroy {
   username = '';

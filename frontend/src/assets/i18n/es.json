@@ -43,6 +43,7 @@
   },
   "MEETING": {
     "TITLE": "Título",
+    "TITLE_PLACEHOLDER": "Ej: Duda examen...",
     "SUBJECT": "Asunto",
     "DATE": "Fecha",
     "STATUS": "Estado",
@@ -80,7 +81,9 @@
     "CHANGE": "Cambiar centro",
     "PUBLIC": "Público",
     "PRIVATE": "Privado",
-    "OTHER": "Otro público"
+    "OTHER": "Otro público",
+    "LOADING": "Cargando centros...",
+    "LIST": "Lista de centros"
   },
   "USER": {
     "USERNAME": "Usuario",
@@ -128,5 +131,23 @@
     "ACCEPTED": "Aceptada",
     "REJECTED": "Rechazada",
     "CONFLICT": "Conflicto"
+  },
+  "STUDENTS": {
+    "SEARCH_TITLE": "Buscar alumnos",
+    "NAME": "Nombre",
+    "LASTNAME": "Apellidos",
+    "DNI": "DNI",
+    "EMAIL": "Email",
+    "CYCLE": "Ciclo",
+    "PHOTO": "Foto",
+    "NAME_PLACEHOLDER": "Escribir nombre...",
+    "LASTNAME_PLACEHOLDER": "Escribir apellidos...",
+    "DNI_PLACEHOLDER": "Ej: 12345678A",
+    "ALL_CYCLES": "Todos los ciclos",
+    "SEARCH": "Buscar",
+    "CLEAR": "Limpiar",
+    "RESULTS": "Resultados",
+    "SEARCHING": "Buscando...",
+    "NO_RESULTS": "No se encontraron alumnos con esta búsqueda"
   }
 }

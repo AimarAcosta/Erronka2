@@ -43,6 +43,7 @@
   },
   "MEETING": {
     "TITLE": "Title",
+    "TITLE_PLACEHOLDER": "Ex: Exam question...",
     "SUBJECT": "Subject",
     "DATE": "Date",
     "STATUS": "Status",
@@ -80,7 +81,9 @@
     "CHANGE": "Change center",
     "PUBLIC": "Public",
     "PRIVATE": "Private",
-    "OTHER": "Other public"
+    "OTHER": "Other public",
+    "LOADING": "Loading centers...",
+    "LIST": "Center list"
   },
   "USER": {
     "USERNAME": "Username",
@@ -128,5 +131,23 @@
     "ACCEPTED": "Accepted",
     "REJECTED": "Rejected",
     "CONFLICT": "Conflict"
+  },
+  "STUDENTS": {
+    "SEARCH_TITLE": "Search students",
+    "NAME": "Name",
+    "LASTNAME": "Surname",
+    "DNI": "ID Number",
+    "EMAIL": "Email",
+    "CYCLE": "Cycle",
+    "PHOTO": "Photo",
+    "NAME_PLACEHOLDER": "Enter name...",
+    "LASTNAME_PLACEHOLDER": "Enter surname...",
+    "DNI_PLACEHOLDER": "Ex: 12345678A",
+    "ALL_CYCLES": "All cycles",
+    "SEARCH": "Search",
+    "CLEAR": "Clear",
+    "RESULTS": "Results",
+    "SEARCHING": "Searching...",
+    "NO_RESULTS": "No students found with this search"
   }
 }

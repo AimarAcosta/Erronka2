@@ -9,6 +9,17 @@ export interface Tipo {
   name_eu: string;
 }
 
+export interface Ciclo {
+  id: number;
+  nombre: string;
+  nombre_eus?: string;
+}
+
+export interface Matriculacion {
+  id: number;
+  ciclo?: Ciclo;
+}
+
 export interface User {
   id: number;
   email: string;
@@ -23,6 +34,7 @@ export interface User {
   tipo_id: number;
   tipo?: Tipo;
   argazkia_url?: string;
+  matriculaciones?: Matriculacion[];
   created_at?: Date;
   updated_at?: Date;
 }
@@ -65,6 +77,18 @@ export class UsersService {
     );
   }
 
+  searchStudents(filters: { nombre?: string; apellidos?: string; dni?: string; ciclo?: number }): Observable<User[]> {
+    let params: any = {};
+    if (filters.nombre) params.nombre = filters.nombre;
+    if (filters.apellidos) params.apellidos = filters.apellidos;
+    if (filters.dni) params.dni = filters.dni;
+    if (filters.ciclo) params.ciclo = filters.ciclo.toString();
+    
+    return this.http.get<User[]>(`${this.apiUrl}/students/search`, { params }).pipe(
+      catchError(() => of([]))
+    );
+  }
+
   getUsersCount(): Observable<{ students: number; teachers: number; admins: number; total: number }> {
     return this.http.get<{ students: number; teachers: number; admins: number; total: number }>(`${this.apiUrl}/count/all`).pipe(
       catchError(() => of({ students: 0, teachers: 0, admins: 0, total: 0 }))
@@ -98,6 +122,15 @@ export class UsersService {
 
   getUserPhotoUrl(username: string): string {
     return `${environment.apiUrl.replace('/api', '')}/public/${username}.jpg`;
+  }
+
+  getDefaultPhotoUrl(): string {
+    return '/assets/perfil.jpg';
+  }
+
+  getPhotoWithFallback(user: User | string): string {
+    const username = typeof user === 'string' ? user : user.username;
+    return this.getUserPhotoUrl(username);
   }
 
   getRoleName(tipoId: number): string {

@@ -1,46 +1,61 @@
-/* ===== FOOTER ===== */
+/* ===== FOOTER - Elorrieta-Erreka Mari ===== */
 
 .footer {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 25px 30px;
-  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
-  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  background: linear-gradient(135deg, #2d3e50 0%, #1a252f 100%);
+  padding: 20px 28px;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+  border-top: none;
   border-radius: 20px 20px 0 0;
-  margin-top: auto;
+  width: 100vw;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
 }
 
 .footer-container {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   text-align: center;
+  position: relative;
 }
 
 .footer p {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-size: 14px;
-  font-weight: 600;
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 500;
   margin: 0;
   letter-spacing: 0.3px;
+}
+
+.footer p strong,
+.footer p span.highlight {
+  color: #00c4bc;
+  font-weight: 600;
+}
+
+.footer a {
+  color: #00c4bc;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: #e8b923;
 }
 
 @media (max-width: 768px) {
   .footer {
     padding: 20px 20px;
-    border-radius: 15px 15px 0 0;
   }
 }
 
 @media (max-width: 480px) {
   .footer {
-    padding: 15px;
-    border-radius: 12px 12px 0 0;
+    padding: 16px 16px;
   }
   
   .footer p {
-    font-size: 12px;
+    font-size: 11px;
   }
 }

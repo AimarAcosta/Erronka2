@@ -2,13 +2,13 @@ import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, OnDestro
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CentrosService, Centro } from '../../services/centros';
-
-declare var L: any;
+import { TranslatePipe } from '../../pipes/translate.pipe';
+declare var maplibregl: any;
 
 @Component({
   selector: 'app-centro-selector',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TranslatePipe],
   templateUrl: './centro-selector.html',
   styleUrl: './centro-selector.css'
 })
@@ -30,7 +30,7 @@ export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
   filterMunicipio: string = '';
 
   private map: any;
-  private markerGroup: any;
+  private markers: any[] = [];
   private mapInitialized = false;
 
   constructor(
@@ -140,7 +140,7 @@ export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
     this.centroSelected.emit(centro);
     
     if (this.map && this.mapInitialized) {
-      this.map.setView([centro.LAT, centro.LON], 14);
+      this.map.flyTo({ center: [centro.LON, centro.LAT], zoom: 14 });
     }
     
     this.updateMarkers();
@@ -151,73 +151,74 @@ export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
     
     if (!container) return;
 
-    if (typeof L === 'undefined') return;
+    if (typeof maplibregl === 'undefined') return;
 
     try {
-      this.map = L.map('map-container').setView([43.263, -2.935], 10);
+      this.map = new maplibregl.Map({
+        container: 'map-container',
+        style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+        center: [-2.935, 43.263],
+        zoom: 10
+      });
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxZoom: 19
-      }).addTo(this.map);
+      this.map.addControl(new maplibregl.NavigationControl());
 
-      this.markerGroup = L.layerGroup().addTo(this.map);
-
-      this.mapInitialized = true;
-      
-      this.updateMarkers();
-      
-      setTimeout(() => {
-        if (this.map) {
-          this.map.invalidateSize();
-        }
-      }, 100);
+      this.map.on('load', () => {
+        this.mapInitialized = true;
+        this.updateMarkers();
+      });
 
     } catch (error) {
+      console.error('Error initializing MapLibre:', error);
     }
   }
 
   private updateMarkers() {
-    if (!this.map || !this.mapInitialized || !this.markerGroup) return;
+    if (!this.map || !this.mapInitialized) return;
 
-    this.markerGroup.clearLayers();
+    this.markers.forEach(marker => marker.remove());
+    this.markers = [];
 
     this.filteredCentros.forEach(centro => {
       const isSelected = centro.CCODIGO === this.selectedCentroId;
       
-      const icon = L.divIcon({
-        className: 'custom-marker',
-        html: `<div style="
-          width: 24px;
-          height: 24px;
-          background-color: ${isSelected ? '#dc3545' : '#007bff'};
-          border-radius: 50%;
-          border: 3px solid white;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        "></div>`,
-        iconSize: [24, 24],
-        iconAnchor: [12, 12],
-        popupAnchor: [0, -12]
-      });
+      const el = document.createElement('div');
+      el.className = 'mapbox-marker';
+      el.style.cssText = `
+        width: 28px;
+        height: 28px;
+        background-color: ${isSelected ? '#c8102e' : '#1e3a5f'};
+        border-radius: 50%;
+        border: 3px solid white;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        cursor: pointer;
+      `;
 
-      const marker = L.marker([centro.LAT, centro.LON], { icon })
-        .bindPopup(`
-          <strong>${centro.DNOMBRE}</strong><br>
+      const popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
+        <div style="font-family: 'Poppins', sans-serif; padding: 8px;">
+          <strong style="color: #c8102e;">${centro.DNOMBRE}</strong><br>
+          <small style="color: #666;">${centro.TIPO_CENTRO} - ${centro.DTITUC}</small><br>
           <small>${centro.DDOMICILIO || ''}</small><br>
           <small>${centro.DMUNI}, ${centro.DTERRE}</small>
-        `)
-        .on('click', () => {
-          this.selectCentro(centro);
-        });
+        </div>
+      `);
 
-      this.markerGroup.addLayer(marker);
+      const marker = new maplibregl.Marker({ element: el })
+        .setLngLat([centro.LON, centro.LAT])
+        .setPopup(popup)
+        .addTo(this.map);
+
+      el.addEventListener('click', () => {
+        this.selectCentro(centro);
+      });
+
+      this.markers.push(marker);
     });
 
     if (this.filteredCentros.length > 0) {
-      const bounds = L.latLngBounds(
-        this.filteredCentros.map((c: Centro) => [c.LAT, c.LON])
-      );
-      this.map.fitBounds(bounds, { padding: [30, 30] });
+      const bounds = new maplibregl.LngLatBounds();
+      this.filteredCentros.forEach(c => bounds.extend([c.LON, c.LAT]));
+      this.map.fitBounds(bounds, { padding: 50 });
     }
   }
 }

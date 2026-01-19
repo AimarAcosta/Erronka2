@@ -2,6 +2,8 @@ import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import http from 'http';
+import { Server as SocketIOServer } from 'socket.io';
 import { AppDataSource } from './data-source';
 import usersRouter from './routes/users';
 import reunionesRouter from './routes/reuniones';
@@ -14,12 +16,28 @@ import path from 'path';
 dotenv.config();
 
 const app = express();
+const server = http.createServer(app);
+const io = new SocketIOServer(server, {
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+  }
+});
+
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/public', express.static(path.join(__dirname, '../../public')));
+// Servir archivos estáticos (fotos de usuarios)
+// En desarrollo: ../public desde backend/src
+// En producción: ../../public desde backend/dist/src
+const publicPath = path.join(__dirname, '..', 'public');
+const altPublicPath = path.join(__dirname, '..', '..', 'public');
+app.use('/public', express.static(publicPath));
+app.use('/public', express.static(altPublicPath));
+// También intentar desde la raíz del proyecto
+app.use('/public', express.static(path.join(__dirname, '..', '..', '..', 'public')));
 
 app.use('/api/users', usersRouter);
 app.use('/api/reuniones', reunionesRouter);
@@ -32,13 +50,44 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'ElorServ API está funcionando' });
 });
 
+io.on('connection', (socket) => {
+  console.log('🔌 Cliente conectado (ElorES):', socket.id);
+
+  socket.on('teacher:login', (data) => {
+    console.log('👨‍🏫 Profesor conectado:', data.teacherId);
+    socket.join(`teacher_${data.teacherId}`);
+    socket.emit('login:success', { message: 'Conectado correctamente' });
+  });
+
+  socket.on('reunion:request', (data) => {
+    console.log('📅 Nueva solicitud de reunión:', data);
+    io.to(`teacher_${data.teacherId}`).emit('reunion:new', data);
+  });
+
+  socket.on('reunion:response', (data) => {
+    console.log('📝 Respuesta a reunión:', data);
+    io.emit('reunion:updated', data);
+  });
+
+  socket.on('schedule:request', (data) => {
+    console.log('📋 Solicitud de horario:', data.teacherId);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('🔌 Cliente desconectado:', socket.id);
+  });
+});
+
+export { io };
+
 AppDataSource.initialize()
   .then(() => {
     console.log('✅ Conexión a MySQL establecida correctamente');
     
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
       console.log(`🚀 ElorServ corriendo en http://localhost:${PORT}`);
       console.log(`📚 API disponible en http://localhost:${PORT}/api`);
+      console.log(`🔌 WebSocket disponible para ElorES`);
     });
   })
   .catch((error) => {

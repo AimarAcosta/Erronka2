@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
 import { HorariosService, Horario, WeekDay } from '../../services/schedule';
 import { ReunionesService, Reunion } from '../../services/meetings';
+import { UsersService, User } from '../../services/users';
+import { CiclosService, Ciclo } from '../../services/ciclos';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
@@ -30,16 +32,31 @@ export class HomeTeacher implements OnInit {
   acceptedCount: number = 0;
   classCount: number = 0;
 
+  // Búsqueda de estudiantes
+  searchFilters = {
+    nombre: '',
+    apellidos: '',
+    dni: '',
+    ciclo: 0
+  };
+  ciclos: Ciclo[] = [];
+  searchResults: User[] = [];
+  isSearching = false;
+  hasSearched = false;
+
   constructor(
     private authService: AuthService,
     private horariosService: HorariosService,
     private reunionesService: ReunionesService,
+    private usersService: UsersService,
+    private ciclosService: CiclosService,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
     this.currentUser = this.authService.getUser();
     this.initializeEmptyTable();
+    this.loadCiclos();
     
     if (this.currentUser && this.currentUser.id) {
       this.loadScheduleData(this.currentUser.id);
@@ -47,6 +64,12 @@ export class HomeTeacher implements OnInit {
     } else {
       this.loadAllHorarios();
     }
+  }
+
+  loadCiclos() {
+    this.ciclosService.getCiclos().subscribe((ciclos) => {
+      this.ciclos = ciclos;
+    });
   }
 
   loadAllHorarios() {
@@ -161,5 +184,48 @@ export class HomeTeacher implements OnInit {
       case 'conflicto': return 'Gatazka';
       default: return estado;
     }
+  }
+
+  // Métodos de búsqueda de estudiantes
+  searchStudents() {
+    this.isSearching = true;
+    this.hasSearched = true;
+    
+    const filters: any = {};
+    if (this.searchFilters.nombre.trim()) filters.nombre = this.searchFilters.nombre.trim();
+    if (this.searchFilters.apellidos.trim()) filters.apellidos = this.searchFilters.apellidos.trim();
+    if (this.searchFilters.dni.trim()) filters.dni = this.searchFilters.dni.trim();
+    if (this.searchFilters.ciclo > 0) filters.ciclo = this.searchFilters.ciclo;
+    
+    this.usersService.searchStudents(filters).subscribe({
+      next: (students) => {
+        this.searchResults = students;
+        this.isSearching = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.searchResults = [];
+        this.isSearching = false;
+      }
+    });
+  }
+
+  clearSearch() {
+    this.searchFilters = {
+      nombre: '',
+      apellidos: '',
+      dni: '',
+      ciclo: 0
+    };
+    this.searchResults = [];
+    this.hasSearched = false;
+  }
+
+  getStudentPhoto(user: User): string {
+    return this.usersService.getPhotoWithFallback(user);
+  }
+
+  onPhotoError(event: any) {
+    event.target.src = this.usersService.getDefaultPhotoUrl();
   }
 }

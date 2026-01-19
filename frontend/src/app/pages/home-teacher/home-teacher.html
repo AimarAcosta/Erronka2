@@ -190,6 +190,128 @@
     </div>
   </div>
 
+  <!-- Sección de búsqueda de estudiantes -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h5><i class="bi bi-search"></i> {{ 'STUDENTS.SEARCH_TITLE' | translate }}</h5>
+        </div>
+        <div class="card-body">
+          <form class="search-form" (ngSubmit)="searchStudents()">
+            <div class="search-filters">
+              <div class="filter-group">
+                <label for="nombre">{{ 'STUDENTS.NAME' | translate }}</label>
+                <input 
+                  type="text" 
+                  id="nombre" 
+                  [(ngModel)]="searchFilters.nombre" 
+                  name="nombre"
+                  placeholder="{{ 'STUDENTS.NAME_PLACEHOLDER' | translate }}"
+                  class="form-input">
+              </div>
+              <div class="filter-group">
+                <label for="apellidos">{{ 'STUDENTS.LASTNAME' | translate }}</label>
+                <input 
+                  type="text" 
+                  id="apellidos" 
+                  [(ngModel)]="searchFilters.apellidos" 
+                  name="apellidos"
+                  placeholder="{{ 'STUDENTS.LASTNAME_PLACEHOLDER' | translate }}"
+                  class="form-input">
+              </div>
+              <div class="filter-group">
+                <label for="dni">{{ 'STUDENTS.DNI' | translate }}</label>
+                <input 
+                  type="text" 
+                  id="dni" 
+                  [(ngModel)]="searchFilters.dni" 
+                  name="dni"
+                  placeholder="{{ 'STUDENTS.DNI_PLACEHOLDER' | translate }}"
+                  class="form-input">
+              </div>
+              <div class="filter-group">
+                <label for="ciclo">{{ 'STUDENTS.CYCLE' | translate }}</label>
+                <select 
+                  id="ciclo" 
+                  [(ngModel)]="searchFilters.ciclo" 
+                  name="ciclo"
+                  class="form-select">
+                  <option [value]="0">{{ 'STUDENTS.ALL_CYCLES' | translate }}</option>
+                  <option *ngFor="let ciclo of ciclos" [value]="ciclo.id">
+                    {{ ciclo.nombre_eus || ciclo.nombre }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="search-actions">
+              <button type="submit" class="btn btn-primary" [disabled]="isSearching">
+                <i class="bi bi-search"></i> {{ 'STUDENTS.SEARCH' | translate }}
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="clearSearch()">
+                <i class="bi bi-x-lg"></i> {{ 'STUDENTS.CLEAR' | translate }}
+              </button>
+            </div>
+          </form>
+
+          <!-- Resultados de búsqueda -->
+          <div *ngIf="hasSearched" class="search-results">
+            <h6 class="results-title">
+              <i class="bi bi-people"></i> 
+              {{ 'STUDENTS.RESULTS' | translate }}: {{ searchResults.length }}
+            </h6>
+            
+            <div *ngIf="isSearching" class="loading-state">
+              <i class="bi bi-arrow-repeat spinning"></i>
+              <p>{{ 'STUDENTS.SEARCHING' | translate }}</p>
+            </div>
+
+            <div *ngIf="!isSearching && searchResults.length === 0" class="empty-state">
+              <i class="bi bi-person-x"></i>
+              <p>{{ 'STUDENTS.NO_RESULTS' | translate }}</p>
+            </div>
+
+            <div *ngIf="!isSearching && searchResults.length > 0" class="table-responsive">
+              <table class="students-table">
+                <thead>
+                  <tr>
+                    <th>{{ 'STUDENTS.PHOTO' | translate }}</th>
+                    <th>{{ 'STUDENTS.NAME' | translate }}</th>
+                    <th>{{ 'STUDENTS.LASTNAME' | translate }}</th>
+                    <th>{{ 'STUDENTS.DNI' | translate }}</th>
+                    <th>{{ 'STUDENTS.EMAIL' | translate }}</th>
+                    <th>{{ 'STUDENTS.CYCLE' | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let student of searchResults">
+                    <td class="photo-cell">
+                      <img 
+                        [src]="getStudentPhoto(student)" 
+                        [alt]="student.nombre"
+                        (error)="onPhotoError($event)"
+                        class="student-avatar">
+                    </td>
+                    <td>{{ student.nombre }}</td>
+                    <td>{{ student.apellidos }}</td>
+                    <td>{{ student.dni || '-' }}</td>
+                    <td>{{ student.email }}</td>
+                    <td>
+                      <span *ngIf="student.matriculaciones && student.matriculaciones.length > 0">
+                        {{ student.matriculaciones[0].ciclo?.nombre_eus || student.matriculaciones[0].ciclo?.nombre || '-' }}
+                      </span>
+                      <span *ngIf="!student.matriculaciones || student.matriculaciones.length === 0">-</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-12">
       <div class="schedule-legend">

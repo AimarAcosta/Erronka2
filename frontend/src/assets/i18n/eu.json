@@ -43,6 +43,7 @@
   },
   "MEETING": {
     "TITLE": "Izenburua",
+    "TITLE_PLACEHOLDER": "Adib: Azterketa zalantza...",
     "SUBJECT": "Gaia",
     "DATE": "Data",
     "STATUS": "Egoera",
@@ -80,7 +81,9 @@
     "CHANGE": "Aldatu zentroa",
     "PUBLIC": "Publikoa",
     "PRIVATE": "Pribatua",
-    "OTHER": "Beste publikoa"
+    "OTHER": "Beste publikoa",
+    "LOADING": "Zentroak kargatzen...",
+    "LIST": "Zentroen zerrenda"
   },
   "USER": {
     "USERNAME": "Erabiltzailea",
@@ -128,5 +131,23 @@
     "ACCEPTED": "Onartuta",
     "REJECTED": "Ezeztatuta",
     "CONFLICT": "Gatazka"
+  },
+  "STUDENTS": {
+    "SEARCH_TITLE": "Ikasleak bilatu",
+    "NAME": "Izena",
+    "LASTNAME": "Abizenak",
+    "DNI": "NAN",
+    "EMAIL": "Email-a",
+    "CYCLE": "Zikloa",
+    "PHOTO": "Argazkia",
+    "NAME_PLACEHOLDER": "Idatzi izena...",
+    "LASTNAME_PLACEHOLDER": "Idatzi abizenak...",
+    "DNI_PLACEHOLDER": "Adib: 12345678A",
+    "ALL_CYCLES": "Ziklo guztiak",
+    "SEARCH": "Bilatu",
+    "CLEAR": "Garbitu",
+    "RESULTS": "Emaitzak",
+    "SEARCHING": "Bilatzen...",
+    "NO_RESULTS": "Ez da ikaslerik aurkitu bilaketa honekin"
   }
 }
