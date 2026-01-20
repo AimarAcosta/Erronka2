@@ -1,11 +1,15 @@
 package view;
 
+import controlador.Servicios;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -19,6 +23,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textUsuario;
 	private JTextField textContraseña;
+	private Servicios servicios = new Servicios();
 
 	/**
 	 * Launch the application.
@@ -75,10 +80,14 @@ public class Login extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Logica de autenticacion
-				
-				view.Menu menuFrame = new view.Menu();
-				menuFrame.setVisible(true);
-				dispose();
+				if(servicios.servicioLogin(textUsuario.getText(),textContraseña.getText())) {
+					JOptionPane.showMessageDialog(null, "Login exitoso");
+					view.Menu menuFrame = new view.Menu();
+					menuFrame.setVisible(true);
+					dispose();
+				}else {
+					JOptionPane.showMessageDialog(null, "Login fallido, usuario o contraseña incorrectos");
+				}
 			}
 		});
 		btnLogin.setBounds(294, 215, 132, 32);
