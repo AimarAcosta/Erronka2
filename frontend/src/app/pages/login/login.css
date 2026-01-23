@@ -2,6 +2,7 @@
 /* Diseño profesional - Tarjeta centrada */
 
 
+
 body, html {
   height: 100%;
   min-height: 100vh;
@@ -10,67 +11,74 @@ body, html {
 .login-page {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a252f 0%, #2d3e50 50%, #1b3a4b 100%);
+  background: linear-gradient(120deg, #e0f7fa 0%, #f8fafc 100%);
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
   flex: 1 1 auto;
   position: relative;
+  overflow: hidden;
 }
 
-/* Patrón decorativo de fondo */
+/* Fondo decorativo sutil */
 .login-page::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   background: 
-    radial-gradient(circle at 15% 85%, rgba(0, 161, 154, 0.2) 0%, transparent 40%),
-    radial-gradient(circle at 85% 15%, rgba(0, 196, 188, 0.15) 0%, transparent 40%),
-    radial-gradient(circle at 50% 50%, rgba(232, 185, 35, 0.05) 0%, transparent 50%);
+    radial-gradient(circle at 10% 90%, rgba(0, 161, 154, 0.10) 0%, transparent 60%),
+    radial-gradient(circle at 90% 10%, rgba(0, 196, 188, 0.10) 0%, transparent 60%),
+    radial-gradient(circle at 50% 50%, rgba(232, 185, 35, 0.04) 0%, transparent 70%);
   pointer-events: none;
+  z-index: 0;
 }
 
 /* ===== TARJETA DE LOGIN ===== */
 
+/* Tarjeta de login mejorada */
+/* Tarjeta de login mejorada */
 .login-card {
   background: #fff;
-  padding: 64px 40px 56px 40px;
-  border-radius: 48px;
+  padding: 56px 36px 44px 36px;
+  border-radius: 36px;
   box-shadow:
-    0 12px 48px 0 rgba(80, 112, 255, 0.18),
-    0 2px 24px 0 rgba(80, 112, 255, 0.10),
+    0 8px 32px 0 rgba(0, 161, 154, 0.10),
+    0 2px 16px 0 rgba(80, 112, 255, 0.08),
     0 0 0 4px #fff;
   width: 100%;
-  max-width: 400px;
-  min-height: 600px;
+  max-width: 370px;
+  min-height: 480px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0;
   margin: 60px auto 32px auto;
   position: relative;
-  z-index: 1;
-  border: 4px solid #fff;
+  z-index: 2;
+  border: 2.5px solid #e0f7fa;
   transition: box-shadow 0.3s, border 0.3s;
   overflow: visible;
+  animation: cardAppear 0.7s cubic-bezier(0.4,0,0.2,1);
+}
 }
 .login-card::before {
   content: '';
   position: absolute;
-  top: 10px;
+  top: 18px;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
-  height: 40px;
-  background: radial-gradient(ellipse at center, #a5b4fc55 0%, transparent 80%);
-  filter: blur(10px);
-  z-index: -1;
-  border-radius: 32px;
+  width: 80%;
+  height: 32px;
+  background: radial-gradient(ellipse at center, #00a19a22 0%, transparent 80%);
+  filter: blur(8px);
+  z-index: 1;
+  border-radius: 24px;
 }
 
 @keyframes cardAppear {
@@ -85,62 +93,92 @@ body, html {
 }
 
 /* ===== HEADER DEL LOGIN ===== */
+
 .login-header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
 
 .login-logo {
-  width: 160px;
+  width: 120px;
   height: auto;
-  max-height: 80px;
-  margin-bottom: 16px;
+  max-height: 70px;
+  margin-bottom: 10px;
   object-fit: contain;
-  border-radius: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px 0 rgba(0,161,154,0.10);
 }
 
+
 .login-header h3 {
-  font-size: 1.75rem;
+  font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: -0.5px;
   margin: 0;
-  color: #2d3e50;
+  color: #00a19a;
+  margin-bottom: 2px;
 }
 
 /* ===== FORMULARIO ===== */
+
 .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 18px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
   font-weight: 600;
-  color: #2d3e50;
-  font-size: 0.875rem;
+  color: #008580;
+  font-size: 0.93rem;
+  align-self: flex-start;
 }
+
 
 .input-with-icon {
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
 }
+
 
 .input-with-icon .icon {
   position: absolute;
-  left: 16px;
+  left: 14px;
   color: #94a3b8;
-  font-size: 16px;
+  font-size: 17px;
   pointer-events: none;
   transition: color 0.2s ease;
 }
 
+
 .input-with-icon input {
   width: 100%;
-  padding: 14px 16px 14px 48px;
-  font-size: 0.95rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
+  padding: 12px 14px 12px 42px;
+  font-size: 1rem;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
   background: #f8fafc;
   color: #1e293b;
   transition: all 0.2s ease;
@@ -183,19 +221,21 @@ body, html {
 }
 
 /* ===== BOTÓN DE SUBMIT ===== */
+
 .btn-submit {
   width: 100%;
-  padding: 14px 20px;
-  background: #00a19a;
+  padding: 12px 0;
+  background: linear-gradient(90deg, #00a19a 0%, #00c4bc 100%);
   color: white;
   border: none;
-  border-radius: 12px;
-  font-size: 0.95rem;
+  border-radius: 10px;
+  font-size: 1.05rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: 'Poppins', sans-serif;
-  margin-top: 8px;
+  margin-top: 10px;
+  box-shadow: 0 2px 8px 0 rgba(0,161,154,0.10);
 }
 
 .btn-submit:hover {
@@ -217,35 +257,31 @@ body, html {
 /* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
   .login-page {
-    padding: 16px;
+    padding: 8px;
   }
-  
   .login-card {
-    padding: 36px 24px;
-    border-radius: 20px;
+    padding: 24px 10px;
+    border-radius: 16px;
+    min-height: 340px;
   }
-
   .login-header h3 {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
   }
-
   .login-logo {
-    width: 140px;
-    max-height: 70px;
+    width: 90px;
+    max-height: 40px;
   }
-
   .input-with-icon input {
-    padding: 12px 14px 12px 44px;
+    padding: 10px 10px 10px 36px;
+    font-size: 0.95rem;
   }
 }
-
 @media (max-width: 360px) {
   .login-card {
-    padding: 28px 20px;
-    border-radius: 16px;
+    padding: 14px 4px;
+    border-radius: 10px;
   }
-
   .login-header h3 {
-    font-size: 1.35rem;
+    font-size: 0.95rem;
   }
 }

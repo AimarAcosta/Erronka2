@@ -4,9 +4,8 @@
       <img src="assets/logo.jpg" alt="Elorrieta Logo" class="login-logo" />
       <h3>ElorAdmin</h3>
     </div>
-
-    <form (ngSubmit)="onLogin()">
-      <div class="form-group">
+    <form (ngSubmit)="onLogin()" style="width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;">
+      <div class="form-group" style="width:100%;">
         <label for="username">{{ 'LOGIN.USERNAME' | translate }}</label>
         <div class="input-with-icon">
           <span class="icon"><i class="bi bi-person-fill"></i></span>
@@ -20,8 +19,7 @@
           />
         </div>
       </div>
-
-      <div class="form-group">
+      <div class="form-group" style="width:100%;">
         <label for="password">{{ 'LOGIN.PASSWORD' | translate }}</label>
         <div class="input-with-icon">
           <span class="icon"><i class="bi bi-lock-fill"></i></span>
@@ -35,12 +33,10 @@
           />
         </div>
       </div>
-
-      <div *ngIf="errorMessage" class="error-box">
+      <div *ngIf="errorMessage" class="error-box" style="width:100%;">
         <i class="bi bi-exclamation-triangle-fill"></i>
         <span>{{ errorMessage }}</span>
       </div>
-
       <button type="submit" class="btn btn-primary btn-submit">{{ 'LOGIN.SUBMIT' | translate }}</button>
     </form>
   </div>
