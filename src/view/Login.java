@@ -15,7 +15,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
+
+import modelo.Users;
 
 public class Login extends JFrame {
 
@@ -24,6 +27,7 @@ public class Login extends JFrame {
 	private JTextField textUsuario;
 	private JTextField textContraseña;
 	private Servicios servicios = new Servicios();
+	private List<Users> users = conectores.ConexionDB.ConseguirUsuarios();
 
 	/**
 	 * Launch the application.
@@ -80,7 +84,7 @@ public class Login extends JFrame {
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Logica de autenticacion
-				if(servicios.servicioLogin(textUsuario.getText(),textContraseña.getText())) {
+				if(servicios.servicioLogin(users, textUsuario.getText(), textContraseña.getText())) {
 					JOptionPane.showMessageDialog(null, "Login exitoso");
 					view.Menu menuFrame = new view.Menu();
 					menuFrame.setVisible(true);

@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,11 +13,15 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
+import modelo.Users;
+import modelo.Horarios;
+
 public class Horario extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
     private JTable tableHorario;
+	private Users usuario = controlador.Servicios.getLoggedUser();
 
     /**
      * Launch the application.
@@ -52,6 +57,8 @@ public class Horario extends JFrame {
                 dispose();
             }
         });
+        
+        List<Horarios> horarios = conectores.ConexionDB.ConseguirHorarios(usuario.getNombre());
         contentPane.setLayout(null);
         btnSalir.setBounds(10, 15, 102, 31);
         contentPane.add(btnSalir);

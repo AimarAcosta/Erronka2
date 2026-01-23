@@ -3,16 +3,23 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import java.awt.Font;
+
+import modelo.Users;
 
 public class Perfil extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Users usuario = controlador.Servicios.getLoggedUser();
+	
 
 	/**
 	 * Launch the application.
@@ -49,10 +56,35 @@ public class Perfil extends JFrame {
 				dispose();
 			}
 		});
+		
+		
 		contentPane.setLayout(null);
 		btnSalir.setBounds(10, 15, 102, 31);
 		contentPane.add(btnSalir);
-
+		
+		JLabel lblNombre = new JLabel("NOMBRE");
+		lblNombre.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		lblNombre.setBounds(20, 67, 658, 37);
+		contentPane.add(lblNombre);
+		
+		JLabel lblDNI = new JLabel("DNI");
+		lblDNI.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		lblDNI.setBounds(20, 131, 288, 37);
+		contentPane.add(lblDNI);
+		
+		JLabel lblDireccion = new JLabel("DIRECCION");
+		lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		lblDireccion.setBounds(20, 186, 342, 80);
+		contentPane.add(lblDireccion);
+		
+		JLabel lblTelefono = new JLabel("TELEFONO");
+		lblTelefono.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		lblTelefono.setBounds(20, 295, 288, 37);
+		contentPane.add(lblTelefono);
+		
+		lblNombre.setText("Nombre y apellido: " + usuario.getNombre() + " " + usuario.getApellidos());
+		lblDNI.setText("DNI: " + usuario.getDni());
+		lblDireccion.setText("Dirección: " + usuario.getDireccion());
+		lblTelefono.setText("Teléfono: " + usuario.getTelefono1());
 	}
-
 }

@@ -4,6 +4,16 @@
   <artifactId>Erronka2MahaigainekoApp</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
+  <dependency>
+    <groupId>com.squareup.retrofit2</groupId>
+    <artifactId>retrofit</artifactId>
+    <version>2.9.0</version>
+  </dependency>
+  <dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.13.2</version>
+</dependency>
   	<dependency>
   		<groupId>com.squareup.retrofit2</groupId>
   		<artifactId>converter-gson</artifactId>
