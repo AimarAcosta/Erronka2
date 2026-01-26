@@ -12691,7 +12691,7 @@
         }
       }
     },
-    "net8.0-android34.0/iossimulator-x64": {
+    "net8.0-android34.0/ios-arm64": {
       "GoogleGson/2.10.1.4": {
         "type": "package",
         "compile": {
@@ -24065,7 +24065,7 @@
         }
       }
     },
-    "net8.0-ios18.0/iossimulator-x64": {
+    "net8.0-ios18.0/ios-arm64": {
       "Microsoft.AspNetCore.Authorization/8.0.10": {
         "type": "package",
         "dependencies": {
@@ -30081,7 +30081,7 @@
         }
       }
     },
-    "net8.0-maccatalyst18.0/iossimulator-x64": {
+    "net8.0-maccatalyst18.0/ios-arm64": {
       "Microsoft.AspNetCore.Authorization/8.0.10": {
         "type": "package",
         "dependencies": {
@@ -36782,7 +36782,7 @@
         }
       }
     },
-    "net8.0-windows10.0.19041/iossimulator-x64": {
+    "net8.0-windows10.0.19041/ios-arm64": {
       "Microsoft.AspNetCore.Authorization/8.0.10": {
         "type": "package",
         "dependencies": {
@@ -44211,11 +44211,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\ElorMAUI.csproj",
+      "projectUniqueName": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\ElorMAUI.csproj",
       "projectName": "ElorMAUI",
-      "projectPath": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\ElorMAUI.csproj",
+      "projectPath": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\ElorMAUI.csproj",
       "packagesPath": "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\obj\\",
+      "outputPath": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "fallbackFolders": [
@@ -44380,7 +44380,7 @@
             "version": "[18.0.8324, 18.0.8324]"
           },
           {
-            "name": "Microsoft.iOS.Runtime.iossimulator-x64.net8.0_18.0",
+            "name": "Microsoft.iOS.Runtime.ios-arm64.net8.0_18.0",
             "version": "[18.0.8324, 18.0.8324]"
           }
         ],
@@ -44513,7 +44513,7 @@
       "android-x86": {
         "#import": []
       },
-      "iossimulator-x64": {
+      "ios-arm64": {
         "#import": []
       },
       "maccatalyst-x64": {

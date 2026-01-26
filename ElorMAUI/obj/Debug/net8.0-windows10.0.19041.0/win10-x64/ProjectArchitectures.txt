@@ -1,1 +1,1 @@
-C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\ElorMAUI.csproj;x64
+C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\ElorMAUI.csproj;x64

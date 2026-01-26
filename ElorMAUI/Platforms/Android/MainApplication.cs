@@ -3,7 +3,8 @@ using Android.Runtime;
 
 namespace ElorMAUI
 {
-    [Application]
+    // Añado esto porque somo usamos http nos lo puede bloquear por no ser https
+    [Application(UsesCleartextTraffic = true)]
     public class MainApplication : MauiApplication
     {
         public MainApplication(IntPtr handle, JniHandleOwnership ownership)

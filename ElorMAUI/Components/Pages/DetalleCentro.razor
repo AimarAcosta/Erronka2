@@ -1,16 +1,25 @@
 ﻿@page "/detalle/{IdCentro:int}"
 @using ElorMAUI.Models
 @using ElorMAUI.Services
+@using System.Text.Json
 @inject CentroService CentroService
 @inject NavigationManager Nav
+@inject HttpClient Http
+@inject IJSRuntime JS
 
 <div class="container m-3">
-    @if (centro == null) {
-         <p>Cargando centro...</p>
-    } else {
-        <h3>@centro.NOM</h3>
-         <hr />
-         <div class="row">
+    @if (centro == null)
+    {
+        <p>Cargando centro...</p>
+    }
+    else
+    {
+        <div class="d-flex justify-content-between">
+            <h3>@centro.NOM</h3>
+            <button class="btn btn-secondary" @onclick='(() => Nav.NavigateTo("/buscador"))'>Atzera</button>
+        </div>
+        <hr />
+        <div class="row">
             <div class="col-md-6">
                 <p><strong>Lurraldea:</strong>@centro.DTERRE</p>
                 <p><strong>Udalerria:</strong>@centro.DMUNIC</p>
@@ -19,30 +28,114 @@
             </div>
             <div class="col-md-6 text-center">
                 <div class="alert alert-info">
-                    <h5>Eguraldia</h5>
-                    <p>Tenperatura: -- ºC</p>
+                    <h5>Eguraldia (3 egun)</h5>
+
+                    @if (previsiones.Count == 0)
+                    {
+                        <p>Kargatzen...</p>
+                    }
+                    else
+                    {
+                        <ul style="list-style: none; padding: 0;">
+                            @foreach (var dia in previsiones)
+                            {
+                                <li>
+                                    <strong>@dia.Fecha:</strong>
+                                    <span>Max @dia.Max ºC</span> /
+                                    <span>Min @dia.Min ºC</span>
+                                </li>
+                            }
+                        </ul>
+                        <p class="mt-2"><strong>AQI (Aire):</strong> @aireKalitatea</p>
+                    }
                 </div>
             </div>
         </div>
 
-        <div class="mt-3" style="height:300px; background-color:#e9ecef; border-radius:10px; display:flex; align-items:center; justify-content:center;">
-            <p>Mapa kokapena: @centro.LATITUD , @centro.LONGITUD</p>
-        </div>
-
-        <button class="btn btn-secondary mt-3" @onclick='(() => Nav.NavigateTo("/buscador"))'>Atzera</button>
-
+        <div id="map" class="mt-3 shadow-sm" style="height:350px; width:100%; border-radius:10px; border: 1px solid #ccc;"></div>
     }
 </div>
-
 
 @code {
     [Parameter] public int IdCentro { get; set; }
     private Centro centro;
+    private string aireKalitatea;
+
+    // Clase simple para guardar los datos
+    public class Prevision { public string Fecha { get; set; } public string Max { get; set; } public string Min { get; set; } }
+    private List<Prevision> previsiones = new();
 
     protected override async Task OnInitializedAsync()
     {
-        var todos = await CentroService.GetCentros();
-        centro = todos.FirstOrDefault(c => c.CCEN == IdCentro);
+        try
+        {
+            var todos = await CentroService.GetCentros();
+            centro = todos.FirstOrDefault(c => c.CCEN == IdCentro);
+            if (centro != null) await EguraldiDatuakAtera();
+        }
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
     }
 
+    private async Task EguraldiDatuakAtera()
+    {
+        try
+        {
+            string lat = centro.LATITUD.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string lon = centro.LONGITUD.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+            //URL para pedir 3 días 
+            string climaUrl = $"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&daily=temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=3";
+
+            var climaJSON = await Http.GetFromJsonAsync<JsonDocument>(climaUrl);
+
+            if (climaJSON != null)
+            {
+                var daily = climaJSON.RootElement.GetProperty("daily");
+                var fechas = daily.GetProperty("time");
+                var maxs = daily.GetProperty("temperature_2m_max");
+                var mins = daily.GetProperty("temperature_2m_min");
+
+                previsiones.Clear();
+                //Bucle para leer los 3 días
+                for (int i = 0; i < fechas.GetArrayLength(); i++)
+                {
+                    previsiones.Add(new Prevision
+                    {
+                        Fecha = fechas[i].ToString(),
+                        Max = maxs[i].ToString(),
+                        Min = mins[i].ToString()
+                    });
+                }
+            }
+
+            // Aire 
+            string aireUrl = $"https://air-quality-api.open-meteo.com/v1/air-quality?latitude={lat}&longitude={lon}&current=european_aqi";
+            var aireJSON = await Http.GetFromJsonAsync<JsonDocument>(aireUrl);
+            if (aireJSON != null && aireJSON.RootElement.TryGetProperty("current", out var current))
+                aireKalitatea = current.GetProperty("european_aqi").ToString();
+        }
+        catch { aireKalitatea = "N/A"; }
+    }
+
+    // Mapa
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && centro != null)
+        {
+            try
+            {
+                await Task.Delay(500);
+
+                double lat = centro.LATITUD;
+                double lon = centro.LONGITUD;
+                string nombre = centro.NOM;
+
+                await JS.InvokeVoidAsync("iniciarMapa", "map", lat, lon, nombre);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al iniciar el mapa: {ex.Message}");
+            }
+        }
+    }
 }

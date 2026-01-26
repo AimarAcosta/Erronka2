@@ -59,6 +59,15 @@
 
     <ItemGroup>
       <Content Remove="Resources\Raw\EuskadiLatLon.json" />
+      <Content Remove="wwwroot\js\mapaLagungarria.js" />
+      <Content Remove="wwwroot\leaflet\leaflet.css" />
+      <Content Remove="wwwroot\leaflet\leaflet.js" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <MauiAsset Include="wwwroot\js\mapaLagungarria.js" />
+      <MauiAsset Include="wwwroot\leaflet\leaflet.css" />
+      <MauiAsset Include="wwwroot\leaflet\leaflet.js" />
     </ItemGroup>
 
     <ItemGroup>

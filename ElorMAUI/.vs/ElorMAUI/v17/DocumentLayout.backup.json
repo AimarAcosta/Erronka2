@@ -1,29 +1,33 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\",
+  "WorkspaceRootPath": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\maui\\elormaui\\components\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:components\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\erronka2\\elormaui\\wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:wwwroot\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\maui\\elormaui\\models\\centro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:models\\centro.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\erronka2\\elormaui\\wwwroot\\js\\mapalagungarria.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:wwwroot\\js\\mapalagungarria.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\maui\\elormaui\\components\\pages\\detallecentro.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\erronka2\\elormaui\\components\\pages\\detallecentro.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:components\\pages\\detallecentro.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\maui\\elormaui\\components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:components\\layout\\navmenu.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\erronka2\\elormaui\\wwwroot\\leaflet\\leaflet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:wwwroot\\leaflet\\leaflet.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\maui\\elormaui\\services\\centroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:services\\centroservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\erronka2\\elormaui\\components\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:components\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\maui\\elormaui\\components\\pages\\buscador.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\erronka2\\elormaui\\mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:mauiprogram.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|c:\\users\\in2dm3-d.elorrieta\\desktop\\e2t2\\erronka2\\elormaui\\components\\pages\\buscador.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{5376984A-C43B-4B7B-979D-688A93512006}|ElorMAUI.csproj|solutionrelative:components\\pages\\buscador.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
@@ -34,84 +38,101 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Centro.cs",
-              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Models\\Centro.cs",
-              "RelativeDocumentMoniker": "Models\\Centro.cs",
-              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Models\\Centro.cs",
-              "RelativeToolTip": "Models\\Centro.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T07:53:15.395Z",
-              "IsPinned": true
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DetalleCentro.razor",
-              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Components\\Pages\\DetalleCentro.razor",
-              "RelativeDocumentMoniker": "Components\\Pages\\DetalleCentro.razor",
-              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Components\\Pages\\DetalleCentro.razor",
-              "RelativeToolTip": "Components\\Pages\\DetalleCentro.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T08:03:04.75Z"
+              "DocumentIndex": 1,
+              "Title": "mapaLagungarria.js",
+              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\wwwroot\\js\\mapaLagungarria.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\mapaLagungarria.js",
+              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\wwwroot\\js\\mapaLagungarria.js",
+              "RelativeToolTip": "wwwroot\\js\\mapaLagungarria.js",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAiwB4AAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-01-26T10:47:01.84Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Components\\Layout\\NavMenu.razor",
-              "RelativeDocumentMoniker": "Components\\Layout\\NavMenu.razor",
-              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Components\\Layout\\NavMenu.razor",
-              "RelativeToolTip": "Components\\Layout\\NavMenu.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvw4AAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-16T07:32:16.817Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "CentroService.cs",
-              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Services\\CentroService.cs",
-              "RelativeDocumentMoniker": "Services\\CentroService.cs",
-              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Services\\CentroService.cs",
-              "RelativeToolTip": "Services\\CentroService.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABMAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-15T12:30:24.812Z"
+              "Title": "leaflet.css",
+              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\wwwroot\\leaflet\\leaflet.css",
+              "RelativeDocumentMoniker": "wwwroot\\leaflet\\leaflet.css",
+              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\wwwroot\\leaflet\\leaflet.css",
+              "RelativeToolTip": "wwwroot\\leaflet\\leaflet.css",
+              "ViewState": "AgIAALgCAAAAAAAAAAAgwPwCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-01-26T09:42:42.108Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Buscador.razor",
-              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Components\\Pages\\Buscador.razor",
-              "RelativeDocumentMoniker": "Components\\Pages\\Buscador.razor",
-              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Components\\Pages\\Buscador.razor",
-              "RelativeToolTip": "Components\\Pages\\Buscador.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T09:26:18.158Z"
+              "Title": "MauiProgram.cs",
+              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\MauiProgram.cs",
+              "RelativeDocumentMoniker": "MauiProgram.cs",
+              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\MauiProgram.cs",
+              "RelativeToolTip": "MauiProgram.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-26T09:31:35.449Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Login.razor",
-              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Components\\Pages\\Login.razor",
-              "RelativeDocumentMoniker": "Components\\Pages\\Login.razor",
-              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\Components\\Pages\\Login.razor",
-              "RelativeToolTip": "Components\\Pages\\Login.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAKAAAAAAAAAA==",
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\wwwroot\\index.html",
+              "RelativeDocumentMoniker": "wwwroot\\index.html",
+              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\wwwroot\\index.html",
+              "RelativeToolTip": "wwwroot\\index.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2026-01-26T09:15:26.966Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DetalleCentro.razor",
+              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\Components\\Pages\\DetalleCentro.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\DetalleCentro.razor",
+              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\Components\\Pages\\DetalleCentro.razor",
+              "RelativeToolTip": "Components\\Pages\\DetalleCentro.razor",
+              "ViewState": "AgIAAGoAAAAAAAAAAAAmwHYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-15T11:44:18.552Z",
+              "WhenOpened": "2026-01-26T08:15:27.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Buscador.razor",
+              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\Components\\Pages\\Buscador.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Buscador.razor",
+              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\Components\\Pages\\Buscador.razor",
+              "RelativeToolTip": "Components\\Pages\\Buscador.razor",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAFwAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-26T09:11:50.824Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Login.razor",
+              "DocumentMoniker": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\Components\\Pages\\Login.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Login.razor",
+              "ToolTip": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\Components\\Pages\\Login.razor",
+              "RelativeToolTip": "Components\\Pages\\Login.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFsAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-01-23T10:58:56.198Z",
               "EditorCaption": ""
             }
           ]

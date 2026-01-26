@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "1Ie7KOhMazA=",
+  "dgSpecHash": "qFuxky2opes=",
   "success": true,
-  "projectFilePath": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\MAUI\\ElorMAUI\\ElorMAUI.csproj",
+  "projectFilePath": "C:\\Users\\in2dm3-d.ELORRIETA\\Desktop\\E2T2\\Erronka2\\ElorMAUI\\ElorMAUI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\googlegson\\2.10.1.4\\googlegson.2.10.1.4.nupkg.sha512",
     "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\microsoft.aspnetcore.authorization\\8.0.10\\microsoft.aspnetcore.authorization.8.0.10.nupkg.sha512",
@@ -135,8 +135,8 @@
     "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\microsoft.android.ref.34\\34.0.154\\microsoft.android.ref.34.34.0.154.nupkg.sha512",
     "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\microsoft.android.runtime.34.android-arm\\34.0.154\\microsoft.android.runtime.34.android-arm.34.0.154.nupkg.sha512",
     "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\microsoft.android.runtime.34.android-x86\\34.0.154\\microsoft.android.runtime.34.android-x86.34.0.154.nupkg.sha512",
+    "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\microsoft.ios.runtime.ios-arm64.net8.0_18.0\\18.0.8324\\microsoft.ios.runtime.ios-arm64.net8.0_18.0.18.0.8324.nupkg.sha512",
     "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\microsoft.ios.ref.net8.0_18.0\\18.0.8324\\microsoft.ios.ref.net8.0_18.0.18.0.8324.nupkg.sha512",
-    "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\microsoft.ios.runtime.iossimulator-x64.net8.0_18.0\\18.0.8324\\microsoft.ios.runtime.iossimulator-x64.net8.0_18.0.18.0.8324.nupkg.sha512",
     "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\microsoft.maccatalyst.runtime.maccatalyst-x64.net8.0_18.0\\18.0.8324\\microsoft.maccatalyst.runtime.maccatalyst-x64.net8.0_18.0.18.0.8324.nupkg.sha512",
     "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\microsoft.maccatalyst.ref.net8.0_18.0\\18.0.8324\\microsoft.maccatalyst.ref.net8.0_18.0.18.0.8324.nupkg.sha512",
     "C:\\Users\\in2dm3-d.ELORRIETA\\.nuget\\packages\\microsoft.windows.sdk.net.ref\\10.0.19041.57\\microsoft.windows.sdk.net.ref.10.0.19041.57.nupkg.sha512"

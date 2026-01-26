@@ -10,226 +10,235 @@
     <PackageArchitecture>x64</PackageArchitecture>
     <PackageIdentityName>com.companyname.elormaui</PackageIdentityName>
     <PackageIdentityPublisher>CN=User Name</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\</IntermediateOutputPath>
     <RemoteDeploymentType>CopyToDevice</RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>false</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath></WindowsSdkPath>
-    <LayoutDir>C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppX</LayoutDir>
+    <LayoutDir>C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
+    <AppXManifest Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\ElorMAUI.runtimeconfig.json">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\ElorMAUI.runtimeconfig.json">
       <PackagePath>ElorMAUI.runtimeconfig.json</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\ElorMAUI.dll">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\ElorMAUI.dll">
       <PackagePath>ElorMAUI.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\apphost.exe">
       <PackagePath>ElorMAUI.exe</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\Resources\Raw\AboutAssets.txt">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\Resources\Raw\EuskadiLatLon.json">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\Resources\Raw\EuskadiLatLon.json">
       <PackagePath>EuskadiLatLon.json</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\wwwroot\css\app.css">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\wwwroot\js\mapaLagungarria.js">
+      <PackagePath>wwwroot\js\mapaLagungarria.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\wwwroot\leaflet\leaflet.css">
+      <PackagePath>wwwroot\leaflet\leaflet.css</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\wwwroot\leaflet\leaflet.js">
+      <PackagePath>wwwroot\leaflet\leaflet.js</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\wwwroot\css\app.css">
       <PackagePath>wwwroot\css\app.css</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\wwwroot\css\bootstrap\bootstrap.min.css">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\wwwroot\css\bootstrap\bootstrap.min.css">
       <PackagePath>wwwroot\css\bootstrap\bootstrap.min.css</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\wwwroot\css\bootstrap\bootstrap.min.css.map">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\wwwroot\css\bootstrap\bootstrap.min.css.map">
       <PackagePath>wwwroot\css\bootstrap\bootstrap.min.css.map</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\wwwroot\favicon.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\wwwroot\favicon.png">
       <PackagePath>wwwroot\favicon.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\wwwroot\index.html">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\wwwroot\index.html">
       <PackagePath>wwwroot\index.html</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png">
       <PackagePath>splashSplashScreen.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-125.png">
       <PackagePath>splashSplashScreen.scale-125.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-150.png">
       <PackagePath>splashSplashScreen.scale-150.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-200.png">
       <PackagePath>splashSplashScreen.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-400.png">
       <PackagePath>splashSplashScreen.scale-400.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\OpenSans-Regular.ttf">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\OpenSans-Regular.ttf">
       <PackagePath>OpenSans-Regular.ttf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appicon.ico">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appicon.ico">
       <PackagePath>appicon.ico</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-100.png">
       <PackagePath>appiconLargeTile.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-125.png">
       <PackagePath>appiconLargeTile.scale-125.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-150.png">
       <PackagePath>appiconLargeTile.scale-150.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-200.png">
       <PackagePath>appiconLargeTile.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLargeTile.scale-400.png">
       <PackagePath>appiconLargeTile.scale-400.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-16.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-16.png">
       <PackagePath>appiconLogo.altform-lightunplated_targetsize-16.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-24.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-24.png">
       <PackagePath>appiconLogo.altform-lightunplated_targetsize-24.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-256.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-256.png">
       <PackagePath>appiconLogo.altform-lightunplated_targetsize-256.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-32.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-32.png">
       <PackagePath>appiconLogo.altform-lightunplated_targetsize-32.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-48.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-lightunplated_targetsize-48.png">
       <PackagePath>appiconLogo.altform-lightunplated_targetsize-48.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-16.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-16.png">
       <PackagePath>appiconLogo.altform-unplated_targetsize-16.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-24.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-24.png">
       <PackagePath>appiconLogo.altform-unplated_targetsize-24.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-256.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-256.png">
       <PackagePath>appiconLogo.altform-unplated_targetsize-256.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-32.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-32.png">
       <PackagePath>appiconLogo.altform-unplated_targetsize-32.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-48.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.altform-unplated_targetsize-48.png">
       <PackagePath>appiconLogo.altform-unplated_targetsize-48.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-100.png">
       <PackagePath>appiconLogo.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-125.png">
       <PackagePath>appiconLogo.scale-125.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-150.png">
       <PackagePath>appiconLogo.scale-150.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-200.png">
       <PackagePath>appiconLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.scale-400.png">
       <PackagePath>appiconLogo.scale-400.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-16.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-16.png">
       <PackagePath>appiconLogo.targetsize-16.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-24.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-24.png">
       <PackagePath>appiconLogo.targetsize-24.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-256.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-256.png">
       <PackagePath>appiconLogo.targetsize-256.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-32.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-32.png">
       <PackagePath>appiconLogo.targetsize-32.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-48.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconLogo.targetsize-48.png">
       <PackagePath>appiconLogo.targetsize-48.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-100.png">
       <PackagePath>appiconMediumTile.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-125.png">
       <PackagePath>appiconMediumTile.scale-125.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-150.png">
       <PackagePath>appiconMediumTile.scale-150.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-200.png">
       <PackagePath>appiconMediumTile.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconMediumTile.scale-400.png">
       <PackagePath>appiconMediumTile.scale-400.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-100.png">
       <PackagePath>appiconSmallTile.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-125.png">
       <PackagePath>appiconSmallTile.scale-125.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-150.png">
       <PackagePath>appiconSmallTile.scale-150.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-200.png">
       <PackagePath>appiconSmallTile.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconSmallTile.scale-400.png">
       <PackagePath>appiconSmallTile.scale-400.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-100.png">
       <PackagePath>appiconStoreLogo.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-125.png">
       <PackagePath>appiconStoreLogo.scale-125.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-150.png">
       <PackagePath>appiconStoreLogo.scale-150.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-200.png">
       <PackagePath>appiconStoreLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconStoreLogo.scale-400.png">
       <PackagePath>appiconStoreLogo.scale-400.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-100.png">
       <PackagePath>appiconWideTile.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-125.png">
       <PackagePath>appiconWideTile.scale-125.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-150.png">
       <PackagePath>appiconWideTile.scale-150.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-200.png">
       <PackagePath>appiconWideTile.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-400.png">
       <PackagePath>appiconWideTile.scale-400.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png">
       <PackagePath>dotnet_bot.scale-100.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-125.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-125.png">
       <PackagePath>dotnet_bot.scale-125.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-150.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-150.png">
       <PackagePath>dotnet_bot.scale-150.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-200.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-200.png">
       <PackagePath>dotnet_bot.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-400.png">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-400.png">
       <PackagePath>dotnet_bot.scale-400.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\ElorMAUI.deps.json">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\ElorMAUI.deps.json">
       <PackagePath>ElorMAUI.deps.json</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\.nuget\packages\microsoft.windows.sdk.net.ref\10.0.19041.57\lib\net8.0\Microsoft.Windows.SDK.NET.dll">
@@ -496,7 +505,7 @@
     <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\.nuget\packages\microsoft.windowsappsdk\1.5.240802000\runtimes\win10-x64\native\Microsoft.WindowsAppRuntime.Bootstrap.dll">
       <PackagePath>Microsoft.WindowsAppRuntime.Bootstrap.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\staticwebassets.build.endpoints.json">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\staticwebassets.build.endpoints.json">
       <PackagePath>ElorMAUI.staticwebassets.endpoints.json</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\.nuget\packages\microsoft.maui.controls.compatibility\8.0.100\lib\net8.0-windows10.0.19041\Microsoft.Maui.Controls.Compatibility.pri">
@@ -508,16 +517,16 @@
     <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\.nuget\packages\microsoft.maui.core\8.0.100\lib\net8.0-windows10.0.19041\Microsoft.Maui.pri">
       <PackagePath>Microsoft.Maui.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\bundle\ElorMAUI.styles.css">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\bundle\ElorMAUI.styles.css">
       <PackagePath>wwwroot\ElorMAUI.styles.css</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\projectbundle\ElorMAUI.bundle.scp.css">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\scopedcss\projectbundle\ElorMAUI.bundle.scp.css">
       <PackagePath>wwwroot\ElorMAUI.su3o3czkzx.bundle.scp.css</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\Components\Layout\MainLayout.razor.css">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\Components\Layout\MainLayout.razor.css">
       <PackagePath>Components\Layout\MainLayout.razor.css</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\MAUI\ElorMAUI\Components\Layout\NavMenu.razor.css">
+    <AppxPackagedFile Include="C:\Users\in2dm3-d.ELORRIETA\Desktop\E2T2\Erronka2\ElorMAUI\Components\Layout\NavMenu.razor.css">
       <PackagePath>Components\Layout\NavMenu.razor.css</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>

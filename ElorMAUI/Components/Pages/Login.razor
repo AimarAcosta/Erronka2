@@ -1,10 +1,15 @@
 ﻿@page "/"
+@using ElorMAUI.Models
+@using ElorMAUI.Services
+@using System.Text.Json
 @inject NavigationManager Nav
+@inject HttpClient Http
+@inject SesionService Sesion
 
 <div class="container mt-5">
     <div class="card shadow p-4 mx-auto" style="max-width: 400px;">
         <div class="mb-3">
-            <h2 class="text-center">Login</h2>
+            <h2 class="text-center">ElorMAUI Login</h2>
             <label>Erabiltzaile:</label>
             <input type="text" class="form-control" @bind="erabiltzaile" />
         </div>
@@ -12,32 +17,86 @@
             <label>Pasahitza:</label>
             <input type="password" class="form-control" @bind="pasahitza" />
         </div>
+
         @if (!string.IsNullOrEmpty(erroreMezua))
         {
             <div class="alert alert-danger">@erroreMezua</div>
         }
-        <button class="btn btn-primary w-100" @onclick="ManejoDeLogin">Entrar</button>
-    </div>
-</div> 
 
+        <button class="btn btn-primary w-100" @onclick="ManejoDeLogin" disabled="@kargatzen">
+            @if (kargatzen)
+            {
+                <span>Konektatzen...</span>
+            }
+            else
+            {
+                <span>Sartu</span>
+            }
+        </button>
+    </div>
+</div>
 
 @code {
     private string erabiltzaile;
     private string pasahitza;
     private string erroreMezua;
+    private bool kargatzen = false;
 
     private async Task ManejoDeLogin()
     {
-        // Luego tengo que conctar el servicio Rest
-
-        if (erabiltzaile == "admin" && pasahitza == "1234")
+        if (string.IsNullOrWhiteSpace(erabiltzaile) || string.IsNullOrWhiteSpace(pasahitza))
         {
-            Nav.NavigateTo("/buscador");
+            erroreMezua = "Mesedez, bete datu guztiak.";
+            return;
         }
-        else
+
+        kargatzen = true;
+        erroreMezua = "";
+
+        try
         {
-            erroreMezua = "Erabiltzaile edo pasahitza okerra";
+            string url = $"http://10.5.104.124:8080/api/android/login/{erabiltzaile}/{pasahitza}";
+            {
+                var response = await Http.GetAsync(url);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+
+                    if (string.IsNullOrWhiteSpace(jsonString))
+                    {
+                        erroreMezua = "Erabiltzaile edo pasahitza okerra.";
+                    }
+                    else
+                    {
+                        var opciones = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                        var usuario = JsonSerializer.Deserialize<Usuario>(jsonString, opciones);
+
+                        if (usuario != null && usuario.id > 0)
+                        {
+                            //  Guardar Sesion (Asi controlo que no pase de pagina sin iniciar sesion)
+                            Sesion.UsuarioActual = usuario;
+                            Nav.NavigateTo("/buscador");
+                        }
+                        else
+                        {
+                            erroreMezua = "Datuak okerrak dira.";
+                        }
+                    }
+                }
+                else
+                {
+                    erroreMezua = "Erabiltzaile edo pasahitza okerra.";
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            erroreMezua = $"Errorea konexioan: {ex.Message}";
+        }
+        finally
+        {
+            kargatzen = false;
         }
     }
 }
-

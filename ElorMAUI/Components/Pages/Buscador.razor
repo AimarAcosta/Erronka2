@@ -3,6 +3,7 @@
 @using ElorMAUI.Services
 @inject CentroService CentroService
 @inject NavigationManager Nav
+@inject SesionService Sesion
 
 <h3>Buscador de Centros</h3>
 
@@ -39,9 +40,8 @@ else
     </div>
 
     <hr />
-    <p>Resultados encontrados: @centrosFiltrados.Count</p>
+    <p>Resultados encontrados: @centrosFiltrados.Count (Página @currentPage de @TotalPages)</p>
 
-    // Tabla para los resultados
     <table class="table">
         <thead>
             <tr>
@@ -51,7 +51,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var centro in centrosFiltrados)
+            @foreach (var centro in CentrosPaginados)
             {
                 <tr>
                     <td>@centro.NOM</td>
@@ -60,80 +60,95 @@ else
                         <button class="btn btn-primary btn-sm" @onclick="@(() => Nav.NavigateTo($"/detalle/{centro.CCEN}"))">
                             Ver
                         </button>
-                     </td>
+                        <button class="btn btn-outline-danger btn-sm" @onclick="@(() => EliminarCentro(centro))">
+                            ✕
+                        </button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
+
+    <div class="d-flex justify-content-center gap-2 mb-4">
+        <button class="btn btn-outline-secondary" @onclick="() => SetPage(currentPage - 1)" disabled="@(currentPage == 1)">Anterior</button>
+        <span class="align-self-center">@currentPage / @TotalPages</span>
+        <button class="btn btn-outline-secondary" @onclick="() => SetPage(currentPage + 1)" disabled="@(currentPage == TotalPages)">Siguiente</button>
+    </div>
 }
+
 @code {
     private List<Centro> centroGuztiak;
     private List<Centro> centrosFiltrados = new();
-
 
     private List<string> tipos = new();
     private List<string> territorios = new();
     private List<string> municipios = new();
 
-
     private string tipoAukeratuta;
     private string territorioAukeratuta;
     private string municipioAukeratuta;
 
+    // Lógica de Paginación
+
+    private int pageSize = 20;
+    private int currentPage = 1;
+    private IEnumerable<Centro> CentrosPaginados => centrosFiltrados.Skip((currentPage - 1) * pageSize).Take(pageSize);
+    private int TotalPages => (int)Math.Ceiling((double)centrosFiltrados.Count / pageSize);
+
+    private void SetPage(int page)
+    {
+        if (page >= 1 && page <= TotalPages) currentPage = page;
+    }
+
     protected override async Task OnInitializedAsync()
     {
+      // Seguridad (El Portero)
+        if (Sesion.UsuarioActual == null)
+        {
+            Nav.NavigateTo("/");
+            return;
+        }
+
         centroGuztiak = await CentroService.GetCentros();
         centrosFiltrados = centroGuztiak;
-        // LINQ para el primer selector
         tipos = centroGuztiak.Select(x => x.DTITUC).Distinct().OrderBy(x => x).ToList();
     }
 
     private void OnTipoChanged(ChangeEventArgs e)
     {
         tipoAukeratuta = e.Value?.ToString();
-        territorioAukeratuta = null; // Reset de hijos
-        municipioAukeratuta = null;
-
-        territorios = centroGuztiak
-            .Where(x => x.DTITUC == tipoAukeratuta)
-            .Select(x => x.DTERRE)
-            .Distinct().OrderBy(x => x).ToList();
-
+        territorioAukeratuta = null; municipioAukeratuta = null;
+        territorios = centroGuztiak.Where(x => x.DTITUC == tipoAukeratuta).Select(x => x.DTERRE).Distinct().OrderBy(x => x).ToList();
         Filtrar();
     }
-    
     private void OnTerritorioChanged(ChangeEventArgs e)
     {
         territorioAukeratuta = e.Value?.ToString();
         municipioAukeratuta = null;
-
-        municipios = centroGuztiak
-            .Where(x => x.DTITUC == tipoAukeratuta && x.DTERRE == territorioAukeratuta)
-            .Select(x => x.DMUNIC)
-            .Distinct().OrderBy(x => x).ToList();
-
+        municipios = centroGuztiak.Where(x => x.DTITUC == tipoAukeratuta && x.DTERRE == territorioAukeratuta).Select(x => x.DMUNIC).Distinct().OrderBy(x => x).ToList();
         Filtrar();
     }
-    // Municipio seleccionado
     private void OnMunicipioChanged(ChangeEventArgs e)
     {
         municipioAukeratuta = e.Value?.ToString();
         Filtrar();
     }
-    
+
     private void Filtrar()
     {
         var query = centroGuztiak.AsQueryable();
-
-        if (!string.IsNullOrEmpty(tipoAukeratuta))
-            query = query.Where(x => x.DTITUC == tipoAukeratuta);
-
-        if (!string.IsNullOrEmpty(territorioAukeratuta))
-            query = query.Where(x => x.DTERRE == territorioAukeratuta);
-
-        if (!string.IsNullOrEmpty(municipioAukeratuta))
-            query = query.Where(x => x.DMUNIC == municipioAukeratuta);
+        if (!string.IsNullOrEmpty(tipoAukeratuta)) query = query.Where(x => x.DTITUC == tipoAukeratuta);
+        if (!string.IsNullOrEmpty(territorioAukeratuta)) query = query.Where(x => x.DTERRE == territorioAukeratuta);
+        if (!string.IsNullOrEmpty(municipioAukeratuta)) query = query.Where(x => x.DMUNIC == municipioAukeratuta);
 
         centrosFiltrados = query.ToList();
-   }
- }
+        currentPage = 1; // Resetear página
+    }
+
+    private void EliminarCentro(Centro c)
+    {
+        centroGuztiak.Remove(c);
+        centrosFiltrados.Remove(c);
+        if (CentrosPaginados.Count() == 0 && currentPage > 1) currentPage--;
+    }
+}
