@@ -26,8 +26,6 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textUsuario;
 	private JTextField textContraseña;
-	private Servicios servicios = new Servicios();
-	private List<Users> users = conectores.ConexionDB.ConseguirUsuarios();
 
 	/**
 	 * Launch the application.
@@ -83,14 +81,17 @@ public class Login extends JFrame {
 		JButton btnLogin = new JButton("Log in");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Logica de autenticacion
-				if(servicios.servicioLogin(users, textUsuario.getText(), textContraseña.getText())) {
-					JOptionPane.showMessageDialog(null, "Login exitoso");
-					view.Menu menuFrame = new view.Menu();
-					menuFrame.setVisible(true);
+				String user = textUsuario.getText();
+				String pass = textContraseña.getText();
+				
+				modelo.Users usuarioLogeado = conectores.ClienteSocket.realizarLogin(user, pass);
+				if (usuarioLogeado != null) {
+					controlador.Servicios.setLoggedUser(usuarioLogeado);
+					
+					new view.Menu().setVisible(true);
 					dispose();
-				}else {
-					JOptionPane.showMessageDialog(null, "Login fallido, usuario o contraseña incorrectos");
+				} else {
+					JOptionPane.showMessageDialog(null, "Error: Usuario o contraseña incorrecta");
 				}
 			}
 		});

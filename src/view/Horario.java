@@ -3,7 +3,9 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,6 +14,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+
+import com.google.gson.Gson;
 
 import modelo.Users;
 import modelo.Horarios;
@@ -58,7 +62,8 @@ public class Horario extends JFrame {
             }
         });
         
-        List<Horarios> horarios = conectores.ConexionDB.ConseguirHorarios(usuario.getNombre());
+        List<Horarios> horarios = new ArrayList<>();
+        cargarHorarioDesdeSocket();
         contentPane.setLayout(null);
         btnSalir.setBounds(10, 15, 102, 31);
         contentPane.add(btnSalir);
@@ -89,5 +94,46 @@ public class Horario extends JFrame {
         JScrollPane scrollPane = new JScrollPane(tableHorario);
         scrollPane.setBounds(52, 57, 616, 288);
         contentPane.add(scrollPane);
+    }
+    
+    private void cargarHorarioDesdeSocket() {
+        try {
+            // 1. Pedimos los horarios usando el método genérico que pusimos en ClienteSocket
+            String respuestaJson = conectores.ClienteSocket.enviarPeticion("GET_HORARIOS", Map.of());
+            
+            Gson gson = new Gson();
+            Map<String, Object> respuesta = gson.fromJson(respuestaJson, Map.class);
+
+            if ("GET_HORARIOS_OK".equals(respuesta.get("tipo"))) {
+                // El servidor nos manda una lista de mapas (id, dia, hora, nombre_modulo...)
+                List<Map<String, String>> datos = (List<Map<String, String>>) respuesta.get("contenido");
+
+                // 2. Rellenamos la tabla (JTable)
+                for (Map<String, String> filaHorario : datos) {
+                    String dia = filaHorario.get("dia");
+                    // Aimar manda la hora como 1, 2, 3... restamos 1 para que coincida con la fila del array (0, 1, 2...)
+                    int filaIndex = Integer.parseInt(String.valueOf(filaHorario.get("hora"))) - 1;
+                    int colIndex = obtenerColumnaDia(dia);
+
+                    if (colIndex != -1 && filaIndex >= 0 && filaIndex < tableHorario.getRowCount()) {
+                        tableHorario.setValueAt(filaHorario.get("nombre_modulo"), filaIndex, colIndex);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error cargando horario: " + e.getMessage());
+        }
+    }
+
+    // Método auxiliar para saber en qué columna va cada día
+    private int obtenerColumnaDia(String dia) {
+        switch (dia.toLowerCase()) {
+            case "lunes": return 1;
+            case "martes": return 2;
+            case "miércoles": case "miercoles": return 3;
+            case "jueves": return 4;
+            case "viernes": return 5;
+            default: return -1;
+        }
     }
 }
