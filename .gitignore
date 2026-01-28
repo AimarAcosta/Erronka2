@@ -1,0 +1,10 @@
+# Java / Maven
+target/
+
+# Angular
+frontend/.angular/
+
+# IDE
+.idea/
+.vscode/
+*.class
