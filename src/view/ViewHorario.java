@@ -18,9 +18,11 @@ import javax.swing.table.DefaultTableModel;
 import com.google.gson.Gson;
 
 import modelo.Users;
-import modelo.Horarios;
+import modelo.Horario;
+import javax.swing.JLabel;
+import java.awt.Font;
 
-public class Horario extends JFrame {
+public class ViewHorario extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
@@ -34,7 +36,7 @@ public class Horario extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    Horario frame = new Horario();
+                    ViewHorario frame = new ViewHorario();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -46,7 +48,7 @@ public class Horario extends JFrame {
     /**
      * Create the frame.
      */
-    public Horario() {
+    public ViewHorario() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 736, 424);
         contentPane = new JPanel();
@@ -62,25 +64,75 @@ public class Horario extends JFrame {
             }
         });
         
-        List<Horarios> horarios = new ArrayList<>();
-        cargarHorarioDesdeSocket();
+
+        //cargarHorarioDesdeSocket();
         contentPane.setLayout(null);
         btnSalir.setBounds(10, 15, 102, 31);
         contentPane.add(btnSalir);
-
-        // Column names: first column is the hour label, then Monday..Friday
-        String[] columns = { "Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
+        List<Horario> horarios = conectores.ClienteSocket.conseguirHorarios(usuario.getId());
+        
+        String[] columns = {"Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
 
         // Six time slots (modify as needed)
         Object[][] data = new Object[][] {
-            { "08:00 - 09:00", "", "", "", "", "" },
-            { "09:00 - 10:00", "", "", "", "", "" },
-            { "10:00 - 11:00", "", "", "", "", "" },
-            { "11:00 - 12:00", "", "", "", "", "" },
-            { "12:00 - 13:00", "", "", "", "", "" },
-            { "13:00 - 14:00", "", "", "", "", "" }
+        	{"8:00-9:00", "", "", "", "", "" },
+            {"9:00-10:00", "", "", "", "", "" },
+            {"10:00-11:00", "", "", "", "", "" },
+            {"11:30-12:30", "", "", "", "", "" },
+            {"12:00-13:30", "", "", "", "", "" },
+            {"13:30-14:30", "", "", "", "", "" }
         };
+        
+        for(Horario c : horarios) {
+        	if(c.getDia() == null) {
+        		System.out.println("El valor día es null!");
+        	}else {
+        		int hora = c.getHora() - 1;
+            	switch(c.getDia()) {
+            	case "LUNES":
+            		data[hora][1] = c.getModulo();
+            	case "MARTES":
+            		data[hora][2] = c.getModulo();
+            	case "MIERCOLES":
+            		data[hora][3] = c.getModulo();
+            	case "JUEVES":
+            		data[hora][4] = c.getModulo();
+            	case "VIERNES":
+            		data[hora][5] = c.getModulo();
+            	}
+        	}
+        }
+        
+        /*
+        for (Map<String, Object> c : horarios) {
 
+            int hora = c.
+            int fila = hora - 1;
+
+            String dia = (String) c.get("dia");
+
+            Map<String, Object> modulo = (Map<String, Object>) c.get("modulos");
+            String nombreModulo = (String) modulo.get("nombre");
+
+            switch (dia) {
+                case "LUNES":
+                    data[fila][0] = nombreModulo;
+                    break;
+                case "MARTES":
+                    data[fila][1] = nombreModulo;
+                    break;
+                case "MIERCOLES":
+                    data[fila][2] = nombreModulo;
+                    break;
+                case "JUEVES":
+                    data[fila][3] = nombreModulo;
+                    break;
+                case "VIERNES":
+                    data[fila][4] = nombreModulo;
+                    break;
+            }
+        }
+*/
         // Create a non-editable table model
         DefaultTableModel model = new DefaultTableModel(data, columns) {
             private static final long serialVersionUID = 1L;
@@ -91,11 +143,24 @@ public class Horario extends JFrame {
         };
 
         tableHorario = new JTable(model);
+        if(horarios.size() > 0) {
+        	tableHorario.setShowGrid(true);
+        }else {
+        	tableHorario.setShowGrid(false);
+        }
+        tableHorario.setFillsViewportHeight(true);
         JScrollPane scrollPane = new JScrollPane(tableHorario);
         scrollPane.setBounds(52, 57, 616, 288);
         contentPane.add(scrollPane);
+        
+        JLabel lblHorarioDe = new JLabel("New label");
+        lblHorarioDe.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblHorarioDe.setBounds(122, 23, 244, 23);
+        contentPane.add(lblHorarioDe);
+        lblHorarioDe.setText("Horario de " + usuario.getNombre() + " " + usuario.getApellidos());
+        
     }
-    
+    /*
     private void cargarHorarioDesdeSocket() {
         try {
             // 1. Pedimos los horarios usando el método genérico que pusimos en ClienteSocket
@@ -136,4 +201,5 @@ public class Horario extends JFrame {
             default: return -1;
         }
     }
+    */
 }

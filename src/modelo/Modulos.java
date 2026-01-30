@@ -24,7 +24,7 @@ public class Modulos implements java.io.Serializable {
 		this.ciclos = ciclos;
 		this.nombre = nombre;
 		this.horas = horas;
-		this.curso = curso;
+		this.curso = curso;	
 	}
 
 	public Modulos(Ciclos ciclos, String nombre, String nombreEus, int horas, byte curso, Set horarioses) {

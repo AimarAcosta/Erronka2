@@ -21,6 +21,13 @@ public class Horarios implements java.io.Serializable {
 	public Horarios() {
 	}
 
+	@Override
+	public String toString() {
+		return "Horarios [id=" + id + ", users=" + users + ", modulos=" + modulos + ", dia=" + dia + ", hora=" + hora
+				+ ", aula=" + aula + ", observaciones=" + observaciones + ", createdAt=" + createdAt + ", updatedAt="
+				+ updatedAt + "]";
+	}
+
 	public Horarios(Users users, Modulos modulos, String dia, byte hora) {
 		this.users = users;
 		this.modulos = modulos;

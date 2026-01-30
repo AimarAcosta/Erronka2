@@ -3,16 +3,20 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import modelo.Users;
+
 public class Reuniones extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private Users usuario = controlador.Servicios.getLoggedUser();
 
 	/**
 	 * Launch the application.
@@ -52,6 +56,8 @@ public class Reuniones extends JFrame {
 		contentPane.setLayout(null);
 		btnSalir.setBounds(10, 15, 102, 31);
 		contentPane.add(btnSalir);
+		
+		List<modelo.Reuniones> reuniones = conectores.ClienteSocket.conseguirReuniones(usuario.getId());
 
 	}
 

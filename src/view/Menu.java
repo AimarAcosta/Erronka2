@@ -58,7 +58,7 @@ public class Menu extends JFrame {
 		JButton btnNewButton_1 = new JButton("Consultar horario");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				view.Horario frame = new view.Horario();
+				view.ViewHorario frame = new view.ViewHorario();
 				frame.setVisible(true);
 				dispose();
 			}
