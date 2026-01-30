@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -107,35 +108,23 @@ public class ReunionesControlador {
     // 1. Ver TODAS: http://localhost:8080/api/android/reuniones
     // 2. Ver las MÍAS (filtro): http://localhost:8080/api/android/reuniones?idUsuario=2
     
-    @GetMapping(value = "/reuniones", produces = "application/json")
-    public String obtenerReuniones(@RequestParam(required = false) Integer idUsuario) {
+    @GetMapping(value = "/reuniones/{idUsuario}", produces = "application/json")
+    public String obtenerReuniones(@PathVariable("idUsuario") Integer idUsuario) {
         try {
-            // HQL: Seleccionamos datos de la Reunión + Datos del Profe + Datos del Alumno
+            // Mismo HQL, buscando si es Profe O Alumno
             String hql = "SELECT r.idReunion, r.titulo, r.asunto, r.aula, r.fecha, r.estado, " +
                          "uProfe.nombre, uProfe.apellidos, uAlum.nombre, uAlum.apellidos " +
                          "FROM Reuniones r " +
-                         "JOIN r.usersByProfesorId uProfe " +
-                         "JOIN r.usersByAlumnoId uAlum " +
-                         "WHERE 1=1 "; // Base para concatenar ANDs
+                         "LEFT JOIN r.usersByProfesorId uProfe " +
+                         "LEFT JOIN r.usersByAlumnoId uAlum " +
+                         "WHERE (uProfe.id = :id OR uAlum.id = :id) " + // Filtro obligatorio aquí
+                         "ORDER BY r.fecha DESC";
 
-            // FILTRO INTELIGENTE:
-            // Si nos pasan un ID, buscamos reuniones donde ese usuario sea EL PROFE ... O ... EL ALUMNO
-            if (idUsuario != null) {
-                hql += "AND (uProfe.id = :id OR uAlum.id = :id) ";
-            }
-            
-            hql += "ORDER BY r.fecha DESC"; // Las más recientes primero
-
-            // Preparamos consulta
             var query = entityManager.createQuery(hql, Object[].class);
-            
-            if (idUsuario != null) {
-                query.setParameter("id", idUsuario);
-            }
+            query.setParameter("id", idUsuario); // Ya no hace falta el if, el ID viene sí o sí
 
             List<Object[]> resultados = query.getResultList();
 
-            // Construimos JSON limpio
             List<Map<String, Object>> lista = new ArrayList<>();
 
             for (Object[] fila : resultados) {
@@ -144,20 +133,24 @@ public class ReunionesControlador {
                 item.put("titulo", fila[1]);
                 item.put("asunto", fila[2]);
                 item.put("aula", fila[3]);
-                item.put("fecha", fila[4].toString()); // Convierte el Timestamp a texto legible
+                item.put("fecha", fila[4] != null ? fila[4].toString() : null);
                 item.put("estado", fila[5]);
-                item.put("profesor", fila[6] + " " + fila[7]); // Nombre completo profe
-                item.put("alumno", fila[8] + " " + fila[9]);   // Nombre completo alumno
+                
+                // Control de nulos para evitar "null null"
+                String nombreProfe = (fila[6] != null ? fila[6] : "Sin asignar") + " " + (fila[7] != null ? fila[7] : "");
+                String nombreAlum = (fila[8] != null ? fila[8] : "Sin asignar") + " " + (fila[9] != null ? fila[9] : "");
+
+                item.put("profesor", nombreProfe.trim());
+                item.put("alumno", nombreAlum.trim());
                 
                 lista.add(item);
             }
 
-            Gson gson = new Gson();
-            return gson.toJson(lista);
+            return new Gson().toJson(lista);
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "Error al obtener reuniones: " + e.getMessage();
+            return "{ \"error\": \"Error: " + e.getMessage() + "\" }";
         }
     }
 }
