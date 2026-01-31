@@ -261,3 +261,27 @@
   border: 1px solid var(--gray-200, #e2e8f0);
   border-radius: 10px;
 }
+
+.btn-bilera-tutoretza, .btn-primary {
+  margin-top: 16px;
+}
+
+.btn-primary {
+  background: var(--primary, #00a19a) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px 0 rgba(0,161,154,0.10) !important;
+  transition: all 0.2s ease !important;
+}
+
+.btn-primary:hover {
+  background: var(--primary-dark, #008580) !important;
+  box-shadow: 0 8px 20px rgba(0, 161, 154, 0.35) !important;
+}
+
+.btn-primary:focus, .btn-primary:active {
+  outline: none !important;
+  box-shadow: none !important;
+}

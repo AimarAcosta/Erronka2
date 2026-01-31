@@ -52,7 +52,7 @@
           <div>
             <h5><i class="bi bi-calendar-plus"></i> {{ 'MEETING.REQUEST' | translate }}</h5>
           </div>
-          <button (click)="toggleForm()">
+          <button (click)="toggleForm()" class="btn btn-primary">
             <i
               class="bi"
               [class.bi-x-lg]="showRequestForm"
@@ -113,7 +113,7 @@
             </div>
 
             <div class="form-actions">
-              <button type="submit"><i class="bi bi-send"></i> {{ 'MEETING.SEND' | translate }}</button>
+              <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> {{ 'MEETING.SEND' | translate }}</button>
             </div>
           </form>
         </div>

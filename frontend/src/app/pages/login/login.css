@@ -13,7 +13,7 @@ body, html {
   flex-direction: column;
   width: 100vw;
   min-height: 100vh;
-  background: linear-gradient(120deg, #e0f7fa 0%, #f8fafc 100%);
+  background: #f8fafc; /* Fondo uniforme, sin franja azul */
   box-sizing: border-box;
   justify-content: center;
   align-items: center;
@@ -24,18 +24,8 @@ body, html {
 
 /* Fondo decorativo sutil */
 .login-page::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: 
-    radial-gradient(circle at 10% 90%, rgba(0, 161, 154, 0.10) 0%, transparent 60%),
-    radial-gradient(circle at 90% 10%, rgba(0, 196, 188, 0.10) 0%, transparent 60%),
-    radial-gradient(circle at 50% 50%, rgba(232, 185, 35, 0.04) 0%, transparent 70%);
-  pointer-events: none;
-  z-index: 0;
+  /* Eliminado el fondo decorativo azul vertical */
+  display: none;
 }
 
 /* ===== TARJETA DE LOGIN ===== */
@@ -51,7 +41,7 @@ body, html {
     0 2px 16px 0 rgba(80, 112, 255, 0.08),
     0 0 0 4px #fff;
   width: 100%;
-  max-width: 370px;
+  max-width: 600px;
   min-height: 480px;
   display: flex;
   flex-direction: column;
@@ -66,19 +56,10 @@ body, html {
   overflow: visible;
   animation: cardAppear 0.7s cubic-bezier(0.4,0,0.2,1);
 }
-}
+
 .login-card::before {
-  content: '';
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 32px;
-  background: radial-gradient(ellipse at center, #00a19a22 0%, transparent 80%);
-  filter: blur(8px);
-  z-index: 1;
-  border-radius: 24px;
+  /* Eliminado el resplandor azul superior/inferior */
+  display: none;
 }
 
 @keyframes cardAppear {
@@ -115,10 +96,10 @@ form {
 
 
 .login-logo {
-  width: 120px;
+  width: 180px;
   height: auto;
-  max-height: 70px;
-  margin-bottom: 10px;
+  max-height: 110px;
+  margin-bottom: 18px;
   object-fit: contain;
   border-radius: 10px;
   box-shadow: 0 2px 12px 0 rgba(0,161,154,0.10);
@@ -126,7 +107,7 @@ form {
 
 
 .login-header h3 {
-  font-size: 1.45rem;
+  font-size: 2.1rem;
   font-weight: 700;
   letter-spacing: -0.5px;
   margin: 0;
@@ -175,8 +156,8 @@ form {
 
 .input-with-icon input {
   width: 100%;
-  padding: 12px 14px 12px 42px;
-  font-size: 1rem;
+  padding: 18px 18px 18px 52px;
+  font-size: 1.25rem;
   border: 1.5px solid #e2e8f0;
   border-radius: 10px;
   background: #f8fafc;
@@ -224,17 +205,17 @@ form {
 
 .btn-submit {
   width: 100%;
-  padding: 12px 0;
+  padding: 18px 0;
   background: linear-gradient(90deg, #00a19a 0%, #00c4bc 100%);
   color: white;
   border: none;
-  border-radius: 10px;
-  font-size: 1.05rem;
+  border-radius: 12px;
+  font-size: 1.35rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: 'Poppins', sans-serif;
-  margin-top: 10px;
+  margin-top: 18px;
   box-shadow: 0 2px 8px 0 rgba(0,161,154,0.10);
 }
 
