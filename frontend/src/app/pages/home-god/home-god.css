@@ -1,2 +1,66 @@
+.card-header h5 {
+	margin-bottom: 16px;
+}
+/* Separación vertical entre buscador y botón */
+.header-actions {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	align-items: flex-start;
+}
+
+.header-actions .btn-primary {
+	box-shadow: 0 2px 8px 0 rgba(0,161,154,0.10) !important;
+	border: none !important;
+	outline: none !important;
+}
+.form-actions button {
+	margin-right: 12px;
+}
+.form-actions button:last-child {
+	margin-right: 0;
+}
+/* Botones de formulario con estilo moderno */
+.form-actions button {
+	padding: 0.6rem 1.25rem;
+	background: var(--primary, #00a19a);
+	color: #fff;
+	border: none;
+	border-radius: 8px;
+	font-weight: 600;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: 0 2px 8px 0 rgba(0,161,154,0.10);
+}
+
+.form-actions button:hover {
+	background: var(--primary-dark, #008580);
+	box-shadow: 0 8px 20px rgba(0, 161, 154, 0.35);
+}
+
+.form-actions button:focus, .form-actions button:active {
+	outline: none;
+	box-shadow: none;
+}
+/* Organización y alineación de campos en el formulario de usuario */
+.form-card .row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 18px 0;
+}
+
+.form-card .col-md-6 {
+	flex: 0 0 48%;
+	max-width: 48%;
+	margin-bottom: 18px;
+	display: flex;
+	flex-direction: column;
+}
+
+.form-card input,
+.form-card select {
+	margin-bottom: 0;
+}
 /* ===== HOME GOD - Estilos espec�ficos ===== */
 /* Los estilos base est�n en styles.css */

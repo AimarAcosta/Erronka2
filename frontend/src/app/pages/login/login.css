@@ -1,3 +1,44 @@
+.btn-submit,
+.btn.btn-primary.btn-submit {
+  background: var(--primary, #00a19a) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  font-size: 1.25rem !important;
+  box-shadow: 0 2px 8px 0 rgba(0,161,154,0.10) !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
+}
+.btn-submit:hover,
+.btn.btn-primary.btn-submit:hover {
+  background: var(--primary-dark, #008580) !important;
+  box-shadow: 0 8px 20px rgba(0, 161, 154, 0.35) !important;
+}
+.btn-submit:focus, .btn-submit:active,
+.btn.btn-primary.btn-submit:focus, .btn.btn-primary.btn-submit:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.btn-submit {
+  background: var(--primary, #00a19a) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  font-size: 1.25rem !important;
+  box-shadow: 0 2px 8px 0 rgba(0,161,154,0.10) !important;
+  transition: all 0.2s ease !important;
+  outline: none !important;
+}
+.btn-submit:hover {
+  background: var(--primary-dark, #008580) !important;
+  box-shadow: 0 8px 20px rgba(0, 161, 154, 0.35) !important;
+}
+.btn-submit:focus, .btn-submit:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
 /* ===== LOGIN PAGE - Elorrieta-Erreka Mari ===== */
 /* Diseño profesional - Tarjeta centrada */
 

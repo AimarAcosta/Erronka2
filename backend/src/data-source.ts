@@ -18,7 +18,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD || '',
   database: process.env.DB_NAME || 'eduelorrieta',
-  synchronize: false, // La BD ya existe, no sincronizar
+  synchronize: false, 
   logging: true,
   entities: [User, Tipo, Ciclo, Modulo, Horario, Reunion, Matriculacion],
   migrations: [],

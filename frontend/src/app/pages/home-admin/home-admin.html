@@ -114,7 +114,7 @@
                 (input)="filterUsers()"
               />
             </div>
-            <button (click)="openCreateForm()" *ngIf="!showForm">
+              <button class="btn btn-primary" (click)="openCreateForm()" *ngIf="!showForm">
               <i class="bi bi-plus-lg"></i> {{ 'USER.NEW' | translate }}
             </button>
           </div>
@@ -151,10 +151,10 @@
 
                   <td>
                     <ng-container *ngIf="user.tipo_id !== 1 && user.tipo_id !== 2">
-                      <button (click)="openEditForm(user)" [title]="'USER.EDIT' | translate">
+                      <button class="btn" (click)="openEditForm(user)" [title]="'USER.EDIT' | translate">
                         <i class="bi bi-pencil"></i>
                       </button>
-                      <button (click)="onDeleteUser(user.id)" [title]="'USER.DELETE' | translate">
+                      <button class="btn" (click)="onDeleteUser(user.id)" [title]="'USER.DELETE' | translate">
                         <i class="bi bi-trash"></i>
                       </button>
                     </ng-container>
