@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import com.google.gson.Gson;
 
 import modelo.Users;
 import modelo.Horario;
+import modelo.Reuniones;
 import javax.swing.JLabel;
 import java.awt.Font;
 
@@ -70,6 +72,7 @@ public class ViewHorario extends JFrame {
         btnSalir.setBounds(10, 15, 102, 31);
         contentPane.add(btnSalir);
         List<Horario> horarios = conectores.ClienteSocket.conseguirHorarios(usuario.getId());
+        List<Reuniones> reuniones = conectores.ClienteSocket.conseguirReuniones(usuario.getId());
         
         String[] columns = {"Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" };
 
@@ -103,36 +106,13 @@ public class ViewHorario extends JFrame {
         	}
         }
         
-        /*
-        for (Map<String, Object> c : horarios) {
-
-            int hora = c.
-            int fila = hora - 1;
-
-            String dia = (String) c.get("dia");
-
-            Map<String, Object> modulo = (Map<String, Object>) c.get("modulos");
-            String nombreModulo = (String) modulo.get("nombre");
-
-            switch (dia) {
-                case "LUNES":
-                    data[fila][0] = nombreModulo;
-                    break;
-                case "MARTES":
-                    data[fila][1] = nombreModulo;
-                    break;
-                case "MIERCOLES":
-                    data[fila][2] = nombreModulo;
-                    break;
-                case "JUEVES":
-                    data[fila][3] = nombreModulo;
-                    break;
-                case "VIERNES":
-                    data[fila][4] = nombreModulo;
-                    break;
-            }
+        for(modelo.Reuniones r : reuniones) {
+        	Date dia = r.getFecha();
+        	if(controlador.Servicios.estaEnEstaSemana(dia)) {
+        		System.out.println(dia.getDay());
+        	}
         }
-*/
+
         // Create a non-editable table model
         DefaultTableModel model = new DefaultTableModel(data, columns) {
             private static final long serialVersionUID = 1L;

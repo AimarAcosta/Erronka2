@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JButton;
@@ -15,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 import modelo.Horario;
 import modelo.Profesor;
+import modelo.Reuniones;
 import modelo.Users;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -110,7 +112,7 @@ public class OtrosHorarios extends JFrame {
         	    }
         		
         		List<Horario> horarios = conectores.ClienteSocket.conseguirHorarios(profesorId);
-  
+        		List<Reuniones> reuniones = conectores.ClienteSocket.conseguirReuniones(profesorId);
         		model.fireTableDataChanged();
         		for(Horario h : horarios) {
                 	if(h.getDia() == null) {
@@ -130,6 +132,12 @@ public class OtrosHorarios extends JFrame {
                             model.setValueAt(h.getModulo(), fila, columna);
                         }
                 	}
+                }
+        		for(modelo.Reuniones r : reuniones) {
+                	Date dia = r.getFecha();
+                	//if(controlador.Servicios.estaEnEstaSemana(dia)) {
+                		System.out.println(dia.getDay());
+                	//}
                 }
         	}
         });

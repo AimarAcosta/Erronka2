@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import javax.crypto.Cipher;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import modelo.Horario;
@@ -122,10 +123,8 @@ public class ClienteSocket {
 			String respuestaJson = enviarPeticion("GET_MODULOS", Map.of());
 			Gson gson = new Gson();
 			Map<String, Object> respuesta = gson.fromJson(respuestaJson, Map.class);
-
 			if ("GET_MODULOS_OK".equals(respuesta.get("tipo"))) {
 				return (List<Map<String, Object>>) respuesta.get("contenido");
-
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,7 +137,7 @@ public class ClienteSocket {
 			conectar();
 			Map<String, Object> datosEnviar = Map.of();
 			String respuestaJson = enviarPeticion("GET_PROFESORES", datosEnviar);			
-			System.out.println(respuestaJson);
+			//System.out.println(respuestaJson);
 			Gson gson = new Gson();
 			Type tipoRespuesta = new TypeToken<Respuesta<List<Profesor>>>() {}.getType();
 			Respuesta<List<Profesor>> respuesta = gson.fromJson(respuestaJson, tipoRespuesta);
@@ -158,7 +157,9 @@ public class ClienteSocket {
 			Map<String, Object> datosEnviar = Map.of("idProfesor", id);
 			String respuestaJson = enviarPeticion("GET_REUNIONES_PROFE", datosEnviar);			
 			System.out.println(respuestaJson);
-			Gson gson = new Gson();
+			Gson gson = new GsonBuilder()
+			        .setDateFormat("yyyy-MM-dd HH:mm:ss")
+			        .create();
 			Type tipoRespuesta = new TypeToken<Respuesta<List<Reuniones>>>() {}.getType();
 			Respuesta<List<Reuniones>> respuesta = gson.fromJson(respuestaJson, tipoRespuesta);
 			
