@@ -1,3 +1,4 @@
+// Rutas de usuarios - Login, CRUD y busquedas
 import { Router } from 'express';
 import { AppDataSource } from '../data-source';
 import { User } from '../entities/User';

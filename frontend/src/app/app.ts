@@ -1,3 +1,6 @@
+// APP.TS - Componente raíz de la aplicación Angular
+// Carga el Navbar, el contenido dinámico (router-outlet) y el Footer
+
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Navbar } from './shared/navbar/navbar';

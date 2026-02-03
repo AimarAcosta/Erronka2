@@ -1,3 +1,4 @@
+// Rutas de horarios - Consulta de horarios por profesor, aula o ciclo
 import { Router } from 'express';
 import { AppDataSource } from '../data-source';
 import { Horario } from '../entities/Horario';

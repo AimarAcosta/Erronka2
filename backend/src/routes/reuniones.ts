@@ -1,3 +1,4 @@
+// Rutas de reuniones - CRUD de reuniones profesor-alumno
 import { Router } from 'express';
 import { AppDataSource } from '../data-source';
 import { Reunion } from '../entities/Reunion';

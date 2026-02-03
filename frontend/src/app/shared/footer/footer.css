@@ -1,51 +1,22 @@
-/* ===== FOOTER - Elorrieta-Erreka Mari ===== */
+/* Estilos del pie de pagina */
 
-.footer {
-  background: linear-gradient(135deg, #2d3e50 0%, #1a252f 100%);
-  padding: 20px 28px;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
-  border-top: none;
-  border-radius: 20px 20px 0 0;
-  width: 100%;
-  position: static;
+.pie-pagina {
+  background: linear-gradient(135deg, #2d3e50, #1a252f);
+  padding: 20px;
+  border-radius: 15px 15px 0 0;
   margin-top: auto;
 }
 
-.footer-container {
-  max-width: 1280px;
+.contenedor-footer {
+  max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  position: relative;
 }
 
-.footer p {
+.pie-pagina p {
   color: #cbd5e1;
   font-size: 13px;
-  font-weight: 500;
   margin: 0;
-  letter-spacing: 0.3px;
-}
-
-.footer p strong,
-.footer p span.highlight {
-  color: #00c4bc;
-  font-weight: 600;
-}
-
-.footer a {
-  color: #00c4bc;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.footer a:hover {
-  color: #e8b923;
-}
-
-@media (max-width: 768px) {
-  .footer {
-    padding: 20px 20px;
-  }
 }
 
 @media (max-width: 480px) {

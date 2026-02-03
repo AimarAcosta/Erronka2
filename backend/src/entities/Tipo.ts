@@ -1,7 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { User } from './User';
+// Entidad Tipo - Tabla tipos (God, Admin, Teacher, Student)
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { User } from "./User";
 
-@Entity('tipos')
+@Entity("tipos")
 export class Tipo {
   @PrimaryGeneratedColumn()
   id: number;

@@ -1,90 +1,117 @@
-<div class="centro-selector">
-  <div *ngIf="isLoading" class="loading-indicator">
-    <i class="bi bi-hourglass-split spinning"></i> {{ 'CENTER.LOADING' | translate }}
+<div class="selector-centro">
+  <div *ngIf="isLoading" class="indicador-carga">
+    <i class="bi bi-hourglass-split girando"></i> {{ 'CENTER.LOADING' | translate }}
   </div>
 
   <div *ngIf="!isLoading">
-    <div class="filters-section">
+    <!-- Filtros -->
+    <div class="seccion-filtros">
       <h6><i class="bi bi-funnel"></i> {{ 'CENTER.FILTER' | translate }}</h6>
-      <div class="filters-row">
-        <div class="filter-group">
+      <div class="fila-filtros">
+        <div class="grupo-filtro">
           <label>{{ 'CENTER.TYPE' | translate }}</label>
-          <select [(ngModel)]="filterTipo" (change)="applyFilters()">
+          <select [(ngModel)]="filterTipo" (change)="aplicarFiltros()">
             <option value="">{{ 'CENTER.ALL' | translate }}</option>
             <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
           </select>
         </div>
 
-        <div class="filter-group">
+        <div class="grupo-filtro">
           <label>{{ 'CENTER.TERRITORY' | translate }}</label>
-          <select [(ngModel)]="filterTerritorio" (change)="onTerritorioChange()">
+          <select [(ngModel)]="filterTerritorio" (change)="onCambiarTerritorio()">
             <option value="">{{ 'CENTER.ALL' | translate }}</option>
             <option *ngFor="let terr of territorios" [value]="terr">{{ terr }}</option>
           </select>
         </div>
 
-        <div class="filter-group">
+        <div class="grupo-filtro">
           <label>{{ 'CENTER.MUNICIPALITY' | translate }}</label>
-          <select
-            [(ngModel)]="filterMunicipio"
-            (change)="applyFilters()"
-            [disabled]="!filterTerritorio"
-          >
+          <select [(ngModel)]="filterMunicipio" (change)="aplicarFiltros()" [disabled]="!filterTerritorio">
             <option value="">{{ 'CENTER.ALL' | translate }}</option>
             <option *ngFor="let muni of municipios" [value]="muni">{{ muni }}</option>
           </select>
         </div>
 
-        <button class="btn-clear" (click)="clearFilters()">
+        <button class="btn-limpiar" (click)="limpiarFiltros()">
           <i class="bi bi-x-circle"></i> {{ 'CENTER.CLEAR' | translate }}
         </button>
       </div>
 
-      <div class="filter-count">
+      <div class="contador-resultados">
         <i class="bi bi-building"></i> {{ filteredCentros.length }} {{ 'CENTER.FOUND' | translate }}
       </div>
     </div>
 
-    <div class="map-section">
+    <!-- Mapa -->
+    <div class="seccion-mapa">
       <div id="map-container"></div>
     </div>
 
-    <div class="selected-centro" *ngIf="selectedCentro">
+    <!-- Centro seleccionado -->
+    <div class="centro-seleccionado" *ngIf="selectedCentro">
       <h6><i class="bi bi-geo-alt-fill"></i> {{ 'CENTER.SELECTED' | translate }}</h6>
-      <div class="centro-info">
-        <div class="centro-name">{{ selectedCentro.DNOMBRE }}</div>
-        <div class="centro-address">
+      <div class="info-centro">
+        <div class="nombre-centro">{{ selectedCentro.DNOMBRE }}</div>
+        <div class="direccion-centro">
           <i class="bi bi-pin-map"></i> {{ selectedCentro.DDOMICILIO }}
         </div>
-        <div class="centro-location">
+        <div class="ubicacion-centro">
           <span><i class="bi bi-mailbox"></i> {{ selectedCentro.CPOSTAL }}</span>
-          <span
-            ><i class="bi bi-geo"></i> {{ selectedCentro.DMUNI }}, {{ selectedCentro.DTERRE }}</span
-          >
+          <span><i class="bi bi-geo"></i> {{ selectedCentro.DMUNI }}, {{ selectedCentro.DTERRE }}</span>
         </div>
-        <div class="centro-contact" *ngIf="selectedCentro.TELEFONO">
+        <div class="contacto-centro" *ngIf="selectedCentro.TELEFONO">
           <i class="bi bi-telephone"></i> {{ selectedCentro.TELEFONO }}
         </div>
       </div>
     </div>
 
-    <div class="centros-list">
+    <!-- Lista de centros con paginacion -->
+    <div class="lista-centros">
       <h6><i class="bi bi-list-ul"></i> {{ 'CENTER.LIST' | translate }}</h6>
-      <div class="list-container">
+      <div class="contenedor-lista">
         <div
-          *ngFor="let centro of filteredCentros"
-          class="centro-item"
-          [class.selected]="centro.CCODIGO === selectedCentroId"
-          (click)="selectCentro(centro)"
+          *ngFor="let centro of centrosPaginados"
+          class="item-centro"
+          [class.seleccionado]="centro.CCODIGO === selectedCentroId"
+          (click)="seleccionarCentro(centro)"
         >
-          <div class="centro-item-name">{{ centro.DNOMBRE }}</div>
-          <div class="centro-item-info">
-            <span class="badge badge-tipo">
-              {{ centro.TIPO_CENTRO }}
-            </span>
+          <div class="nombre-item">{{ centro.DNOMBRE }}</div>
+          <div class="info-item">
+            <span class="etiqueta-tipo">{{ centro.TIPO_CENTRO }}</span>
             <span>{{ centro.DMUNI }}</span>
           </div>
         </div>
+      </div>
+
+      <!-- Controles de paginacion -->
+      <div class="paginacion" *ngIf="totalPages > 1">
+        <button 
+          class="btn-paginacion" 
+          (click)="paginaAnterior()" 
+          [disabled]="currentPage === 1"
+          [attr.aria-label]="'Anterior'">
+          <i class="bi bi-chevron-left"></i>
+        </button>
+
+        <button 
+          *ngFor="let page of obtenerNumerosPaginas()" 
+          class="btn-paginacion"
+          [class.activo]="page === currentPage"
+          (click)="irAPagina(page)">
+          {{ page }}
+        </button>
+
+        <button 
+          class="btn-paginacion" 
+          (click)="paginaSiguiente()" 
+          [disabled]="currentPage === totalPages"
+          [attr.aria-label]="'Siguiente'">
+          <i class="bi bi-chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="info-paginacion" *ngIf="filteredCentros.length > 0">
+        {{ 'CENTER.PAGE' | translate }} {{ currentPage }} / {{ totalPages }}
       </div>
     </div>
   </div>

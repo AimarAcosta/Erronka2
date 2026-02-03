@@ -1,3 +1,4 @@
+// Panel del God (superadmin) - Puede crear, editar y eliminar cualquier usuario
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
@@ -14,18 +15,21 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
 })
 export class HomeGod implements OnInit {
   
+  // Contadores para las tarjetas
   studentCount: number = 0;
   teacherCount: number = 0;
   todayMeetings: number = 0;
 
+  // Lista de usuarios
   users: User[] = [];
   filteredUsers: User[] = [];
   tipos: Tipo[] = [];
   searchTerm: string = '';
 
+  // Control del formulario
   showForm: boolean = false; 
   isEditing: boolean = false; 
-  userForm: Partial<User> = this.getEmptyUser(); 
+  userForm: Partial<User> = this.obtenerUsuarioVacio(); 
 
   constructor(
     private usersService: UsersService,
@@ -34,63 +38,70 @@ export class HomeGod implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadData();
-    this.loadTipos();
+    this.cargarDatos();
+    this.cargarTipos();
   }
 
-  loadData() {
-    this.usersService.getUsers().subscribe(users => {
+  // Carga usuarios y contadores
+  cargarDatos() {
+    this.usersService.obtenerUsuarios().subscribe(users => {
       this.users = users;
-      this.filterUsers(); 
+      this.filtrarUsuarios(); 
       this.studentCount = this.users.filter(u => u.tipo_id === 4).length;
       this.teacherCount = this.users.filter(u => u.tipo_id === 3).length;
       this.cdr.detectChanges();
     });
     
-    this.reunionesService.getTodayCount().subscribe(count => {
+    this.reunionesService.contarReunionesHoy().subscribe(count => {
       this.todayMeetings = count;
       this.cdr.detectChanges();
     });
   }
 
-  loadTipos() {
-    this.usersService.getTipos().subscribe(tipos => {
+  // Carga los tipos de usuario
+  cargarTipos() {
+    this.usersService.obtenerTipos().subscribe(tipos => {
       this.tipos = tipos;
       this.cdr.detectChanges();
     });
   }
 
-  openCreateForm() {
+  // Abre formulario para crear usuario
+  abrirFormularioCrear() {
     this.isEditing = false;
-    this.userForm = this.getEmptyUser(); 
+    this.userForm = this.obtenerUsuarioVacio(); 
     this.showForm = true;
   }
 
-  openEditForm(user: User) {
+  // Abre formulario para editar usuario
+  abrirFormularioEditar(user: User) {
     this.isEditing = true;
-    this.userForm = { ...user }; 
+    this.userForm = { ...user };
     this.showForm = true;
   }
 
+  // Envía el formulario
   onSubmit() {
     if (this.isEditing && this.userForm.id) {
-      this.usersService.updateUser(this.userForm.id, this.userForm).subscribe(() => {
+      this.usersService.actualizarUsuario(this.userForm.id, this.userForm).subscribe(() => {
         this.showForm = false;
-        this.loadData();
+        this.cargarDatos();
       });
     } else {
-      this.usersService.createUser(this.userForm).subscribe(() => {
+      this.usersService.crearUsuario(this.userForm).subscribe(() => {
         this.showForm = false;
-        this.loadData();
+        this.cargarDatos();
       });
     }
   }
 
-  cancelForm() {
+  // Cierra el formulario
+  cancelarFormulario() {
     this.showForm = false;
   }
 
-  getEmptyUser(): Partial<User> {
+  // Devuelve un usuario vacío
+  obtenerUsuarioVacio(): Partial<User> {
     return {
       username: '',
       password: '123456',
@@ -101,25 +112,24 @@ export class HomeGod implements OnInit {
     };
   }
 
-  onDeleteUser(id: number) {
+  // Elimina un usuario (no se puede eliminar al God)
+  onEliminarUsuario(id: number) {
     const user = this.users.find(u => u.id === id);
     if (user && user.tipo_id === 1) {
-      alert('ERROREA: Ezin duzu God erabiltzailea ezabatu.');
+      alert('No se puede eliminar al God');
       return;
     }
     
-    if (confirm('¿Erabiltzaile hau ezabatu nahi duzu?')) {
-      this.usersService.deleteUser(id).subscribe(success => {
-        if (success) {
-          this.loadData();
-        } else {
-          alert('ERROREA: Ezin izan da erabiltzailea ezabatu.');
-        }
+    if (confirm('¿Eliminar este usuario?')) {
+      this.usersService.eliminarUsuario(id).subscribe(success => {
+        if (success) this.cargarDatos();
+        else alert('Error al eliminar');
       });
     }
   }
 
-  filterUsers() {
+  // Filtra usuarios por búsqueda
+  filtrarUsuarios() {
     this.filteredUsers = this.users.filter(user => 
       (user.nombre?.toLowerCase() || '').includes(this.searchTerm.toLowerCase()) ||
       (user.apellidos?.toLowerCase() || '').includes(this.searchTerm.toLowerCase()) ||
@@ -127,7 +137,8 @@ export class HomeGod implements OnInit {
     );
   }
 
-  getRoleName(tipoId: number): string {
-    return this.usersService.getRoleName(tipoId);
+  // Devuelve el nombre del rol
+  obtenerNombreRol(tipoId: number): string {
+    return this.usersService.obtenerNombreRol(tipoId);
   }
 }

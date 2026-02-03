@@ -1,3 +1,4 @@
+// Entidad Matriculacion - Tabla matriculaciones (alumno-ciclo)
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { User } from './User';
 import { Ciclo } from './Ciclo';

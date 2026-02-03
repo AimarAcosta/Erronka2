@@ -1,3 +1,4 @@
+// Rutas de ciclos - Lista de ciclos formativos (DAW, DAM, etc)
 import { Router } from 'express';
 import { AppDataSource } from '../data-source';
 import { Ciclo } from '../entities/Ciclo';

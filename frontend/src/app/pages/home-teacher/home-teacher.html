@@ -1,4 +1,4 @@
-<div class="container">
+<div class="contenedor">
   <div class="row">
     <div class="col-12">
       <h2><i class="bi bi-person-video3"></i> {{ 'HOME.TEACHER_PANEL' | translate }}</h2>
@@ -8,11 +8,12 @@
     </div>
   </div>
 
+  <!-- Tarjetas de estadisticas -->
   <div class="row">
     <div class="col-md-3">
-      <div class="card stat-card">
-        <div class="card-body">
-          <div class="icon-circle">
+      <div class="tarjeta-estadistica">
+        <div class="tarjeta-cuerpo">
+          <div class="icono-circulo">
             <i class="bi bi-calendar-event-fill"></i>
           </div>
           <h5>{{ 'HOME.ALL_MEETINGS' | translate }}</h5>
@@ -21,9 +22,9 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div class="card stat-card">
-        <div class="card-body">
-          <div class="icon-circle">
+      <div class="tarjeta-estadistica">
+        <div class="tarjeta-cuerpo">
+          <div class="icono-circulo">
             <i class="bi bi-clock-history"></i>
           </div>
           <h5>{{ 'MEETING.PENDING' | translate }}</h5>
@@ -32,9 +33,9 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div class="card stat-card">
-        <div class="card-body">
-          <div class="icon-circle">
+      <div class="tarjeta-estadistica">
+        <div class="tarjeta-cuerpo">
+          <div class="icono-circulo">
             <i class="bi bi-check-circle-fill"></i>
           </div>
           <h5>{{ 'MEETING.ACCEPTED' | translate }}</h5>
@@ -43,9 +44,9 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div class="card stat-card">
-        <div class="card-body">
-          <div class="icon-circle">
+      <div class="tarjeta-estadistica">
+        <div class="tarjeta-cuerpo">
+          <div class="icono-circulo">
             <i class="bi bi-book-fill"></i>
           </div>
           <h5>{{ 'HOME.CLASSES' | translate }}</h5>
@@ -55,16 +56,17 @@
     </div>
   </div>
 
+  <!-- Horario -->
   <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">
+      <div class="tarjeta">
+        <div class="tarjeta-cabecera">
           <h5><i class="bi bi-calendar-event"></i>{{ 'SCHEDULE.YOUR_SCHEDULE' | translate }}</h5>
         </div>
 
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="schedule-table">
+        <div class="tarjeta-cuerpo">
+          <div class="tabla-responsive">
+            <table class="tabla-horario">
               <thead>
                 <tr>
                   <th>{{ 'SCHEDULE.HOUR' | translate }}</th>
@@ -78,31 +80,21 @@
 
               <tbody>
                 <tr *ngFor="let row of timeTable; let i = index">
-                  <td class="hour-cell">
-                    {{ i + 1 }}
-                  </td>
+                  <td class="celda-hora">{{ i + 1 }}</td>
 
-                  <td *ngFor="let cell of row" class="schedule-cell">
-                    <div
-                      *ngIf="cell.text"
-                      class="schedule-content"
-                      [ngClass]="cell.colorClass"
-                    >
-                      <div class="schedule-icon">
+                  <td *ngFor="let cell of row" class="celda-horario">
+                    <div *ngIf="cell.text" class="contenido-celda" [ngClass]="cell.colorClass">
+                      <div class="icono-celda">
                         <i *ngIf="cell.type === 'meeting'" class="bi bi-people-fill"></i>
                         <i *ngIf="cell.text && cell.text.includes('Guardia')" class="bi bi-shield-check"></i>
                         <i *ngIf="cell.text && cell.text.includes('Zaintza')" class="bi bi-shield-check"></i>
                         <i *ngIf="cell.text && cell.text.includes('Tutoretza')" class="bi bi-chat-dots"></i>
                         <i *ngIf="cell.text && cell.text.includes('Tutoria')" class="bi bi-chat-dots"></i>
                       </div>
-
-                      <span class="schedule-text">{{ cell.text }}</span>
-                      <span class="schedule-subtext" *ngIf="cell.subtext">
-                        {{ cell.subtext }}
-                      </span>
+                      <span class="texto-celda">{{ cell.text }}</span>
+                      <span class="subtexto-celda" *ngIf="cell.subtext">{{ cell.subtext }}</span>
                     </div>
-
-                    <div *ngIf="!cell.text" class="schedule-empty">-</div>
+                    <div *ngIf="!cell.text" class="celda-vacia">-</div>
                   </td>
                 </tr>
               </tbody>
@@ -113,19 +105,88 @@
     </div>
   </div>
 
+  <!-- Formulario para crear reunión -->
   <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">
+      <div class="tarjeta">
+        <div class="tarjeta-cabecera">
+          <h5><i class="bi bi-calendar-plus"></i> {{ 'MEETING.CREATE' | translate }}</h5>
+          <button (click)="mostrarFormulario()" class="btn-principal">
+            <i class="bi" [class.bi-x-lg]="showRequestForm" [class.bi-plus-lg]="!showRequestForm"></i>
+            {{ showRequestForm ? ('MEETING.CLOSE' | translate) : ('MEETING.CREATE' | translate) }}
+          </button>
+        </div>
+
+        <div class="tarjeta-cuerpo" *ngIf="showRequestForm">
+          <form (ngSubmit)="enviarSolicitud()">
+            <div class="fila-formulario">
+              <div class="grupo-campo">
+                <label>{{ 'MEETING.WITH_STUDENT' | translate }}</label>
+                <select [(ngModel)]="newReunion.alumno_id" name="alumno" required class="campo-select">
+                  <option [value]="0" disabled>{{ 'MEETING.SELECT_STUDENT' | translate }}</option>
+                  <option *ngFor="let s of students" [value]="s.id">
+                    {{ s.nombre }} {{ s.apellidos }}
+                  </option>
+                </select>
+              </div>
+              <div class="grupo-campo">
+                <label>{{ 'MEETING.TITLE' | translate }}</label>
+                <input type="text" [(ngModel)]="newReunion.titulo" name="titulo" required
+                  [placeholder]="'MEETING.TITLE_PLACEHOLDER' | translate" class="campo-input"/>
+              </div>
+              <div class="grupo-campo">
+                <label>{{ 'MEETING.SUBJECT' | translate }}</label>
+                <textarea [(ngModel)]="newReunion.asunto" name="asunto" rows="2" class="campo-input"></textarea>
+              </div>
+            </div>
+
+            <div class="seleccion-centro">
+              <label><i class="bi bi-geo-alt"></i> {{ 'MEETING.WHERE' | translate }}</label>
+              <div class="centro-seleccionado" *ngIf="selectedCentro">
+                <strong>{{ selectedCentro.DNOMBRE }}</strong>
+                <small>{{ selectedCentro.DMUNI }}, {{ selectedCentro.DTERRE }}</small>
+              </div>
+              <div class="centro-seleccionado" *ngIf="!selectedCentro">
+                <strong>ELORRIETA-ERREKA MARI</strong>
+                <small>BILBAO, BIZKAIA {{ 'MEETING.DEFAULT_CENTER' | translate }}</small>
+              </div>
+              <button type="button" class="btn-secundario" (click)="mostrarSelectorCentro()">
+                <i class="bi bi-pin-map"></i> {{ showCentroSelector ? ('MEETING.CLOSE' | translate) : ('MEETING.CHANGE_CENTER' | translate) }}
+              </button>
+            </div>
+
+            <div *ngIf="showCentroSelector" class="contenedor-selector-centro">
+              <app-centro-selector
+                [selectedCentroId]="newReunion.id_centro || '15112'"
+                (centroSelected)="onCentroSeleccionado($event)">
+              </app-centro-selector>
+            </div>
+
+            <div class="acciones-formulario">
+              <button type="submit" class="btn-principal">
+                <i class="bi bi-send"></i> {{ 'MEETING.SEND' | translate }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reuniones pendientes -->
+  <div class="row">
+    <div class="col-12">
+      <div class="tarjeta">
+        <div class="tarjeta-cabecera">
           <h5><i class="bi bi-bell-fill"></i> {{ 'MEETING.PENDING_MEETINGS' | translate }} ({{ pendingCount }})</h5>
         </div>
-        <div class="card-body">
-          <div *ngIf="pendingReuniones.length === 0" class="empty-state">
+        <div class="tarjeta-cuerpo">
+          <div *ngIf="pendingReuniones.length === 0" class="estado-vacio">
             <i class="bi bi-check-all"></i>
             <p>{{ 'MEETING.NO_PENDING' | translate }}</p>
           </div>
-          <div class="table-responsive" *ngIf="pendingReuniones.length > 0">
-            <table class="meetings-table">
+          <div class="tabla-responsive" *ngIf="pendingReuniones.length > 0">
+            <table class="tabla-reuniones">
               <thead>
                 <tr>
                   <th>{{ 'MEETING.STUDENT' | translate }}</th>
@@ -141,11 +202,11 @@
                   <td>{{ reunion.titulo }}</td>
                   <td>{{ reunion.asunto || '-' }}</td>
                   <td>{{ reunion.fecha | date:'short' }}</td>
-                  <td class="actions-cell">
-                    <button class="btn-accept" (click)="acceptReunion(reunion)">
+                  <td class="columna-acciones">
+                    <button class="btn-aceptar" (click)="aceptarReunion(reunion)">
                       <i class="bi bi-check-lg"></i> {{ 'MEETING.ACCEPT' | translate }}
                     </button>
-                    <button class="btn-reject" (click)="rejectReunion(reunion)">
+                    <button class="btn-rechazar" (click)="rechazarReunion(reunion)">
                       <i class="bi bi-x-lg"></i> {{ 'MEETING.REJECT' | translate }}
                     </button>
                   </td>
@@ -158,30 +219,31 @@
     </div>
   </div>
 
+  <!-- Todas mis reuniones -->
   <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">
+      <div class="tarjeta">
+        <div class="tarjeta-cabecera">
           <h5><i class="bi bi-clock-history"></i> {{ 'MEETING.MY_ALL_MEETINGS' | translate }}</h5>
         </div>
-        <div class="card-body">
-          <div *ngIf="myReuniones.length === 0" class="empty-state">
+        <div class="tarjeta-cuerpo">
+          <div *ngIf="myReuniones.length === 0" class="estado-vacio">
             <i class="bi bi-calendar-x"></i>
             <p>{{ 'MEETING.NO_MEETINGS' | translate }}</p>
           </div>
-          <ul class="meetings-list" *ngIf="myReuniones.length > 0">
-            <li class="meeting-item" *ngFor="let m of myReuniones">
-              <div class="meeting-content">
-                <span class="meeting-title">{{ m.titulo }}</span>
-                <small class="meeting-subtitle">
+          <ul class="lista-reuniones" *ngIf="myReuniones.length > 0">
+            <li class="item-reunion" *ngFor="let m of myReuniones">
+              <div class="contenido-reunion">
+                <span class="titulo-reunion">{{ m.titulo }}</span>
+                <small class="subtitulo-reunion">
                   {{ m.alumno?.nombre }} {{ m.alumno?.apellidos }} | {{ m.fecha | date:'shortDate' }}
                 </small>
               </div>
-              <span class="badge" 
-                [class.status-pending]="m.estado === 'pendiente'" 
-                [class.status-approved]="m.estado === 'aceptada'" 
-                [class.status-rejected]="m.estado === 'denegada'">
-                {{ getEstadoEus(m.estado) | uppercase }}
+              <span class="etiqueta-estado" 
+                [class.estado-pendiente]="m.estado === 'pendiente'" 
+                [class.estado-aceptada]="m.estado === 'aceptada'" 
+                [class.estado-rechazada]="m.estado === 'denegada'">
+                {{ obtenerEstadoEus(m.estado) | uppercase }}
               </span>
             </li>
           </ul>
@@ -190,17 +252,17 @@
     </div>
   </div>
 
-  <!-- Sección de búsqueda de estudiantes -->
+  <!-- Busqueda de estudiantes -->
   <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">
+      <div class="tarjeta">
+        <div class="tarjeta-cabecera">
           <h5><i class="bi bi-search"></i> {{ 'STUDENTS.SEARCH_TITLE' | translate }}</h5>
         </div>
-        <div class="card-body">
-          <form class="search-form" (ngSubmit)="searchStudents()">
-            <div class="search-filters">
-              <div class="filter-group">
+        <div class="tarjeta-cuerpo">
+          <form class="formulario-busqueda" (ngSubmit)="buscarAlumnos()">
+            <div class="filtros-busqueda">
+              <div class="grupo-filtro">
                 <label for="nombre">{{ 'STUDENTS.NAME' | translate }}</label>
                 <input 
                   type="text" 
@@ -208,9 +270,9 @@
                   [(ngModel)]="searchFilters.nombre" 
                   name="nombre"
                   placeholder="{{ 'STUDENTS.NAME_PLACEHOLDER' | translate }}"
-                  class="form-input">
+                  class="campo-input">
               </div>
-              <div class="filter-group">
+              <div class="grupo-filtro">
                 <label for="apellidos">{{ 'STUDENTS.LASTNAME' | translate }}</label>
                 <input 
                   type="text" 
@@ -218,9 +280,9 @@
                   [(ngModel)]="searchFilters.apellidos" 
                   name="apellidos"
                   placeholder="{{ 'STUDENTS.LASTNAME_PLACEHOLDER' | translate }}"
-                  class="form-input">
+                  class="campo-input">
               </div>
-              <div class="filter-group">
+              <div class="grupo-filtro">
                 <label for="dni">{{ 'STUDENTS.DNI' | translate }}</label>
                 <input 
                   type="text" 
@@ -228,15 +290,15 @@
                   [(ngModel)]="searchFilters.dni" 
                   name="dni"
                   placeholder="{{ 'STUDENTS.DNI_PLACEHOLDER' | translate }}"
-                  class="form-input">
+                  class="campo-input">
               </div>
-              <div class="filter-group">
+              <div class="grupo-filtro">
                 <label for="ciclo">{{ 'STUDENTS.CYCLE' | translate }}</label>
                 <select 
                   id="ciclo" 
                   [(ngModel)]="searchFilters.ciclo" 
                   name="ciclo"
-                  class="form-select">
+                  class="campo-select">
                   <option [value]="0">{{ 'STUDENTS.ALL_CYCLES' | translate }}</option>
                   <option *ngFor="let ciclo of ciclos" [value]="ciclo.id">
                     {{ ciclo.nombre_eus || ciclo.nombre }}
@@ -244,35 +306,35 @@
                 </select>
               </div>
             </div>
-            <div class="search-actions">
-              <button type="submit" class="btn btn-primary" [disabled]="isSearching">
+            <div class="acciones-busqueda">
+              <button type="submit" class="btn-principal" [disabled]="isSearching">
                 <i class="bi bi-search"></i> {{ 'STUDENTS.SEARCH' | translate }}
               </button>
-              <button type="button" class="btn btn-secondary" (click)="clearSearch()">
+              <button type="button" class="btn-secundario" (click)="limpiarBusqueda()">
                 <i class="bi bi-x-lg"></i> {{ 'STUDENTS.CLEAR' | translate }}
               </button>
             </div>
           </form>
 
-          <!-- Resultados de búsqueda -->
-          <div *ngIf="hasSearched" class="search-results">
-            <h6 class="results-title">
+          <!-- Resultados de busqueda -->
+          <div *ngIf="hasSearched" class="resultados-busqueda">
+            <h6 class="titulo-resultados">
               <i class="bi bi-people"></i> 
               {{ 'STUDENTS.RESULTS' | translate }}: {{ searchResults.length }}
             </h6>
             
-            <div *ngIf="isSearching" class="loading-state">
-              <i class="bi bi-arrow-repeat spinning"></i>
+            <div *ngIf="isSearching" class="estado-cargando">
+              <i class="bi bi-arrow-repeat girando"></i>
               <p>{{ 'STUDENTS.SEARCHING' | translate }}</p>
             </div>
 
-            <div *ngIf="!isSearching && searchResults.length === 0" class="empty-state">
+            <div *ngIf="!isSearching && searchResults.length === 0" class="estado-vacio">
               <i class="bi bi-person-x"></i>
               <p>{{ 'STUDENTS.NO_RESULTS' | translate }}</p>
             </div>
 
-            <div *ngIf="!isSearching && searchResults.length > 0" class="table-responsive">
-              <table class="students-table">
+            <div *ngIf="!isSearching && searchResults.length > 0" class="tabla-responsive">
+              <table class="tabla-alumnos">
                 <thead>
                   <tr>
                     <th>{{ 'STUDENTS.PHOTO' | translate }}</th>
@@ -285,12 +347,12 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let student of searchResults">
-                    <td class="photo-cell">
+                    <td class="celda-foto">
                       <img 
-                        [src]="getStudentPhoto(student)" 
+                        [src]="obtenerFotoAlumno(student)" 
                         [alt]="student.nombre"
-                        (error)="onPhotoError($event)"
-                        class="student-avatar">
+                        (error)="onErrorFoto($event)"
+                        class="avatar-alumno">
                     </td>
                     <td>{{ student.nombre }}</td>
                     <td>{{ student.apellidos }}</td>
@@ -312,19 +374,22 @@
     </div>
   </div>
 
+  <!-- Leyenda -->
   <div class="row">
     <div class="col-12">
-      <div class="schedule-legend">
-        <span class="legend-item">
-          <span class="legend-badge status-pending"></span>{{ 'LEGEND.PENDING' | translate }}
+      <div class="leyenda-horario">
+        <span class="item-leyenda">
+          <span class="badge-leyenda estado-pendiente"></span>{{ 'LEGEND.PENDING' | translate }}
         </span>
-        <span class="legend-item">
-          <span class="legend-badge status-approved"></span>{{ 'LEGEND.ACCEPTED' | translate }}
+        <span class="item-leyenda">
+          <span class="badge-leyenda estado-aceptada"></span>{{ 'LEGEND.ACCEPTED' | translate }}
         </span>
-        <span class="legend-item">
-          <span class="legend-badge status-rejected"></span>{{ 'LEGEND.REJECTED' | translate }}
+        <span class="item-leyenda">
+          <span class="badge-leyenda estado-rechazada"></span>{{ 'LEGEND.REJECTED' | translate }}
         </span>
-        <span class="legend-item"> <span class="legend-badge status-conflict"></span>{{ 'LEGEND.CONFLICT' | translate }} </span>
+        <span class="item-leyenda">
+          <span class="badge-leyenda estado-conflicto"></span>{{ 'LEGEND.CONFLICT' | translate }}
+        </span>
       </div>
     </div>
   </div>

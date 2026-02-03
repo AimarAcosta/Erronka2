@@ -1,9 +1,11 @@
+// Servicio de reuniones - CRUD de reuniones profesor-alumno
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, catchError, map } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from './users';
 
+// Estados posibles de una reunion
 export type ReunionEstado = 'pendiente' | 'aceptada' | 'denegada' | 'conflicto';
 export type ReunionEstadoEus = 'onartzeke' | 'onartuta' | 'ezeztatuta' | 'gatazka';
 
@@ -32,57 +34,66 @@ export class ReunionesService {
 
   constructor(private http: HttpClient) {}
 
-  getReuniones(): Observable<Reunion[]> {
+  // Obtiene todas las reuniones
+  obtenerReuniones(): Observable<Reunion[]> {
     return this.http.get<Reunion[]>(this.apiUrl).pipe(
       catchError(() => of([]))
     );
   }
 
-  getReunionById(id: number): Observable<Reunion | undefined> {
+  // Obtiene reunion por ID
+  obtenerReunionPorId(id: number): Observable<Reunion | undefined> {
     return this.http.get<Reunion>(`${this.apiUrl}/${id}`).pipe(
       catchError(() => of(undefined))
     );
   }
 
-  getReunionesProfesor(profesorId: number): Observable<Reunion[]> {
+  // Obtiene reuniones de un profesor
+  obtenerReunionesProfesor(profesorId: number): Observable<Reunion[]> {
     return this.http.get<Reunion[]>(`${this.apiUrl}/profesor/${profesorId}`).pipe(
       catchError(() => of([]))
     );
   }
 
-  getReunionesAlumno(alumnoId: number): Observable<Reunion[]> {
+  // Obtiene reuniones de un alumno
+  obtenerReunionesAlumno(alumnoId: number): Observable<Reunion[]> {
     return this.http.get<Reunion[]>(`${this.apiUrl}/alumno/${alumnoId}`).pipe(
       catchError(() => of([]))
     );
   }
 
-  getTodayCount(): Observable<number> {
+  // Cuenta reuniones de hoy (para estadisticas)
+  contarReunionesHoy(): Observable<number> {
     return this.http.get<{ count: number }>(`${this.apiUrl}/today/count`).pipe(
       map((res) => res.count),
       catchError(() => of(0))
     );
   }
 
-  createReunion(reunion: Partial<Reunion>): Observable<Reunion | undefined> {
+  // Crea una nueva reunion
+  crearReunion(reunion: Partial<Reunion>): Observable<Reunion | undefined> {
     return this.http.post<Reunion>(this.apiUrl, reunion).pipe(
       catchError(() => of(undefined))
     );
   }
 
-  updateReunion(id: number, data: Partial<Reunion>): Observable<Reunion | undefined> {
+  // Actualiza una reunion (cambiar estado, etc)
+  actualizarReunion(id: number, data: Partial<Reunion>): Observable<Reunion | undefined> {
     return this.http.put<Reunion>(`${this.apiUrl}/${id}`, data).pipe(
       catchError(() => of(undefined))
     );
   }
 
-  deleteReunion(id: number): Observable<boolean> {
+  // Elimina una reunion
+  eliminarReunion(id: number): Observable<boolean> {
     return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`).pipe(
       map(() => true),
       catchError(() => of(false))
     );
   }
 
-  getEstadoEus(estado: ReunionEstado): ReunionEstadoEus {
+  // Traduce estado a euskera
+  obtenerEstadoEus(estado: ReunionEstado): ReunionEstadoEus {
     const map: Record<ReunionEstado, ReunionEstadoEus> = {
       pendiente: 'onartzeke',
       aceptada: 'onartuta',

@@ -1,9 +1,11 @@
+// Servicio de horarios - Gestiona horarios de profesores y alumnos
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, catchError, map } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from './users';
 
+// Dias de la semana
 export type WeekDay = 'LUNES' | 'MARTES' | 'MIERCOLES' | 'JUEVES' | 'VIERNES';
 
 export interface Modulo {
@@ -44,86 +46,100 @@ export class HorariosService {
 
   constructor(private http: HttpClient) {}
 
-  getHorarios(): Observable<Horario[]> {
+  // Obtiene todos los horarios
+  obtenerHorarios(): Observable<Horario[]> {
     return this.http.get<Horario[]>(this.apiUrl).pipe(
       catchError(() => of([]))
     );
   }
 
-  getHorarioById(id: number): Observable<Horario | undefined> {
+  // Obtiene horario por ID
+  obtenerHorarioPorId(id: number): Observable<Horario | undefined> {
     return this.http.get<Horario>(`${this.apiUrl}/${id}`).pipe(
       catchError(() => of(undefined))
     );
   }
 
-  getHorarioProfesor(profesorId: number): Observable<Horario[]> {
+  // Obtiene horario de un profesor
+  obtenerHorarioProfesor(profesorId: number): Observable<Horario[]> {
     return this.http.get<Horario[]>(`${this.apiUrl}/profesor/${profesorId}`).pipe(
       catchError(() => of([]))
     );
   }
 
-  getHorarioAula(aula: string): Observable<Horario[]> {
+  // Obtiene horario de un aula
+  obtenerHorarioAula(aula: string): Observable<Horario[]> {
     return this.http.get<Horario[]>(`${this.apiUrl}/aula/${aula}`).pipe(
       catchError(() => of([]))
     );
   }
 
-  getHorarioCiclo(cicloId: number): Observable<Horario[]> {
+  // Obtiene horario de un ciclo (para alumnos)
+  obtenerHorarioCiclo(cicloId: number): Observable<Horario[]> {
     return this.http.get<Horario[]>(`${this.apiUrl}/ciclo/${cicloId}`).pipe(
       catchError(() => of([]))
     );
   }
 
-  createHorario(horario: Partial<Horario>): Observable<Horario | undefined> {
+  // Crea una entrada de horario
+  crearHorario(horario: Partial<Horario>): Observable<Horario | undefined> {
     return this.http.post<Horario>(this.apiUrl, horario).pipe(
       catchError(() => of(undefined))
     );
   }
 
-  updateHorario(id: number, data: Partial<Horario>): Observable<Horario | undefined> {
+  // Actualiza una entrada de horario
+  actualizarHorario(id: number, data: Partial<Horario>): Observable<Horario | undefined> {
     return this.http.put<Horario>(`${this.apiUrl}/${id}`, data).pipe(
       catchError(() => of(undefined))
     );
   }
 
-  deleteHorario(id: number): Observable<boolean> {
+  // Elimina una entrada de horario
+  eliminarHorario(id: number): Observable<boolean> {
     return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`).pipe(
       map(() => true),
       catchError(() => of(false))
     );
   }
 
-  getModulos(): Observable<Modulo[]> {
+  // Obtiene todos los modulos
+  obtenerModulos(): Observable<Modulo[]> {
     return this.http.get<Modulo[]>(this.modulosUrl).pipe(
       catchError(() => of([]))
     );
   }
 
-  getModuloById(id: number): Observable<Modulo | undefined> {
+  // Obtiene modulo por ID
+  obtenerModuloPorId(id: number): Observable<Modulo | undefined> {
     return this.http.get<Modulo>(`${this.modulosUrl}/${id}`).pipe(
       catchError(() => of(undefined))
     );
   }
 
-  getModulosByCiclo(cicloId: number): Observable<Modulo[]> {
+  // Obtiene modulos de un ciclo
+  obtenerModulosPorCiclo(cicloId: number): Observable<Modulo[]> {
     return this.http.get<Modulo[]>(`${this.modulosUrl}/ciclo/${cicloId}`).pipe(
       catchError(() => of([]))
     );
   }
 
-  getCiclos(): Observable<Ciclo[]> {
+  // Obtiene todos los ciclos
+  obtenerCiclos(): Observable<Ciclo[]> {
     return this.http.get<Ciclo[]>(this.ciclosUrl).pipe(
       catchError(() => of([]))
     );
   }
 
-  getCicloById(id: number): Observable<Ciclo | undefined> {
+  // Obtiene ciclo por ID
+  obtenerCicloPorId(id: number): Observable<Ciclo | undefined> {
     return this.http.get<Ciclo>(`${this.ciclosUrl}/${id}`).pipe(
       catchError(() => of(undefined))
     );
   }
 
-  getDiaEus(dia: WeekDay): string {
+  // Traduce dia a euskera
+  obtenerDiaEus(dia: WeekDay): string {
     const map: Record<WeekDay, string> = {
       'LUNES': 'ASTELEHENA',
       'MARTES': 'ASTEARTEA',

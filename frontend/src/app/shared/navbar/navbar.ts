@@ -1,3 +1,4 @@
+// Navbar - Barra de navegacion con logo, idioma y logout
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common'; 
@@ -16,6 +17,7 @@ import { Subscription } from 'rxjs';
 export class Navbar implements OnInit, OnDestroy {
   
   currentLang: Language = 'eu';
+  
   languages = [
     { code: 'eu' as Language, name: 'Euskara', flag: '🇪🇺' },
     { code: 'es' as Language, name: 'Español', flag: '🇪🇸' },
@@ -25,7 +27,7 @@ export class Navbar implements OnInit, OnDestroy {
   private langSubscription?: Subscription;
   
   get currentUser() {
-    return this.authService.getUser();
+    return this.authService.obtenerUsuario();
   }
 
   constructor(
@@ -45,12 +47,12 @@ export class Navbar implements OnInit, OnDestroy {
     this.langSubscription?.unsubscribe();
   }
 
-  changeLanguage(lang: Language) {
-    this.translationService.setLanguage(lang);
+  cambiarIdioma(lang: Language) {
+    this.translationService.cambiarIdioma(lang);
   }
 
-  logout() {
-    this.authService.logout(); 
+  cerrarSesion() {
+    this.authService.cerrarSesion(); 
     this.router.navigate(['/login']); 
   }
 }

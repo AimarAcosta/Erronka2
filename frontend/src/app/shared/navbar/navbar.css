@@ -1,160 +1,124 @@
-/* ===== NAVBAR - Elorrieta-Erreka Mari ===== */
+/* Estilos de la barra de navegacion */
 
-.navbar {
-  background: linear-gradient(135deg, #2d3e50 0%, #1a252f 100%) !important;
-  padding: 14px 28px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  border-bottom: none;
-  border-radius: 0 0 20px 20px;
-  width: 100%;
-  margin: 0;
+.barra-navegacion {
+  background: linear-gradient(135deg, #2d3e50, #1a252f);
+  padding: 12px 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  border-radius: 0 0 15px 15px;
 }
 
-.navbar-brand {
+.contenedor-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.logo-marca {
   display: flex;
   align-items: center;
-  gap: 14px;
-  font-weight: 700;
+  gap: 10px;
   text-decoration: none;
-  transition: all 0.25s ease;
 }
 
-.navbar-brand:hover {
-  transform: translateY(-1px);
+.logo-marca img {
+  border-radius: 8px;
+  border: 2px solid rgba(255,255,255,0.2);
 }
 
-.navbar-brand span {
+.logo-marca span {
   color: white;
   font-size: 18px;
-  letter-spacing: -0.3px;
-  font-weight: 700;
+  font-weight: bold;
 }
 
-.navbar-brand img {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: all 0.25s ease;
-  border-radius: 12px;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.navbar-brand:hover img {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-  border-color: rgba(0, 161, 154, 0.5);
-}
-
-.text-white {
-  color: white !important;
-}
-
-.text-white .fw-bold {
-  color: white !important;
-  font-weight: 700;
-}
-
-.badge.bg-secondary {
-  background: #00a19a !important;
-  padding: 6px 14px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 0.75rem;
-  color: white;
-}
-
-.btn-outline-danger {
-  border: none;
-  color: white;
-  background: rgba(220, 38, 38, 0.9);
-  padding: 10px 18px;
-  border-radius: 12px;
-  font-weight: 600;
-  transition: all 0.25s ease;
+.acciones-nav {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-family: 'Poppins', sans-serif;
+  gap: 15px;
 }
 
-.btn-outline-danger:hover {
-  background: #dc2626;
-  color: white;
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
-  transform: translateY(-2px);
-}
-
-.btn-outline-danger:active {
-  transform: translateY(0);
-}
-
-@media (max-width: 768px) {
-  .navbar {
-    padding: 12px 20px;
-  }
-
-  .navbar-brand span {
-    font-size: 16px;
-  }
-
-  .btn-outline-danger {
-    padding: 8px 14px;
-    font-size: 13px;
-    border-radius: 8px;
-  }
-}
-
-@media (max-width: 480px) {
-  .navbar {
-    padding: 10px 16px;
-  }
-
-  .navbar-brand span {
-    font-size: 14px;
-  }
-
-  .btn-outline-danger {
-    padding: 6px 12px;
-    font-size: 12px;
-  }
-}
-
-/* Selector de idioma */
-.lang-buttons {
+/* Botones de idioma */
+.botones-idioma {
   display: flex;
   gap: 4px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.1);
   padding: 4px;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
 }
 
-.lang-btn {
-  padding: 6px 12px;
+.btn-idioma {
+  padding: 5px 10px;
   border: none;
   background: transparent;
-  color: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;
-  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  border-radius: 8px;
+  font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.lang-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
+.btn-idioma:hover {
+  background: rgba(255,255,255,0.1);
   color: white;
 }
 
-.lang-btn.active {
+.btn-idioma.activo {
   background: #00a19a;
   color: white;
 }
 
-@media (max-width: 576px) {
-  .lang-buttons {
-    padding: 2px;
+/* Info usuario */
+.info-usuario {
+  text-align: right;
+  color: white;
+}
+
+.nombre-usuario {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.etiqueta-rol {
+  background: #00a19a;
+  padding: 3px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Boton salir */
+.btn-salir {
+  background: rgba(220,38,38,0.9);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn-salir:hover {
+  background: #dc2626;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .barra-navegacion {
+    padding: 10px 15px;
   }
   
-  .lang-btn {
+  .info-usuario {
+    display: none;
+  }
+  
+  .btn-idioma {
     padding: 4px 8px;
-    font-size: 0.7rem;
+    font-size: 11px;
   }
 }

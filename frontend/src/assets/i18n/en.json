@@ -52,7 +52,10 @@
     "REJECTED": "Rejected",
     "CONFLICT": "Conflict",
     "REQUEST": "Request Meeting/Tutoring",
+    "CREATE": "Create meeting",
     "WITH": "With whom?",
+    "WITH_STUDENT": "With student",
+    "SELECT_STUDENT": "Select a student...",
     "WHERE": "Where? (Meeting location)",
     "SEND": "Send Request",
     "ACCEPT": "Accept",
@@ -83,7 +86,8 @@
     "PRIVATE": "Private",
     "OTHER": "Other public",
     "LOADING": "Loading centers...",
-    "LIST": "Center list"
+    "LIST": "Centers list",
+    "PAGE": "Page"
   },
   "USER": {
     "USERNAME": "Username",

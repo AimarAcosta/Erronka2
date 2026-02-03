@@ -1,3 +1,4 @@
+// Configuracion de TypeORM - Conexion a MySQL
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { User } from './entities/User';

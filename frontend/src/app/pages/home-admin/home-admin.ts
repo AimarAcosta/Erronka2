@@ -1,3 +1,4 @@
+// Panel del Admin - Puede gestionar profesores y estudiantes (no God ni Admin)
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
@@ -14,18 +15,21 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
 })
 export class HomeAdmin implements OnInit {
   
+  // Contadores
   studentCount: number = 0;
   teacherCount: number = 0;
   todayMeetings: number = 0;
 
+  // Lista de usuarios
   users: User[] = [];
   filteredUsers: User[] = [];
   tipos: Tipo[] = [];
   searchTerm: string = '';
 
+  // Control del formulario
   showForm: boolean = false;
   isEditing: boolean = false;
-  userForm: Partial<User> = this.getEmptyUser();
+  userForm: Partial<User> = this.obtenerUsuarioVacio();
 
   constructor(
     private usersService: UsersService,
@@ -34,86 +38,87 @@ export class HomeAdmin implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadData();
-    this.loadTipos();
+    this.cargarDatos();
+    this.cargarTipos();
   }
 
-  loadData() {
-    this.usersService.getUsers().subscribe(users => {
+  // Carga usuarios y contadores
+  cargarDatos() {
+    this.usersService.obtenerUsuarios().subscribe(users => {
       this.users = users;
-      this.filterUsers();
+      this.filtrarUsuarios();
       this.studentCount = this.users.filter(u => u.tipo_id === 4).length;
       this.teacherCount = this.users.filter(u => u.tipo_id === 3).length;
       this.cdr.detectChanges();
     });
     
-    this.reunionesService.getTodayCount().subscribe(count => {
+    this.reunionesService.contarReunionesHoy().subscribe(count => {
       this.todayMeetings = count;
       this.cdr.detectChanges();
     });
   }
 
-  loadTipos() {
-    this.usersService.getTipos().subscribe(tipos => {
-      this.tipos = tipos.filter(t => t.id !== 1);
+  // Carga los tipos (sin God)
+  cargarTipos() {
+    this.usersService.obtenerTipos().subscribe(tipos => {
+      this.tipos = tipos.filter(t => t.id !== 1); // Quitar God
       this.cdr.detectChanges();
     });
   }
 
-  onDeleteUser(id: number) {
+  // Elimina usuario (no se puede eliminar God ni Admin)
+  onEliminarUsuario(id: number) {
     const user = this.users.find(u => u.id === id);
     if (user && (user.tipo_id === 1 || user.tipo_id === 2)) {
-      alert('ERROREA: Ez duzu baimenik administratzaile edo Jainkoa ezabatzeko.');
+      alert('No puedes eliminar administradores');
       return;
     }
     
-    if (confirm('¿Ziur zaude erabiltzaile hau ezabatu nahi duzula? (¿Seguro?)')) {
-      this.usersService.deleteUser(id).subscribe(success => {
-        if (success) {
-          this.loadData();
-        } else {
-          alert('ERROREA: Ezin izan da erabiltzailea ezabatu.');
-        }
+    if (confirm('¿Eliminar este usuario?')) {
+      this.usersService.eliminarUsuario(id).subscribe(success => {
+        if (success) this.cargarDatos();
+        else alert('Error al eliminar');
       });
     }
   }
 
-  openCreateForm() {
+  abrirFormularioCrear() {
     this.isEditing = false;
-    this.userForm = this.getEmptyUser();
+    this.userForm = this.obtenerUsuarioVacio();
     this.showForm = true;
   }
 
-  openEditForm(user: User) {
+  abrirFormularioEditar(user: User) {
     this.isEditing = true;
     this.userForm = { ...user };
     this.showForm = true;
   }
 
+  // Envía el formulario (no puede crear God)
   onSubmit() {
     if (this.userForm.tipo_id === 1) {
-      alert('Ezin duzu Jainkorik sortu.');
+      alert('No puedes crear un God');
       return;
     }
 
     if (this.isEditing && this.userForm.id) {
-      this.usersService.updateUser(this.userForm.id, this.userForm).subscribe(() => {
+      this.usersService.actualizarUsuario(this.userForm.id, this.userForm).subscribe(() => {
         this.showForm = false;
-        this.loadData();
+        this.cargarDatos();
       });
     } else {
-      this.usersService.createUser(this.userForm).subscribe(() => {
+      this.usersService.crearUsuario(this.userForm).subscribe(() => {
         this.showForm = false;
-        this.loadData();
+        this.cargarDatos();
       });
     }
   }
 
-  cancelForm() {
+  cancelarFormulario() {
     this.showForm = false;
   }
 
-  filterUsers() {
+  filtrarUsuarios() {
     this.filteredUsers = this.users.filter(user => 
       (user.nombre?.toLowerCase() || '').includes(this.searchTerm.toLowerCase()) ||
       (user.apellidos?.toLowerCase() || '').includes(this.searchTerm.toLowerCase()) ||
@@ -121,11 +126,11 @@ export class HomeAdmin implements OnInit {
     );
   }
 
-  getEmptyUser(): Partial<User> {
+  obtenerUsuarioVacio(): Partial<User> {
     return { username: '', password: '123456', nombre: '', apellidos: '', email: '', tipo_id: 4 };
   }
 
-  getRoleName(tipoId: number): string {
-    return this.usersService.getRoleName(tipoId);
+  obtenerNombreRol(tipoId: number): string {
+    return this.usersService.obtenerNombreRol(tipoId);
   }
 }

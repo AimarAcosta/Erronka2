@@ -1,3 +1,4 @@
+// Entidad Usuario - Tabla users
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Tipo } from './Tipo';
 import { Horario } from './Horario';

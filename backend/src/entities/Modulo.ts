@@ -1,3 +1,4 @@
+// Entidad Modulo - Tabla modulos (asignaturas)
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { Ciclo } from './Ciclo';
 import { Horario } from './Horario';

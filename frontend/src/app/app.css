@@ -1,1 +1,21 @@
+/* 
+ * APP.CSS - Estilos del layout principal
+ * Define la estructura flexbox: navbar arriba, contenido en el centro, footer abajo
+ */
 
+/* ===== LAYOUT PRINCIPAL DE LA APLICACION ===== */
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.contenido-principal {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}

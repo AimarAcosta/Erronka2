@@ -1,3 +1,4 @@
+// Servicio de autenticacion - Guarda usuario en localStorage
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -9,29 +10,35 @@ export class AuthService {
 
   constructor(private router: Router) {}
 
-  login(user: any) {
+  // Guarda el usuario en localStorage
+  guardarUsuario(user: any) {
     localStorage.setItem(this.userKey, JSON.stringify(user));
   }
 
-  logout() {
+  // Cierra sesion y redirige a login
+  cerrarSesion() {
     localStorage.removeItem(this.userKey);
     this.router.navigate(['/login']);
   }
 
-  getUser() {
+  // Devuelve el usuario actual o null
+  obtenerUsuario() {
     const userStr = localStorage.getItem(this.userKey);
     return userStr ? JSON.parse(userStr) : null;
   }
 
-  isAuthenticated(): boolean {
+  // Comprueba si hay usuario logueado
+  estaAutenticado(): boolean {
     return !!localStorage.getItem(this.userKey);
   }
 
-  hasRole(expectedRole: string): boolean {
-    const user = this.getUser();
+  // Comprueba si el usuario tiene el rol esperado
+  // God (tipo_id=1) tiene acceso a todo
+  tieneRol(expectedRole: string): boolean {
+    const user = this.obtenerUsuario();
     if (!user) return false;
     
-    if (user.tipo_id === 1) return true;
+    if (user.tipo_id === 1) return true; // God puede todo
     
     const roleMap: { [key: string]: number } = {
       'god': 1,

@@ -1,153 +1,63 @@
-﻿<div class="container">
+﻿<div class="contenedor">
+  <!-- Cabecera -->
   <div class="row">
     <div class="col-12">
       <h2><i class="bi bi-backpack-fill"></i> {{ 'HOME.STUDENT_PANEL' | translate }}</h2>
       <p>
-        {{ 'COMMON.HELLO' | translate }}, <strong>{{ currentUser?.nombre }} {{ currentUser?.apellidos }}</strong
-        >! {{ 'HOME.WELCOME_MSG' | translate }}
+        {{ 'COMMON.HELLO' | translate }}, <strong>{{ currentUser?.nombre }} {{ currentUser?.apellidos }}</strong>! 
+        {{ 'HOME.WELCOME_MSG' | translate }}
       </p>
     </div>
   </div>
 
+  <!-- Tarjetas de estadísticas -->
   <div class="row">
-    <div class="col-md-4">
-      <div class="card stat-card">
-        <div class="card-body">
-          <div class="icon-circle">
-            <i class="bi bi-clock-history"></i>
-          </div>
-          <h5>{{ 'MEETING.PENDING' | translate }}</h5>
-          <h2>{{ pendingCount }}</h2>
+    <div class="col-md-6">
+      <div class="tarjeta-estadistica">
+        <div class="icono-circulo">
+          <i class="bi bi-clock-history"></i>
         </div>
+        <h5>{{ 'MEETING.PENDING' | translate }}</h5>
+        <h2>{{ pendingCount }}</h2>
       </div>
     </div>
-    <div class="col-md-4">
-      <div class="card stat-card">
-        <div class="card-body">
-          <div class="icon-circle">
-            <i class="bi bi-check-circle-fill"></i>
-          </div>
-          <h5>{{ 'MEETING.ACCEPTED' | translate }}</h5>
-          <h2>{{ acceptedCount }}</h2>
+    <div class="col-md-6">
+      <div class="tarjeta-estadistica">
+        <div class="icono-circulo">
+          <i class="bi bi-check-circle-fill"></i>
         </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card stat-card">
-        <div class="card-body">
-          <div class="icon-circle">
-            <i class="bi bi-person-video3"></i>
-          </div>
-          <h5>{{ 'HOME.TEACHERS' | translate }}</h5>
-          <h2>{{ teacherCount }}</h2>
-        </div>
+        <h5>{{ 'MEETING.ACCEPTED' | translate }}</h5>
+        <h2>{{ acceptedCount }}</h2>
       </div>
     </div>
   </div>
 
+  <!-- Lista de mis reuniones -->
   <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">
-          <div>
-            <h5><i class="bi bi-calendar-plus"></i> {{ 'MEETING.REQUEST' | translate }}</h5>
-          </div>
-          <button (click)="toggleForm()" class="btn btn-primary">
-            <i
-              class="bi"
-              [class.bi-x-lg]="showRequestForm"
-              [class.bi-plus-lg]="!showRequestForm"
-            ></i>
-            {{ showRequestForm ? ('MEETING.CLOSE' | translate) : ('MEETING.REQUEST' | translate) }}
-          </button>
-        </div>
-
-        <div class="card-body" *ngIf="showRequestForm">
-          <form (ngSubmit)="submitRequest()">
-            <div class="form-row">
-              <div class="form-group">
-                <label>{{ 'MEETING.WITH' | translate }}</label>
-                <select [(ngModel)]="newReunion.profesor_id" name="profesor" required>
-                  <option *ngFor="let t of teachers" [value]="t.id">
-                    {{ t.nombre }} {{ t.apellidos }}
-                  </option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label>{{ 'MEETING.TITLE' | translate }}</label>
-                <input
-                  type="text"
-                  [(ngModel)]="newReunion.titulo"
-                  name="titulo"
-                  required
-                  [placeholder]="'MEETING.TITLE_PLACEHOLDER' | translate"
-                />
-              </div>
-              <div class="form-group">
-                <label>{{ 'MEETING.SUBJECT' | translate }}</label>
-                <textarea [(ngModel)]="newReunion.asunto" name="asunto" rows="2"></textarea>
-              </div>
-            </div>
-
-            <div class="centro-selection">
-              <label><i class="bi bi-geo-alt"></i> {{ 'MEETING.WHERE' | translate }}</label>
-              <div class="selected-centro-preview" *ngIf="selectedCentro">
-                <strong>{{ selectedCentro.DNOMBRE }}</strong>
-                <small>{{ selectedCentro.DMUNI }}, {{ selectedCentro.DTERRE }}</small>
-              </div>
-              <div class="selected-centro-preview" *ngIf="!selectedCentro">
-                <strong>ELORRIETA-ERREKA MARI</strong>
-                <small>BILBAO, BIZKAIA {{ 'MEETING.DEFAULT_CENTER' | translate }}</small>
-              </div>
-              <button type="button" class="btn-change-centro" (click)="toggleCentroSelector()">
-                <i class="bi bi-pin-map"></i> {{ showCentroSelector ? ('MEETING.CLOSE' | translate) : ('MEETING.CHANGE_CENTER' | translate) }}
-              </button>
-            </div>
-
-            <div *ngIf="showCentroSelector" class="centro-selector-container">
-              <app-centro-selector
-                [selectedCentroId]="newReunion.id_centro || '15112'"
-                (centroSelected)="onCentroSelected($event)"
-              >
-              </app-centro-selector>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn btn-primary"><i class="bi bi-send"></i> {{ 'MEETING.SEND' | translate }}</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12">
-      <div class="card">
-        <div class="card-header">
+      <div class="tarjeta">
+        <div class="tarjeta-cabecera">
           <h5><i class="bi bi-clock-history"></i> {{ 'HOME.MY_MEETINGS' | translate }}</h5>
         </div>
-        <div class="card-body">
-          <div *ngIf="myReuniones.length === 0" class="empty-state">
+        <div class="tarjeta-cuerpo">
+          <div *ngIf="myReuniones.length === 0" class="estado-vacio">
             <i class="bi bi-calendar-x"></i>
             <p>{{ 'MEETING.NO_MEETINGS' | translate }}</p>
           </div>
-          <ul class="meetings-list" *ngIf="myReuniones.length > 0">
-            <li class="meeting-item" *ngFor="let m of myReuniones">
-              <div class="meeting-content">
-                <span class="meeting-title">{{ m.titulo }}</span>
-                <small class="meeting-subtitle">
+          <ul class="lista-reuniones" *ngIf="myReuniones.length > 0">
+            <li class="item-reunion" *ngFor="let m of myReuniones">
+              <div class="contenido-reunion">
+                <span class="titulo-reunion">{{ m.titulo }}</span>
+                <small class="subtitulo-reunion">
                   {{ m.profesor?.nombre }} {{ m.profesor?.apellidos }} |
                   {{ m.fecha | date : 'shortDate' }}
                 </small>
               </div>
-              <span
-                class="badge"
-                [class.status-pending]="m.estado === 'pendiente'"
-                [class.status-approved]="m.estado === 'aceptada'"
-                [class.status-rejected]="m.estado === 'denegada'"
-              >
-                {{ getEstadoEus(m.estado) | uppercase }}
+              <span class="etiqueta"
+                [class.estado-pendiente]="m.estado === 'pendiente'"
+                [class.estado-aceptada]="m.estado === 'aceptada'"
+                [class.estado-rechazada]="m.estado === 'denegada'">
+                {{ obtenerEstadoEus(m.estado) | uppercase }}
               </span>
             </li>
           </ul>
@@ -156,15 +66,16 @@
     </div>
   </div>
 
+  <!-- Tabla del horario -->
   <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">
+      <div class="tarjeta">
+        <div class="tarjeta-cabecera">
           <h5><i class="bi bi-calendar-week"></i> {{ 'SCHEDULE.MY_SCHEDULE' | translate }}</h5>
         </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="schedule-table">
+        <div class="tarjeta-cuerpo">
+          <div class="tabla-responsive">
+            <table class="tabla-horario">
               <thead>
                 <tr>
                   <th>{{ 'SCHEDULE.HOUR' | translate }}</th>
@@ -177,13 +88,13 @@
               </thead>
               <tbody>
                 <tr *ngFor="let row of timeTable; let i = index">
-                  <td class="hour-cell">{{ i + 1 }}</td>
-                  <td *ngFor="let cell of row" class="schedule-cell">
-                    <div *ngIf="cell.text" class="schedule-content" [ngClass]="cell.colorClass">
-                      <span class="schedule-text">{{ cell.text }}</span>
-                      <span class="schedule-subtext" *ngIf="cell.subtext">{{ cell.subtext }}</span>
+                  <td class="celda-hora">{{ i + 1 }}</td>
+                  <td *ngFor="let cell of row" class="celda-horario">
+                    <div *ngIf="cell.text" class="contenido-horario" [ngClass]="cell.colorClass">
+                      <span class="texto-horario">{{ cell.text }}</span>
+                      <span class="subtexto-horario" *ngIf="cell.subtext">{{ cell.subtext }}</span>
                     </div>
-                    <div *ngIf="!cell.text" class="schedule-empty">-</div>
+                    <div *ngIf="!cell.text" class="celda-vacia">-</div>
                   </td>
                 </tr>
               </tbody>

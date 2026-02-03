@@ -1,3 +1,4 @@
+// Servicio de traduccion (i18n) - Carga JSON de idiomas
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
@@ -10,18 +11,18 @@ export type Language = 'eu' | 'es' | 'en';
 export class TranslationService {
   private currentLang = new BehaviorSubject<Language>('eu');
   private translations: { [key: string]: any } = {};
-
   currentLang$ = this.currentLang.asObservable();
 
   constructor(private http: HttpClient) {
-    this.loadTranslationsSync('eu');
+    this.cargarTraducciones('eu');
   }
 
   get lang(): Language {
     return this.currentLang.value;
   }
 
-  setLanguage(lang: Language) {
+  // Cambia el idioma y carga el JSON
+  cambiarIdioma(lang: Language) {
     if (lang === this.currentLang.value) return;
     this.http.get<any>(`/assets/i18n/${lang}.json`).subscribe({
       next: (data) => {
@@ -32,7 +33,8 @@ export class TranslationService {
     });
   }
 
-  private loadTranslationsSync(lang: Language) {
+  // Carga traducciones (uso interno)
+  private cargarTraducciones(lang: Language) {
     this.http.get<any>(`/assets/i18n/${lang}.json`).subscribe({
       next: (data) => {
         this.translations = data;
@@ -42,7 +44,8 @@ export class TranslationService {
     });
   }
 
-  translate(key: string): string {
+  // Traduce una clave (ej: 'HOME.TITLE')
+  traducir(key: string): string {
     const keys = key.split('.');
     let result: any = this.translations;
 
@@ -57,7 +60,8 @@ export class TranslationService {
     return typeof result === 'string' ? result : key;
   }
 
+  // Alias de traducir
   instant(key: string): string {
-    return this.translate(key);
+    return this.traducir(key);
   }
 }

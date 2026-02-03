@@ -1,3 +1,4 @@
+// Entidad Ciclo - Tabla ciclos (DAW, DAM, ASIR, etc)
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Modulo } from './Modulo';
 import { Matriculacion } from './Matriculacion';

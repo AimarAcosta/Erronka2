@@ -1,5 +1,11 @@
-<app-navbar></app-navbar>
-<main style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;">
-  <router-outlet></router-outlet>
-</main>
-<app-footer></app-footer>
+<!-- 
+  APP.HTML - Plantilla principal de la aplicación
+  Estructura: Navbar (arriba) + Contenido dinámico (centro) + Footer (abajo)
+-->
+<div class="app-layout">
+  <app-navbar></app-navbar>
+  <main class="contenido-principal">
+    <router-outlet></router-outlet>
+  </main>
+  <app-footer></app-footer>
+</div>

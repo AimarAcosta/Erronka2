@@ -1,8 +1,10 @@
+// Selector de Centro Educativo - Mapa con filtros para elegir ikastetxe
 import { Component, OnInit, Input, Output, EventEmitter, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CentrosService, Centro } from '../../services/centros';
 import { TranslatePipe } from '../../pipes/translate.pipe';
+
 declare var maplibregl: any;
 
 @Component({
@@ -13,22 +15,30 @@ declare var maplibregl: any;
   styleUrl: './centro-selector.css'
 })
 export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
-  @Input() selectedCentroId: string = '15112';
+  
+  @Input() selectedCentroId: string = '15112'; // Elorrieta por defecto
   @Output() centroSelected = new EventEmitter<Centro>();
 
+  // Datos de centros
   centros: Centro[] = [];
   filteredCentros: Centro[] = [];
   selectedCentro: Centro | null = null;
   isLoading = true;
 
+  // Filtros
   tipos: string[] = [];
   territorios: string[] = [];
   municipios: string[] = [];
-
   filterTipo: string = '';
   filterTerritorio: string = '';
   filterMunicipio: string = '';
 
+  // Paginacion
+  currentPage = 1;
+  itemsPerPage = 10;
+  totalPages = 1;
+
+  // Mapa
   private map: any;
   private markers: any[] = [];
   private mapInitialized = false;
@@ -39,39 +49,40 @@ export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.loadCentros();
-    this.loadFilterOptions();
+    this.cargarCentros();
+    this.cargarOpcionesFiltros();
   }
 
   ngAfterViewInit() {
+    // El mapa se inicializa desde cargarCentros
   }
 
-  private tryInitMap(attempts = 0) {
+  // Intenta inicializar el mapa cuando el DOM este listo
+  private intentarInicializarMapa(intentos = 0) {
     if (this.mapInitialized) return;
-    
-    if (attempts > 10) return;
+    if (intentos > 10) return;
     
     const container = document.getElementById('map-container');
     
     if (container && container.clientWidth > 0) {
-      this.initMap();
+      this.inicializarMapa();
     } else {
-      setTimeout(() => this.tryInitMap(attempts + 1), 200);
+      setTimeout(() => this.intentarInicializarMapa(intentos + 1), 200);
     }
   }
 
   ngOnDestroy() {
-    if (this.map) {
-      this.map.remove();
-    }
+    if (this.map) this.map.remove();
   }
 
-  loadCentros() {
+  // Carga todos los centros
+  cargarCentros() {
     this.isLoading = true;
-    this.centrosService.getCentros().subscribe({
+    this.centrosService.obtenerCentros().subscribe({
       next: (centros) => {
         this.centros = centros;
         this.filteredCentros = centros;
+        this.calcularTotalPaginas();
         this.isLoading = false;
         
         if (this.selectedCentroId) {
@@ -79,10 +90,7 @@ export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
         }
         
         this.cdr.detectChanges();
-        
-        setTimeout(() => {
-          this.tryInitMap();
-        }, 100);
+        setTimeout(() => this.intentarInicializarMapa(), 100);
       },
       error: () => {
         this.isLoading = false;
@@ -91,50 +99,59 @@ export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  loadFilterOptions() {
-    this.centrosService.getTipos().subscribe(tipos => {
+  // Carga opciones de los dropdowns
+  cargarOpcionesFiltros() {
+    this.centrosService.obtenerTipos().subscribe(tipos => {
       this.tipos = tipos;
       this.cdr.detectChanges();
     });
     
-    this.centrosService.getTerritorios().subscribe(territorios => {
+    this.centrosService.obtenerTerritorios().subscribe(territorios => {
       this.territorios = territorios;
       this.cdr.detectChanges();
     });
   }
 
-  onTerritorioChange() {
+  // Cuando cambia el territorio, actualiza municipios
+  onCambiarTerritorio() {
     this.filterMunicipio = '';
-    this.centrosService.getMunicipios(this.filterTerritorio).subscribe(municipios => {
+    this.centrosService.obtenerMunicipios(this.filterTerritorio).subscribe(municipios => {
       this.municipios = municipios;
       this.cdr.detectChanges();
     });
-    this.applyFilters();
+    this.aplicarFiltros();
   }
 
-  applyFilters() {
-    this.centrosService.filterCentros({
+  // Aplica filtros
+  aplicarFiltros() {
+    this.centrosService.filtrarCentros({
       tipo: this.filterTipo,
       territorio: this.filterTerritorio,
       municipio: this.filterMunicipio
     }).subscribe(centros => {
       this.filteredCentros = centros;
+      this.currentPage = 1; // Reset a primera pagina al filtrar
+      this.calcularTotalPaginas();
       this.cdr.detectChanges();
-      this.updateMarkers();
+      this.actualizarMarcadores();
     });
   }
 
-  clearFilters() {
+  // Limpia filtros
+  limpiarFiltros() {
     this.filterTipo = '';
     this.filterTerritorio = '';
     this.filterMunicipio = '';
     this.municipios = [];
     this.filteredCentros = this.centros;
+    this.currentPage = 1;
+    this.calcularTotalPaginas();
     this.cdr.detectChanges();
-    this.updateMarkers();
+    this.actualizarMarcadores();
   }
 
-  selectCentro(centro: Centro) {
+  // Selecciona un centro
+  seleccionarCentro(centro: Centro) {
     this.selectedCentro = centro;
     this.selectedCentroId = centro.CCODIGO;
     this.centroSelected.emit(centro);
@@ -143,21 +160,20 @@ export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
       this.map.flyTo({ center: [centro.LON, centro.LAT], zoom: 14 });
     }
     
-    this.updateMarkers();
+    this.actualizarMarcadores();
   }
 
-  private initMap() {
+  // Inicializa el mapa MapLibre
+  private inicializarMapa() {
     const container = document.getElementById('map-container');
-    
     if (!container) return;
-
     if (typeof maplibregl === 'undefined') return;
 
     try {
       this.map = new maplibregl.Map({
         container: 'map-container',
         style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
-        center: [-2.935, 43.263],
+        center: [-2.935, 43.263], // Bilbao
         zoom: 10
       });
 
@@ -165,25 +181,28 @@ export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
 
       this.map.on('load', () => {
         this.mapInitialized = true;
-        this.updateMarkers();
+        this.actualizarMarcadores();
       });
 
     } catch (error) {
-      console.error('Error initializing MapLibre:', error);
+      // Error al inicializar mapa
     }
   }
 
-  private updateMarkers() {
+  // Actualiza los marcadores del mapa
+  private actualizarMarcadores() {
     if (!this.map || !this.mapInitialized) return;
 
+    // Elimina marcadores antiguos
     this.markers.forEach(marker => marker.remove());
     this.markers = [];
 
+    // Crea nuevos marcadores
     this.filteredCentros.forEach(centro => {
       const isSelected = centro.CCODIGO === this.selectedCentroId;
       
       const el = document.createElement('div');
-      el.className = 'mapbox-marker';
+      el.className = 'marcador-mapa';
       el.style.cssText = `
         width: 28px;
         height: 28px;
@@ -195,7 +214,7 @@ export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
       `;
 
       const popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
-        <div style="font-family: 'Poppins', sans-serif; padding: 8px;">
+        <div style="padding: 8px;">
           <strong style="color: #c8102e;">${centro.DNOMBRE}</strong><br>
           <small style="color: #666;">${centro.TIPO_CENTRO} - ${centro.DTITUC}</small><br>
           <small>${centro.DDOMICILIO || ''}</small><br>
@@ -208,17 +227,68 @@ export class CentroSelector implements OnInit, AfterViewInit, OnDestroy {
         .setPopup(popup)
         .addTo(this.map);
 
-      el.addEventListener('click', () => {
-        this.selectCentro(centro);
-      });
-
+      el.addEventListener('click', () => this.seleccionarCentro(centro));
       this.markers.push(marker);
     });
 
+    // Ajusta el mapa para mostrar todos los centros
     if (this.filteredCentros.length > 0) {
       const bounds = new maplibregl.LngLatBounds();
       this.filteredCentros.forEach(c => bounds.extend([c.LON, c.LAT]));
       this.map.fitBounds(bounds, { padding: 50 });
     }
+  }
+
+  // ===== PAGINACION =====
+
+  // Getter para obtener los centros de la pagina actual
+  get centrosPaginados(): Centro[] {
+    const inicio = (this.currentPage - 1) * this.itemsPerPage;
+    const fin = inicio + this.itemsPerPage;
+    return this.filteredCentros.slice(inicio, fin);
+  }
+
+  // Calcula el total de paginas
+  calcularTotalPaginas() {
+    this.totalPages = Math.ceil(this.filteredCentros.length / this.itemsPerPage);
+    if (this.totalPages === 0) this.totalPages = 1;
+  }
+
+  // Ir a pagina anterior
+  paginaAnterior() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  // Ir a pagina siguiente
+  paginaSiguiente() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  // Ir a una pagina especifica
+  irAPagina(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  // Genera array de numeros de pagina para mostrar
+  obtenerNumerosPaginas(): number[] {
+    const pages: number[] = [];
+    const maxVisible = 5;
+    let start = Math.max(1, this.currentPage - Math.floor(maxVisible / 2));
+    let end = Math.min(this.totalPages, start + maxVisible - 1);
+    
+    if (end - start + 1 < maxVisible) {
+      start = Math.max(1, end - maxVisible + 1);
+    }
+    
+    for (let i = start; i <= end; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 }

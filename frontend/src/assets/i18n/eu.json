@@ -52,7 +52,10 @@
     "REJECTED": "Ezeztatuta",
     "CONFLICT": "Gatazka",
     "REQUEST": "Bilera / Tutoretza Eskatu",
+    "CREATE": "Bilera sortu",
     "WITH": "Norekin?",
+    "WITH_STUDENT": "Ikaslearekin",
+    "SELECT_STUDENT": "Aukeratu ikaslea...",
     "WHERE": "Non? (Bilera-lekua)",
     "SEND": "Bidali Eskaera",
     "ACCEPT": "Onartu",
@@ -83,7 +86,8 @@
     "PRIVATE": "Pribatua",
     "OTHER": "Beste publikoa",
     "LOADING": "Zentroak kargatzen...",
-    "LIST": "Zentroen zerrenda"
+    "LIST": "Zentroen zerrenda",
+    "PAGE": "Orrialdea"
   },
   "USER": {
     "USERNAME": "Erabiltzailea",

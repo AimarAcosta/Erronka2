@@ -1,3 +1,4 @@
+// Servicio de matriculaciones - Vincula alumnos con ciclos
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, catchError, map } from 'rxjs';
@@ -27,52 +28,46 @@ export class MatriculacionesService {
 
   constructor(private http: HttpClient) {}
 
-  getMatriculaciones(): Observable<Matriculacion[]> {
+  // Obtiene todas las matriculaciones
+  obtenerMatriculaciones(): Observable<Matriculacion[]> {
     return this.http.get<Matriculacion[]>(this.apiUrl).pipe(
-      catchError(() => {
-        return of([]);
-      })
+      catchError(() => of([]))
     );
   }
 
-  getMatriculacionById(id: number): Observable<Matriculacion | undefined> {
+  // Obtiene matriculacion por ID
+  obtenerMatriculacionPorId(id: number): Observable<Matriculacion | undefined> {
     return this.http.get<Matriculacion>(`${this.apiUrl}/${id}`).pipe(
-      catchError(() => {
-        return of(undefined);
-      })
+      catchError(() => of(undefined))
     );
   }
 
-  getMatriculacionesAlumno(alumnoId: number): Observable<Matriculacion[]> {
+  // Obtiene matriculaciones de un alumno
+  obtenerMatriculacionesAlumno(alumnoId: number): Observable<Matriculacion[]> {
     return this.http.get<Matriculacion[]>(`${this.apiUrl}/alumno/${alumnoId}`).pipe(
-      catchError(() => {
-        return of([]);
-      })
+      catchError(() => of([]))
     );
   }
 
-  getMatriculacionesCiclo(cicloId: number): Observable<Matriculacion[]> {
+  // Obtiene matriculaciones de un ciclo
+  obtenerMatriculacionesCiclo(cicloId: number): Observable<Matriculacion[]> {
     return this.http.get<Matriculacion[]>(`${this.apiUrl}/ciclo/${cicloId}`).pipe(
-      catchError(() => {
-        return of([]);
-      })
+      catchError(() => of([]))
     );
   }
 
-  createMatriculacion(matriculacion: Partial<Matriculacion>): Observable<Matriculacion | undefined> {
+  // Crea una matriculacion
+  crearMatriculacion(matriculacion: Partial<Matriculacion>): Observable<Matriculacion | undefined> {
     return this.http.post<Matriculacion>(this.apiUrl, matriculacion).pipe(
-      catchError(() => {
-        return of(undefined);
-      })
+      catchError(() => of(undefined))
     );
   }
 
-  deleteMatriculacion(id: number): Observable<boolean> {
+  // Elimina una matriculacion
+  eliminarMatriculacion(id: number): Observable<boolean> {
     return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`).pipe(
       map(() => true),
-      catchError(() => {
-        return of(false);
-      })
+      catchError(() => of(false))
     );
   }
 }

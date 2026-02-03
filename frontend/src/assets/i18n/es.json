@@ -52,7 +52,10 @@
     "REJECTED": "Rechazada",
     "CONFLICT": "Conflicto",
     "REQUEST": "Solicitar reunión/tutoría",
+    "CREATE": "Crear reunión",
     "WITH": "¿Con quién?",
+    "WITH_STUDENT": "Con alumno",
+    "SELECT_STUDENT": "Selecciona un alumno...",
     "WHERE": "¿Dónde? (Lugar de reunión)",
     "SEND": "Enviar solicitud",
     "ACCEPT": "Aceptar",
@@ -83,7 +86,8 @@
     "PRIVATE": "Privado",
     "OTHER": "Otro público",
     "LOADING": "Cargando centros...",
-    "LIST": "Lista de centros"
+    "LIST": "Lista de centros",
+    "PAGE": "Página"
   },
   "USER": {
     "USERNAME": "Usuario",

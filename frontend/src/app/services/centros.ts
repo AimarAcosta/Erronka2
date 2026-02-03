@@ -1,7 +1,9 @@
+// Servicio de centros educativos - Carga datos de OpenData Euskadi
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, of, catchError } from 'rxjs';
 
+// Formato del JSON original
 export interface CentroRaw {
   CCEN: number;
   NOM: string;
@@ -33,6 +35,7 @@ export interface CentrosResponse {
   CENTROS: CentroRaw[];
 }
 
+// Formato normalizado para la app
 export interface Centro {
   CCODIGO: string;
   DNOMBRE: string;
@@ -58,7 +61,9 @@ export class CentrosService {
 
   constructor(private http: HttpClient) {}
 
-  private transformCentro(raw: CentroRaw): Centro {
+  // Transforma datos del JSON al formato de la app
+  // NOTA: En el JSON LATITUD y LONGITUD estan intercambiados
+  private transformarCentro(raw: CentroRaw): Centro {
     return {
       CCODIGO: raw.CCEN.toString(),
       DNOMBRE: raw.NOME || raw.NOM,
@@ -71,20 +76,19 @@ export class CentrosService {
       EMAIL: raw.EMAIL,
       WEB: raw.PAGINA?.trim() || '',
       TIPO_CENTRO: raw.DGENRE || raw.DGENRC,
-      LAT: raw.LONGITUD,  // En el JSON LONGITUD es latitud (eje Y)
-      LON: raw.LATITUD    // En el JSON LATITUD es longitud (eje X)
+      LAT: raw.LONGITUD,
+      LON: raw.LATITUD
     };
   }
 
-  getCentros(): Observable<Centro[]> {
+  // Obtiene todos los centros (con cache)
+  obtenerCentros(): Observable<Centro[]> {
     if (this.centros.length > 0) {
       return of(this.centros);
     }
+    
     return this.http.get<any>(this.dataUrl).pipe(
       map(response => {
-        console.log('Centros response type:', typeof response, response);
-        
-        // Extraer el array de centros según la estructura
         let centrosArray: CentroRaw[] = [];
         
         if (response && response.CENTROS && Array.isArray(response.CENTROS)) {
@@ -92,47 +96,47 @@ export class CentrosService {
         } else if (Array.isArray(response)) {
           centrosArray = response;
         } else {
-          console.error('Formato de centros no reconocido:', response);
           return [];
         }
         
-        console.log('Centros count:', centrosArray.length);
-        this.centros = centrosArray.map((raw: CentroRaw) => this.transformCentro(raw));
+        this.centros = centrosArray.map((raw: CentroRaw) => this.transformarCentro(raw));
         return this.centros;
       }),
-      catchError(error => {
-        console.error('Error cargando centros:', error);
-        return of([]);
-      })
+      catchError(() => of([]))
     );
   }
 
-  getCentroById(codigo: string): Observable<Centro | undefined> {
-    return this.getCentros().pipe(
+  // Obtiene centro por codigo
+  obtenerCentroPorId(codigo: string): Observable<Centro | undefined> {
+    return this.obtenerCentros().pipe(
       map(centros => centros.find(c => c.CCODIGO === codigo))
     );
   }
 
-  filterByTipo(tipo: string): Observable<Centro[]> {
-    return this.getCentros().pipe(
+  // Filtra por tipo de centro
+  filtrarPorTipo(tipo: string): Observable<Centro[]> {
+    return this.obtenerCentros().pipe(
       map(centros => tipo ? centros.filter(c => c.TIPO_CENTRO === tipo) : centros)
     );
   }
 
-  filterByTerritorio(territorio: string): Observable<Centro[]> {
-    return this.getCentros().pipe(
+  // Filtra por territorio
+  filtrarPorTerritorio(territorio: string): Observable<Centro[]> {
+    return this.obtenerCentros().pipe(
       map(centros => territorio ? centros.filter(c => c.DTERRE === territorio) : centros)
     );
   }
 
-  filterByMunicipio(municipio: string): Observable<Centro[]> {
-    return this.getCentros().pipe(
+  // Filtra por municipio
+  filtrarPorMunicipio(municipio: string): Observable<Centro[]> {
+    return this.obtenerCentros().pipe(
       map(centros => municipio ? centros.filter(c => c.DMUNI === municipio) : centros)
     );
   }
 
-  filterCentros(filters: { tipo?: string; territorio?: string; municipio?: string }): Observable<Centro[]> {
-    return this.getCentros().pipe(
+  // Filtra con multiples criterios
+  filtrarCentros(filters: { tipo?: string; territorio?: string; municipio?: string }): Observable<Centro[]> {
+    return this.obtenerCentros().pipe(
       map(centros => {
         let result = centros;
         if (filters.tipo) {
@@ -149,20 +153,23 @@ export class CentrosService {
     );
   }
 
-  getTipos(): Observable<string[]> {
-    return this.getCentros().pipe(
+  // Para dropdown de tipos
+  obtenerTipos(): Observable<string[]> {
+    return this.obtenerCentros().pipe(
       map(centros => [...new Set(centros.map(c => c.TIPO_CENTRO))].filter(t => t).sort())
     );
   }
 
-  getTerritorios(): Observable<string[]> {
-    return this.getCentros().pipe(
+  // Para dropdown de territorios
+  obtenerTerritorios(): Observable<string[]> {
+    return this.obtenerCentros().pipe(
       map(centros => [...new Set(centros.map(c => c.DTERRE))])
     );
   }
 
-  getMunicipios(territorio?: string): Observable<string[]> {
-    return this.getCentros().pipe(
+  // Para dropdown de municipios (filtrable por territorio)
+  obtenerMunicipios(territorio?: string): Observable<string[]> {
+    return this.obtenerCentros().pipe(
       map(centros => {
         const filtered = territorio 
           ? centros.filter(c => c.DTERRE === territorio)
@@ -172,7 +179,8 @@ export class CentrosService {
     );
   }
 
-  getDefaultCentro(): Observable<Centro | undefined> {
-    return this.getCentroById('15112');
+  // Centro por defecto: Elorrieta-Erreka Mari
+  obtenerCentroDefecto(): Observable<Centro | undefined> {
+    return this.obtenerCentroPorId('15112');
   }
 }

@@ -1,3 +1,4 @@
+// Footer - Pie de pagina estatico
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,6 +7,4 @@ import { Component } from '@angular/core';
   templateUrl: './footer.html',
   styleUrls: ['./footer.css']
 })
-export class Footer {
-
-}
+export class Footer {}

@@ -1,40 +1,28 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-  <div class="container-fluid">
-    <a class="navbar-brand d-flex align-items-center" routerLink="/">
-      <img
-        src="assets/logo.jpg"
-        alt="Logo"
-        width="30"
-        height="30"
-        class="d-inline-block align-top me-2 bg-white rounded-circle p-1"
-      />
-      <span class="fw-bold tracking-wide">Elorrieta</span>
+<nav class="barra-navegacion">
+  <div class="contenedor-nav">
+    <a class="logo-marca" routerLink="/">
+      <img src="assets/logo.jpg" alt="Logo" width="30" height="30" />
+      <span>Elorrieta</span>
     </a>
 
-    <div class="d-flex align-items-center gap-3">
-      <div class="lang-buttons">
+    <div class="acciones-nav">
+      <div class="botones-idioma">
         <button 
           *ngFor="let lang of languages"
-          class="lang-btn"
-          [class.active]="currentLang === lang.code"
-          (click)="changeLanguage(lang.code)">
+          class="btn-idioma"
+          [class.activo]="currentLang === lang.code"
+          (click)="cambiarIdioma(lang.code)">
           {{ lang.code | uppercase }}
         </button>
       </div>
 
-      <div *ngIf="currentUser">
-        <div class="text-white me-3 text-end d-none d-md-block">
-          <div class="fw-bold" style="font-size: 0.9rem">
-            {{ currentUser.nombre }} {{ currentUser.apellidos }}
-          </div>
-          <div class="badge bg-secondary" style="font-size: 0.7rem">
-            {{ currentUser.role | uppercase }}
-          </div>
-        </div>
+      <div *ngIf="currentUser" class="info-usuario">
+        <div class="nombre-usuario">{{ currentUser.nombre }} {{ currentUser.apellidos }}</div>
+        <div class="etiqueta-rol">{{ currentUser.role | uppercase }}</div>
       </div>
 
-      <button *ngIf="currentUser" class="btn btn-outline-danger btn-sm" (click)="logout()">
-        <i class="bi bi-box-arrow-right me-1"></i> {{ 'NAV.LOGOUT' | translate }}
+      <button *ngIf="currentUser" class="btn-salir" (click)="cerrarSesion()">
+        <i class="bi bi-box-arrow-right"></i> {{ 'NAV.LOGOUT' | translate }}
       </button>
     </div>
   </div>

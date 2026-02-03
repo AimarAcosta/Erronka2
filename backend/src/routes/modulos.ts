@@ -1,3 +1,4 @@
+// Rutas de modulos - Lista de asignaturas por ciclo
 import { Router } from 'express';
 import { AppDataSource } from '../data-source';
 import { Modulo } from '../entities/Modulo';
