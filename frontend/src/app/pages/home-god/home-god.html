@@ -99,7 +99,7 @@
         </div>
 
         <div class="form-actions">
-          <button type="button" (click)="cancelForm()">{{ 'USER.CANCEL' | translate }}</button>
+          <button type="button" (click)="cancelarFormulario()">{{ 'USER.CANCEL' | translate }}</button>
           <button type="submit">{{ 'USER.SAVE' | translate }}</button>
         </div>
       </form>
@@ -118,10 +118,10 @@
                 type="text"
                 [placeholder]="'USER.SEARCH' | translate"
                 [(ngModel)]="searchTerm"
-                (input)="filterUsers()"
+                (input)="filtrarUsuarios()"
               />
             </div>
-            <button class="btn btn-primary" (click)="openCreateForm()" *ngIf="!showForm">
+            <button class="btn btn-primary" (click)="abrirFormularioCrear()" *ngIf="!showForm">
               <i class="bi bi-plus-lg"></i> {{ 'USER.NEW' | translate }}
             </button>
           </div>
@@ -142,7 +142,7 @@
                 <tr *ngFor="let user of filteredUsers">
                   <td>
                     <div class="user-info">
-                      <div class="avatar-circle">{{ user.nombre?.charAt(0) || '?' }}</div>
+                      <div class="avatar-circle">{{ user.nombre.charAt(0) || '?' }}</div>
                       <div>
                         <div>{{ user.username }}</div>
                         <div>{{ user.email }}</div>
@@ -153,16 +153,16 @@
                   <td>{{ user.nombre }} {{ user.apellidos }}</td>
 
                   <td>
-                    <span>{{ getRoleName(user.tipo_id) | uppercase }}</span>
+                    <span>{{ obtenerNombreRol(user.tipo_id) | uppercase }}</span>
                   </td>
 
                   <td>
-                    <button class="btn" (click)="openEditForm(user)" [title]="'USER.EDIT' | translate">
+                    <button class="btn" (click)="abrirFormularioEditar(user)" [title]="'USER.EDIT' | translate">
                       <i class="bi bi-pencil"></i>
                     </button>
                     <button
                       class="btn"
-                      (click)="onDeleteUser(user.id)"
+                      (click)="onEliminarUsuario(user.id)"
                       [disabled]="user.tipo_id === 1"
                       [title]="'USER.DELETE' | translate"
                     >
