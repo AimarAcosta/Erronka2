@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -133,12 +134,37 @@ public class OtrosHorarios extends JFrame {
                         }
                 	}
                 }
-        		for(modelo.Reuniones r : reuniones) {
-                	Date dia = r.getFecha();
-                	//if(controlador.Servicios.estaEnEstaSemana(dia)) {
-                		System.out.println(dia.getDay());
-                	//}
-                }
+        		for (Reuniones r : reuniones) {
+
+        		    Calendar cal = Calendar.getInstance();
+        		    cal.setTime(r.getFecha());
+
+        		    int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+        		    int columna = -1;
+
+        		    switch (dayOfWeek) {
+        		        case Calendar.MONDAY:    columna = 1; break;
+        		        case Calendar.TUESDAY:   columna = 2; break;
+        		        case Calendar.WEDNESDAY: columna = 3; break;
+        		        case Calendar.THURSDAY:  columna = 4; break;
+        		        case Calendar.FRIDAY:    columna = 5; break;
+        		    }
+
+        		    int hour = cal.get(Calendar.HOUR_OF_DAY);
+        		    int fila = -1;
+
+        		    if (hour >= 8 && hour < 9) fila = 0;
+        		    else if (hour >= 9 && hour < 10) fila = 1;
+        		    else if (hour >= 10 && hour < 11) fila = 2;
+        		    else if (hour >= 11 && hour < 12) fila = 3;
+        		    else if (hour >= 12 && hour < 13) fila = 4;
+        		    else if (hour >= 13 && hour < 14) fila = 5;
+
+        		    if (fila != -1 && columna != -1) {
+        		        model.setValueAt("REUNIÓN", fila, columna);
+        		        // o r.getTitulo(), o r.getAsunto()
+        		    }
+        		}
         	}
         });
         comboBox.setBounds(256, 19, 208, 22);

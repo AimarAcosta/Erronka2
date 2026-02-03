@@ -5,6 +5,7 @@ import java.lang.reflect.Type;
 import java.net.Socket;
 import java.security.*;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Map;
@@ -43,48 +44,45 @@ public class ClienteSocket {
 	private static List<Map<String, Object>> listaHorarios;
 	private static List<Map<String, Object>> listaModulos;
 
-	private static final String IP_SERVIDOR = "10.5.104.124"; 
+	private static final String IP_SERVIDOR = "10.5.104.124";
 
-    private static final int PUERTO = 9000;
+	private static final int PUERTO = 9000;
 
+	public static void conectar() throws Exception {
 
-    public static void conectar() throws Exception {
+		if (socket == null || socket.isClosed()) {
+			socket = new Socket(IP_SERVIDOR, PUERTO);
+			out = new ObjectOutputStream(socket.getOutputStream());
+			out.flush();
+			in = new ObjectInputStream(socket.getInputStream());
+			System.out.println("Conectado al servidor");
+		}
+	}
 
-        if (socket == null || socket.isClosed()) {
-            socket = new Socket(IP_SERVIDOR, PUERTO);
-            out = new ObjectOutputStream(socket.getOutputStream());
-            out.flush();
-            in = new ObjectInputStream(socket.getInputStream());
-            System.out.println("Conectado al servidor");
-        }
-    }
+	public static Users realizarLogin(String username, String password) {
 
-    public static Users realizarLogin(String username, String password) {
+		try {
 
-        try {
+			conectar();
+			// Enviamos la contraseña
+			Map<String, Object> peticion = Map.of("tipo", "LOGIN", "contenido",
+					Map.of("username", username, "password", password));
+			// Enviamos al servidor
+			out.writeObject(gson.toJson(peticion));
+			out.flush();
 
-            conectar();
-            // Enviamos la contraseña 
-            Map<String, Object> peticion = Map.of(
-                "tipo", "LOGIN",
-                "contenido", Map.of("username", username, "password", password)
-            );
-            // Enviamos al servidor
-            out.writeObject(gson.toJson(peticion));
-            out.flush();
-
-            // Recibimos la respuesta
-            String respuestaJson = (String) in.readObject();
-            Map<String, Object> respuesta = gson.fromJson(respuestaJson, Map.class);
-            if ("LOGIN_OK".equals(respuesta.get("tipo"))) {
-                String userJson = gson.toJson(respuesta.get("contenido"));
-                return gson.fromJson(userJson, Users.class);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null; 
-    }
+			// Recibimos la respuesta
+			String respuestaJson = (String) in.readObject();
+			Map<String, Object> respuesta = gson.fromJson(respuestaJson, Map.class);
+			if ("LOGIN_OK".equals(respuesta.get("tipo"))) {
+				String userJson = gson.toJson(respuesta.get("contenido"));
+				return gson.fromJson(userJson, Users.class);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public static String enviarPeticion(String tipo, Map<String, Object> contenido) throws Exception {
 
@@ -99,18 +97,19 @@ public class ClienteSocket {
 			conectar();
 			Map<String, Object> datosEnviar = Map.of("idProfesor", id);
 			String respuestaJson = enviarPeticion("GET_HORARIOS", datosEnviar);
-			
-			//System.out.println(respuestaJson);
+
+			// System.out.println(respuestaJson);
 
 			Gson gson = new Gson();
-			
-			Type tipoRespuesta = new TypeToken<Respuesta<List<Horario>>>() {}.getType();
+
+			Type tipoRespuesta = new TypeToken<Respuesta<List<Horario>>>() {
+			}.getType();
 			Respuesta<List<Horario>> respuesta = gson.fromJson(respuestaJson, tipoRespuesta);
-			
+
 			if ("GET_HORARIOS_OK".equals(respuesta.getTipo())) {
 				return respuesta.getContenido();
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -131,17 +130,18 @@ public class ClienteSocket {
 		}
 		return null;
 	}
-	
+
 	public static List conseguirProfesores() {
 		try {
 			conectar();
 			Map<String, Object> datosEnviar = Map.of();
-			String respuestaJson = enviarPeticion("GET_PROFESORES", datosEnviar);			
-			//System.out.println(respuestaJson);
+			String respuestaJson = enviarPeticion("GET_PROFESORES", datosEnviar);
+			// System.out.println(respuestaJson);
 			Gson gson = new Gson();
-			Type tipoRespuesta = new TypeToken<Respuesta<List<Profesor>>>() {}.getType();
+			Type tipoRespuesta = new TypeToken<Respuesta<List<Profesor>>>() {
+			}.getType();
 			Respuesta<List<Profesor>> respuesta = gson.fromJson(respuestaJson, tipoRespuesta);
-			
+
 			if ("GET_PROFESORES_OK".equals(respuesta.getTipo())) {
 				return respuesta.getContenido();
 			}
@@ -154,15 +154,15 @@ public class ClienteSocket {
 	public static List conseguirReuniones(int id) {
 		try {
 			conectar();
+			System.out.println(id);
 			Map<String, Object> datosEnviar = Map.of("idProfesor", id);
-			String respuestaJson = enviarPeticion("GET_REUNIONES_PROFE", datosEnviar);			
+			String respuestaJson = enviarPeticion("GET_REUNIONES_PROFE", datosEnviar);
 			System.out.println(respuestaJson);
-			Gson gson = new GsonBuilder()
-			        .setDateFormat("yyyy-MM-dd HH:mm:ss")
-			        .create();
-			Type tipoRespuesta = new TypeToken<Respuesta<List<Reuniones>>>() {}.getType();
+			Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+			Type tipoRespuesta = new TypeToken<Respuesta<List<Reuniones>>>() {
+			}.getType();
 			Respuesta<List<Reuniones>> respuesta = gson.fromJson(respuestaJson, tipoRespuesta);
-			
+
 			if ("GET_REUNIONES_OK".equals(respuesta.getTipo())) {
 				return respuesta.getContenido();
 			}
@@ -170,5 +170,36 @@ public class ClienteSocket {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static List<Users> conseguirEstudiantes() {
+
+		try {
+
+			conectar();
+
+			String respuestaJson = enviarPeticion("GET_ESTUDIANTES", Map.of());
+
+			Gson gson = new Gson();
+
+			Type tipoRespuesta = new TypeToken<Respuesta<List<Users>>>() {
+			}.getType();
+
+			Respuesta<List<Users>> respuesta = gson.fromJson(respuestaJson, tipoRespuesta);
+
+			if ("GET_ESTUDIANTES_OK".equals(respuesta.getTipo())) {
+
+				return respuesta.getContenido();
+
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+		}
+
+		return new ArrayList<>();
+
 	}
 }

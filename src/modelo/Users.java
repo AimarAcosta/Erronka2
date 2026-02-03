@@ -12,12 +12,10 @@ public class Users implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Users [id=" + id + ", tipos=" + tipos + ", email=" + email + ", username=" + username + ", password="
-				+ password + ", nombre=" + nombre + ", apellidos=" + apellidos + ", dni=" + dni + ", direccion="
-				+ direccion + ", telefono1=" + telefono1 + ", telefono2=" + telefono2 + ", argazkiaUrl=" + argazkiaUrl
-				+ ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", matriculacioneses=" + matriculacioneses
-				+ ", reunionesesForAlumnoId=" + reunionesesForAlumnoId + ", horarioses=" + horarioses
-				+ ", reunionesesForProfesorId=" + reunionesesForProfesorId + "]";
+		if (this.nombre == null || this.apellidos == null) {
+			return this.username;
+		}
+		return this.nombre + " " + this.apellidos;
 	}
 
 	private Integer id;
