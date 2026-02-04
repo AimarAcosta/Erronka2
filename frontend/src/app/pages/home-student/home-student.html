@@ -12,22 +12,26 @@
 
   <!-- Tarjetas de estadísticas -->
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-3">
       <div class="tarjeta-estadistica">
-        <div class="icono-circulo">
-          <i class="bi bi-clock-history"></i>
+        <div class="tarjeta-cuerpo">
+          <div class="icono-circulo">
+            <i class="bi bi-clock-history"></i>
+          </div>
+          <h5>{{ 'MEETING.PENDING' | translate }}</h5>
+          <h2>{{ pendingCount }}</h2>
         </div>
-        <h5>{{ 'MEETING.PENDING' | translate }}</h5>
-        <h2>{{ pendingCount }}</h2>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-3">
       <div class="tarjeta-estadistica">
-        <div class="icono-circulo">
-          <i class="bi bi-check-circle-fill"></i>
+        <div class="tarjeta-cuerpo">
+          <div class="icono-circulo">
+            <i class="bi bi-check-circle-fill"></i>
+          </div>
+          <h5>{{ 'MEETING.ACCEPTED' | translate }}</h5>
+          <h2>{{ acceptedCount }}</h2>
         </div>
-        <h5>{{ 'MEETING.ACCEPTED' | translate }}</h5>
-        <h2>{{ acceptedCount }}</h2>
       </div>
     </div>
   </div>
