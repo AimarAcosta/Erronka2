@@ -4,8 +4,10 @@ import java.io.*;
 import java.net.Socket;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap; // Necesario si usas HashMap explícito
 import db.GestorDB;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 public class HiloCliente extends Thread {
 
@@ -28,7 +30,6 @@ public class HiloCliente extends Thread {
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             System.out.println(" Cliente conectado");
 
-      
             while (true) {
                 // Leemos el JSON como String 
                 String jsonRecibido = (String) in.readObject();
@@ -42,10 +43,11 @@ public class HiloCliente extends Thread {
                 @SuppressWarnings("unchecked")
                 Map<String, Object> contenidoRecibido = (Map<String, Object>) mensaje.get("contenido");
 
-                // Login
+                // -------------------------------------------------
+                // BLOQUE 1: LOGIN
+                // -------------------------------------------------
                 if ("LOGIN".equals(tipo)) {
                     String user = (String) contenidoRecibido.get("username");
-                    
                     String pass = (String) contenidoRecibido.get("password"); 
                     
                     System.out.println("Intentando login con: " + user + " / " + pass);
@@ -96,23 +98,52 @@ public class HiloCliente extends Thread {
                     respuesta = gson.toJson(Map.of("tipo", "GET_ESTUDIANTES_OK", "contenido", estudiantes));
                 
                 // -------------------------------------------------
-                // BLOQUE 6: GET_REUNIONES
+                // BLOQUE 6: AGENDAR_REUNION
+                // ------------------------------------------------- 
+                } else if ("AGENDAR_REUNION".equals(tipo)) { 
+                    
+                    boolean guardado = db.guardarReunion(contenidoRecibido);
+                    
+                    respuesta = gson.toJson(Map.of(
+                        "tipo", guardado ? "AGENDAR_REUNION_OK" : "AGENDAR_REUNION_ERROR",
+                        "contenido", guardado ? "Reunión guardada con éxito" : "Error al guardar la reunión"
+                    ));
+
+                // -------------------------------------------------
+                // BLOQUE 7: GET_REUNIONES
                 // -------------------------------------------------
                 } else if ("GET_REUNIONES_PROFE".equals(tipo)) {
                     if (this.idUsuarioLogueado != -1) {
-                        List<Map<String, String>> reuniones = db.obtenerReunionesProfesor(this.idUsuarioLogueado);
-                        respuesta = gson.toJson(Map.of("tipo", "GET_REUNIONES_OK", "contenido", reuniones));
-                    }
-                }
+                        
+                        JsonObject jsonObject = gson.toJsonTree(mensaje).getAsJsonObject();
+                        JsonObject contenido = jsonObject.get("contenido").getAsJsonObject();
+                        
+                        int idObjetivo = this.idUsuarioLogueado; 
+                        
+                        if (contenido.has("idProfesor")) {
+                            idObjetivo = contenido.get("idProfesor").getAsInt();
+                        }
 
-                out.writeObject(respuesta);
-                out.flush();
+                        System.out.println("SERVER DEBUG: ID Logueado=" + this.idUsuarioLogueado + " | ID Solicitado=" + idObjetivo);
+
+                        List<Map<String, String>> reuniones = db.obtenerReunionesProfesor(idObjetivo);
+                        
+                        respuesta = gson.toJson(Map.of("tipo", "GET_REUNIONES_OK", "contenido", reuniones));
+                    }  
+                } 
+
+                // Escritura final única para mantener el orden
+                if (respuesta != null && !respuesta.isEmpty()) {
+                    out.writeObject(respuesta);
+                    out.flush();
+                }
             }
 
         } catch (EOFException e) {
             System.out.println(" Cliente desconectado.");
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
+            e.printStackTrace(); // Recomendado para ver la traza completa al depurar
         } finally {
             try { if (socket != null) socket.close(); } catch (IOException ex) {}
         }

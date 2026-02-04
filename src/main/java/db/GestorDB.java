@@ -1,12 +1,19 @@
 package db;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
-import modelo.*; // Importamos todas las entidades del paquete modelo
+import modelo.*; 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.sql.Timestamp;
 
 public class GestorDB {
 
@@ -73,28 +80,58 @@ public class GestorDB {
 
     // Sacar las reuniones del profesor (Corregido: Usa r.usersByProfesorId.id)
     public List<Map<String, String>> obtenerReunionesProfesor(int idProfesor) {
+        // PRUEBA DE FUEGO: Mira la consola.
+        // Si pones idProfesor=3 debería salir Roman. Si pones 4, Iker.
+        System.out.println(">>> DEBUG: Buscando reuniones en BBDD para id_user: " + idProfesor);
+
         List<Map<String, String>> lista = new ArrayList<>();
-        // En tu clase Reuniones, el profesor es "usersByProfesorId" y el alumno "usersByAlumnoId"
-        String hql = "SELECT r.idReunion, r.estado, r.fecha, r.aula, u.nombre, u.apellidos " + 
-                     "FROM Reuniones r JOIN r.usersByAlumnoId u " +
-                     "WHERE r.usersByProfesorId.id = :id ORDER BY r.fecha DESC";
+
+        // EXPLICACIÓN DEL HQL:
+        // 1. FROM Reuniones r
+        // 2. JOIN r.usersByProfesorId p -> Obliga a Hibernate a unir con la tabla 'users' usando la FK 'profesor_id'
+        // 3. LEFT JOIN r.usersByAlumnoId a -> LEFT JOIN para no perder reuniones si el alumno es NULL (que en tu BBDD lo permite)
+        // 4. WHERE p.id = :id -> Filtra usando la Primary Key de la tabla Users unida como profesor.
+        
+        String hql = "SELECT r.idReunion, r.estado, r.fecha, r.aula, a.nombre, a.apellidos, p.nombre " + 
+                     "FROM Reuniones r " +
+                     "JOIN r.usersByProfesorId p " + 
+                     "LEFT JOIN r.usersByAlumnoId a " +
+                     "WHERE p.id = :idParam " + 
+                     "ORDER BY r.fecha DESC";
 
         try (Session session = getSession()) {
             Query<Object[]> query = session.createQuery(hql, Object[].class);
-            query.setParameter("id", idProfesor);
+            query.setParameter("idParam", idProfesor);
+            
             List<Object[]> res = query.list();
+           // System.out.println(">>> DEBUG: Filas encontradas: " + res.size());
 
             for (Object[] row : res) {
                 Map<String, String> reunion = new HashMap<>();
-                reunion.put("id", String.valueOf(row[0]));
-                reunion.put("estado", String.valueOf(row[1]));
-                reunion.put("fecha", String.valueOf(row[2]));
-                reunion.put("aula", String.valueOf(row[3]));
-                reunion.put("alumno", row[4] + " " + row[5]);
+                reunion.put("id", safeStr(row[0]));
+                reunion.put("estado", safeStr(row[1]));
+                reunion.put("fecha", safeStr(row[2])); // Formatear si es necesario
+                reunion.put("aula", safeStr(row[3]));
+                
+                // Gestión de Alumno NULL (Tu BBDD permite alumno_id NULL en reuniones)
+                String nombreAlum = (row[4] != null) ? row[4].toString() : "Sin";
+                String apellAlum = (row[5] != null) ? row[5].toString() : "Asignar";
+                reunion.put("alumno", nombreAlum + " " + apellAlum);
+                
+                // Debug extra: Para verificar que estás trayendo al profesor correcto
+                // reunion.put("profesor_nombre", safeStr(row[6])); 
+
                 lista.add(reunion);
             }
-        } catch (Exception e) { e.printStackTrace(); }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return lista;
+    }
+
+    // Helper pequeño para evitar NullPointerException en los .toString()
+    private String safeStr(Object o) {
+        return o != null ? o.toString() : "";
     }
     
     // Sacar los modulos (Corregido: Usa m.ciclos)
@@ -173,5 +210,62 @@ public class GestorDB {
             e.printStackTrace();
         }
         return lista;
+    }
+    
+    public boolean guardarReunion(Map<String, Object> datos) {
+        org.hibernate.Transaction tx = null;
+        
+        try (Session session = getSession()) {
+            tx = session.beginTransaction();
+
+            Reuniones reunion = new Reuniones();
+
+            reunion.setTitulo((String) datos.get("titulo"));
+            reunion.setAsunto((String) datos.get("asunto"));
+            reunion.setIdCentro((String) datos.get("centro"));
+            reunion.setEstado("PENDIENTE");
+            reunion.setEstadoEus("ZAIN"); 
+
+            reunion.setAula((String) datos.get("municipio")); 
+
+            String fechaStr = (String) datos.get("fecha"); 
+            String horaStr = (String) datos.get("hora");   
+            
+            if (fechaStr != null && !fechaStr.isEmpty()) {
+                if (horaStr == null || horaStr.isEmpty()) {
+                    horaStr = "00:00";
+                }
+                String momentoCompleto = fechaStr + " " + horaStr + ":00";
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date dateParsed = sdf.parse(momentoCompleto);
+
+                reunion.setFecha(new java.sql.Timestamp(dateParsed.getTime()));
+            }
+
+            Timestamp ahora = new Timestamp(System.currentTimeMillis());
+            reunion.setCreatedAt(ahora);
+            reunion.setUpdatedAt(ahora);
+
+            int idProf = ((Number) datos.get("idProfesor")).intValue();
+            int idAlum = ((Number) datos.get("idEstudiante")).intValue();
+
+            Users profesor = session.get(Users.class, idProf);
+            Users alumno = session.get(Users.class, idAlum);
+
+            reunion.setUsersByProfesorId(profesor);
+            reunion.setUsersByAlumnoId(alumno);
+
+            session.save(reunion);
+            tx.commit();
+            
+            System.out.println("Reunión guardada correctamente en la base de datos");
+            return true;
+
+        } catch (Exception e) {
+            if (tx != null) tx.rollback();
+            System.err.println("Error en GestorDB.guardarReunion: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
     }
 }
