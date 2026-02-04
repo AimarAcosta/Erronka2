@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/calendarFragment"
+        android:title="@string/menu_calendar"
+        android:icon="@drawable/ic_calendar" />
+
+    <item
+        android:id="@+id/searchFragment"
+        android:title="@string/menu_search"
+        android:icon="@drawable/ic_search_user" />
+
+    <item
+        android:id="@+id/addCalendarFragment"
+        android:title="@string/menu_add_meeting"
+        android:icon="@drawable/ic_add_calendar" />
+</menu>

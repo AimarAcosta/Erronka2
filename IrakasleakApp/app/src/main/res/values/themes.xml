@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.IrakasleakApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:colorBackground">@color/white</item>
+        <item name="android:textColor">@color/black</item>
+        <!-- añadir más items del tema que necesites -->
+    </style>
+
+    <style name="Theme.IrakasleakApp" parent="Base.Theme.IrakasleakApp" />
+</resources>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">IrakasleakApp</string>
+
+    <string name="login_title">Welcome Back</string>
+    <string name="login_subtitle">Please enter your details to sign in.</string>
+    <string name="label_email">Email Address</string>
+    <string name="hint_email">Enter your email</string>
+    <string name="label_password">Password</string>
+    <string name="hint_password">Enter your password</string>
+    <string name="remember_me">Remember me</string>
+    <string name="btn_login">Login</string>
+    <string name="divider_or">Or continue with</string>
+    <string name="btn_google">Google</string>
+    <string name="btn_apple">Apple</string>
+    <string name="not_registered">Don\'t have an account? </string>
+    <string name="link_signup">Sign Up</string>
+
+    <string name="title_profile_settings">Profile Settings</string>
+    <string name="header_personal_info">PERSONAL INFORMATION</string>
+    <string name="label_username">Username</string>
+    <string name="label_first_name">First Name</string>
+    <string name="label_surname">Surname</string>
+    <string name="label_phone">Phone</string>
+    <string name="account_personal">Personal Account</string>
+    <string name="status_loading">Loading...</string>
+    <string name="header_preferences">PREFERENCES</string>
+    <string name="setting_dark_mode">Dark Mode</string>
+    <string name="setting_show_profile">Show Profile Photo</string>
+    <string name="setting_language">Language</string>
+    <string name="lang_options">Spanish / English</string>
+    <string name="btn_logout">Logout</string>
+    <string name="app_version">Version 2.4.1 (Build 1092)</string>
+    <string name="desc_back">Back</string>
+    <string name="desc_profile_pic">Profile Picture</string>
+    <string name="desc_change_photo">Change photo</string>
+
+    <string name="title_horario">HORARIO</string>
+    <string name="subtitle_semana">Semana A • 2024</string>
+    <string name="day_lun">LUN</string>
+    <string name="day_mar">MAR</string>
+    <string name="day_mie">MIE</string>
+    <string name="day_jue">JUE</string>
+    <string name="day_vie">VIE</string>
+    <string name="label_patio">RECREO (11:00 - 11:30)</string>
+    <string name="nombre_materia_placeholder">Asignatura</string>
+    <string name="btn_cerrar">Cerrar</string>
+    <string name="desc_menu">Menú</string>
+
+    <string name="title_search_users">Search Users</string>
+    <string name="hint_find_users">Find users...</string>
+    <string name="label_filters">FILTERS</string>
+    <string name="label_ciclo">Cycle</string>
+    <string name="label_curso">Course</string>
+    <string name="results_count">%1$d results</string>
+    <string name="no_users_found">No users found</string>
+    <string name="desc_settings_icon">Settings</string>
+
+    <string name="popup_title">Change meeting status?</string>
+    <string name="status_accepted">Accepted</string>
+    <string name="status_denied">Denied</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="desc_add_meeting">Add new meeting</string>
+    <string name="default_username">User</string>
+    <string name="default_email">No email provided</string>
+    <string name="no_cycle_assigned">No cycle assigned</string>
+    <string name="no_phone_available">No phone available</string>
+    <string name="initials_placeholder">_??</string>
+    <string name="menu_calendar">Mi Horario</string>
+    <string name="menu_search">Buscar Profesores</string>
+    <string name="menu_add_meeting">Añadir Cita</string>
+
+</resources>
