@@ -83,14 +83,12 @@ export { io };
 
 AppDataSource.initialize()
   .then(() => {
-    console.log("✅ Conexión a MySQL establecida correctamente");
+    console.log("Conexión a MySQL establecida correctamente");
 
     server.listen(PORT, () => {
-      console.log(`🚀 ElorServ corriendo en http://localhost:${PORT}`);
-      console.log(`📚 API disponible en http://localhost:${PORT}/api`);
-      console.log(`🔌 WebSocket disponible para ElorES`);
+      console.log(`ElorServ corriendo en http://localhost:${PORT}`);
     });
   })
   .catch((error) => {
-    console.error("❌ Error al conectar con la base de datos:", error);
+    console.error("Error al conectar con la base de datos:", error);
   });
