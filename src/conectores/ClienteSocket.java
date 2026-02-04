@@ -7,6 +7,7 @@ import java.security.*;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.crypto.Cipher;
@@ -92,6 +93,22 @@ public class ClienteSocket {
 		return (String) in.readObject();
 	}
 
+	public static String enviarYRecibir(String json) {
+	    String ip = "127.0.0.1"; 
+	    int puerto = 5000; 
+	    
+	    try (java.net.Socket socket = new java.net.Socket(ip, puerto);
+	         java.io.DataOutputStream out = new java.io.DataOutputStream(socket.getOutputStream());
+	         java.io.DataInputStream in = new java.io.DataInputStream(socket.getInputStream())) {
+	        // 1. Enviar el JSON al servidor
+	        out.writeUTF(json);
+	        // 2. Leer la respuesta del servidor
+	        return in.readUTF();
+	    } catch (java.io.IOException e) {
+	        e.printStackTrace();
+	        return "ERROR_CONEXION";
+	    }
+	}
 	public static List conseguirHorarios(int id) {
 		try {
 			conectar();
@@ -173,33 +190,45 @@ public class ClienteSocket {
 	}
 
 	public static List<Users> conseguirEstudiantes() {
-
 		try {
-
 			conectar();
-
 			String respuestaJson = enviarPeticion("GET_ESTUDIANTES", Map.of());
-
 			Gson gson = new Gson();
-
 			Type tipoRespuesta = new TypeToken<Respuesta<List<Users>>>() {
 			}.getType();
-
 			Respuesta<List<Users>> respuesta = gson.fromJson(respuestaJson, tipoRespuesta);
-
 			if ("GET_ESTUDIANTES_OK".equals(respuesta.getTipo())) {
-
 				return respuesta.getContenido();
-
 			}
-
 		} catch (Exception e) {
-
 			e.printStackTrace();
-
 		}
-
 		return new ArrayList<>();
+	}
+	
+	public static boolean agendarReunion(modelo.Reunion reunion) {
+	    try {
+	        conectar(); 
 
+	        Map<String, Object> datos = new HashMap<>();
+	        datos.put("titulo", reunion.getTitulo());
+	        datos.put("asunto", reunion.getAsunto());
+	        datos.put("fecha", reunion.getFecha());
+	        datos.put("hora", reunion.getHora());
+	        datos.put("territorio", reunion.getTerritorio());
+	        datos.put("municipio", reunion.getMunicipio());
+	        datos.put("centro", reunion.getCentro());
+	        datos.put("idProfesor", reunion.getProfesor().getId());
+	        datos.put("idEstudiante", reunion.getEstudiante().getId());
+
+
+	        String respuestaJson = enviarPeticion("AGENDAR_REUNION", datos);
+
+	        return respuestaJson.contains("AGENDAR_REUNION_OK");
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
 	}
 }
