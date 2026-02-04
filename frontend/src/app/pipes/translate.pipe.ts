@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 @Pipe({
   name: 'translate',
   standalone: true,
-  pure: false // Importante: se actualiza cuando cambia el idioma
+  pure: false // Se actualiza cuando cambia el idioma
 })
 export class TranslatePipe implements PipeTransform, OnDestroy {
   private suscripcionIdioma: Subscription;
@@ -23,7 +23,7 @@ export class TranslatePipe implements PipeTransform, OnDestroy {
     });
   }
 
-  // Traduce la clave (ej: 'HOME.WELCOME')
+  // Traduce la clave 
   transform(clave: string): string {
     if (!clave) return '';
     return this.servicioTraduccion.traducir(clave);

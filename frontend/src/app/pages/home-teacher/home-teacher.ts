@@ -87,7 +87,7 @@ export class HomeTeacher implements OnInit {
   // Carga todos los alumnos para el dropdown de crear reunion
   cargarAlumnos() {
     this.servicioUsuarios.obtenerUsuarios().subscribe((usuarios) => {
-      this.alumnos = usuarios.filter(u => u.tipo?.nombre === 'alumno');
+      this.alumnos = usuarios.filter(u => u.tipo_id === 4);
     });
   }
 

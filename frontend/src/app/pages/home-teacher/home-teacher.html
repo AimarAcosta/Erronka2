@@ -3,7 +3,7 @@
     <div class="col-12">
       <h2><i class="bi bi-person-video3"></i> {{ 'HOME.TEACHER_PANEL' | translate }}</h2>
       <p>
-        {{ 'HOME.WELCOME' | translate }}, <strong>{{ currentUser?.nombre }} {{ currentUser?.apellidos }}</strong>
+        {{ 'HOME.WELCOME' | translate }}, <strong>{{ usuarioActual?.nombre }} {{ usuarioActual?.apellidos }}</strong>
       </p>
     </div>
   </div>
@@ -28,7 +28,7 @@
             <i class="bi bi-clock-history"></i>
           </div>
           <h5>{{ 'MEETING.PENDING' | translate }}</h5>
-          <h2>{{ pendingCount }}</h2>
+          <h2>{{ contadorPendientes }}</h2>
         </div>
       </div>
     </div>
@@ -39,7 +39,7 @@
             <i class="bi bi-check-circle-fill"></i>
           </div>
           <h5>{{ 'MEETING.ACCEPTED' | translate }}</h5>
-          <h2>{{ acceptedCount }}</h2>
+          <h2>{{ contadorAceptadas }}</h2>
         </div>
       </div>
     </div>
@@ -50,7 +50,7 @@
             <i class="bi bi-book-fill"></i>
           </div>
           <h5>{{ 'HOME.CLASSES' | translate }}</h5>
-          <h2>{{ classCount }}</h2>
+          <h2>{{ contadorClases }}</h2>
         </div>
       </div>
     </div>
@@ -79,7 +79,7 @@
               </thead>
 
               <tbody>
-                <tr *ngFor="let row of timeTable; let i = index">
+                <tr *ngFor="let row of tablaHorario; let i = index">
                   <td class="celda-hora">{{ i + 1 }}</td>
 
                   <td *ngFor="let cell of row" class="celda-horario">
@@ -112,52 +112,52 @@
         <div class="tarjeta-cabecera">
           <h5><i class="bi bi-calendar-plus"></i> {{ 'MEETING.CREATE' | translate }}</h5>
           <button (click)="mostrarFormulario()" class="btn-principal">
-            <i class="bi" [class.bi-x-lg]="showRequestForm" [class.bi-plus-lg]="!showRequestForm"></i>
-            {{ showRequestForm ? ('MEETING.CLOSE' | translate) : ('MEETING.CREATE' | translate) }}
+            <i class="bi" [class.bi-x-lg]="mostrarFormularioReunion" [class.bi-plus-lg]="!mostrarFormularioReunion"></i>
+            {{ mostrarFormularioReunion ? ('MEETING.CLOSE' | translate) : ('MEETING.CREATE' | translate) }}
           </button>
         </div>
 
-        <div class="tarjeta-cuerpo" *ngIf="showRequestForm">
+        <div class="tarjeta-cuerpo" *ngIf="mostrarFormularioReunion">
           <form (ngSubmit)="enviarSolicitud()">
             <div class="fila-formulario">
               <div class="grupo-campo">
                 <label>{{ 'MEETING.WITH_STUDENT' | translate }}</label>
-                <select [(ngModel)]="newReunion.alumno_id" name="alumno" required class="campo-select">
+                <select [(ngModel)]="nuevaReunion.alumno_id" name="alumno" required class="campo-select">
                   <option [value]="0" disabled>{{ 'MEETING.SELECT_STUDENT' | translate }}</option>
-                  <option *ngFor="let s of students" [value]="s.id">
+                  <option *ngFor="let s of alumnos" [value]="s.id">
                     {{ s.nombre }} {{ s.apellidos }}
                   </option>
                 </select>
               </div>
               <div class="grupo-campo">
                 <label>{{ 'MEETING.TITLE' | translate }}</label>
-                <input type="text" [(ngModel)]="newReunion.titulo" name="titulo" required
+                <input type="text" [(ngModel)]="nuevaReunion.titulo" name="titulo" required
                   [placeholder]="'MEETING.TITLE_PLACEHOLDER' | translate" class="campo-input"/>
               </div>
               <div class="grupo-campo">
                 <label>{{ 'MEETING.SUBJECT' | translate }}</label>
-                <textarea [(ngModel)]="newReunion.asunto" name="asunto" rows="2" class="campo-input"></textarea>
+                <textarea [(ngModel)]="nuevaReunion.asunto" name="asunto" rows="2" class="campo-input"></textarea>
               </div>
             </div>
 
             <div class="seleccion-centro">
               <label><i class="bi bi-geo-alt"></i> {{ 'MEETING.WHERE' | translate }}</label>
-              <div class="centro-seleccionado" *ngIf="selectedCentro">
-                <strong>{{ selectedCentro.DNOMBRE }}</strong>
-                <small>{{ selectedCentro.DMUNI }}, {{ selectedCentro.DTERRE }}</small>
+              <div class="centro-seleccionado" *ngIf="centroSeleccionado">
+                <strong>{{ centroSeleccionado.DNOMBRE }}</strong>
+                <small>{{ centroSeleccionado.DMUNI }}, {{ centroSeleccionado.DTERRE }}</small>
               </div>
-              <div class="centro-seleccionado" *ngIf="!selectedCentro">
+              <div class="centro-seleccionado" *ngIf="!centroSeleccionado">
                 <strong>ELORRIETA-ERREKA MARI</strong>
                 <small>BILBAO, BIZKAIA {{ 'MEETING.DEFAULT_CENTER' | translate }}</small>
               </div>
               <button type="button" class="btn-secundario" (click)="mostrarSelectorCentro()">
-                <i class="bi bi-pin-map"></i> {{ showCentroSelector ? ('MEETING.CLOSE' | translate) : ('MEETING.CHANGE_CENTER' | translate) }}
+                <i class="bi bi-pin-map"></i> {{ mostrarSelectorCentroFlag ? ('MEETING.CLOSE' | translate) : ('MEETING.CHANGE_CENTER' | translate) }}
               </button>
             </div>
 
-            <div *ngIf="showCentroSelector" class="contenedor-selector-centro">
+            <div *ngIf="mostrarSelectorCentroFlag" class="contenedor-selector-centro">
               <app-centro-selector
-                [selectedCentroId]="newReunion.id_centro || '15112'"
+                [selectedCentroId]="nuevaReunion.id_centro || '15112'"
                 (centroSelected)="onCentroSeleccionado($event)">
               </app-centro-selector>
             </div>
@@ -178,14 +178,14 @@
     <div class="col-12">
       <div class="tarjeta">
         <div class="tarjeta-cabecera">
-          <h5><i class="bi bi-bell-fill"></i> {{ 'MEETING.PENDING_MEETINGS' | translate }} ({{ pendingCount }})</h5>
+          <h5><i class="bi bi-bell-fill"></i> {{ 'MEETING.PENDING_MEETINGS' | translate }} ({{ contadorPendientes }})</h5>
         </div>
         <div class="tarjeta-cuerpo">
-          <div *ngIf="pendingReuniones.length === 0" class="estado-vacio">
+          <div *ngIf="reunionesPendientes.length === 0" class="estado-vacio">
             <i class="bi bi-check-all"></i>
             <p>{{ 'MEETING.NO_PENDING' | translate }}</p>
           </div>
-          <div class="tabla-responsive" *ngIf="pendingReuniones.length > 0">
+          <div class="tabla-responsive" *ngIf="reunionesPendientes.length > 0">
             <table class="tabla-reuniones">
               <thead>
                 <tr>
@@ -197,7 +197,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let reunion of pendingReuniones">
+                <tr *ngFor="let reunion of reunionesPendientes">
                   <td>{{ reunion.alumno?.nombre }} {{ reunion.alumno?.apellidos }}</td>
                   <td>{{ reunion.titulo }}</td>
                   <td>{{ reunion.asunto || '-' }}</td>
@@ -227,12 +227,12 @@
           <h5><i class="bi bi-clock-history"></i> {{ 'MEETING.MY_ALL_MEETINGS' | translate }}</h5>
         </div>
         <div class="tarjeta-cuerpo">
-          <div *ngIf="myReuniones.length === 0" class="estado-vacio">
+          <div *ngIf="misReuniones.length === 0" class="estado-vacio">
             <i class="bi bi-calendar-x"></i>
             <p>{{ 'MEETING.NO_MEETINGS' | translate }}</p>
           </div>
-          <ul class="lista-reuniones" *ngIf="myReuniones.length > 0">
-            <li class="item-reunion" *ngFor="let m of myReuniones">
+          <ul class="lista-reuniones" *ngIf="misReuniones.length > 0">
+            <li class="item-reunion" *ngFor="let m of misReuniones">
               <div class="contenido-reunion">
                 <span class="titulo-reunion">{{ m.titulo }}</span>
                 <small class="subtitulo-reunion">
@@ -267,7 +267,7 @@
                 <input 
                   type="text" 
                   id="nombre" 
-                  [(ngModel)]="searchFilters.nombre" 
+                  [(ngModel)]="filtrosBusqueda.nombre" 
                   name="nombre"
                   placeholder="{{ 'STUDENTS.NAME_PLACEHOLDER' | translate }}"
                   class="campo-input">
@@ -277,7 +277,7 @@
                 <input 
                   type="text" 
                   id="apellidos" 
-                  [(ngModel)]="searchFilters.apellidos" 
+                  [(ngModel)]="filtrosBusqueda.apellidos" 
                   name="apellidos"
                   placeholder="{{ 'STUDENTS.LASTNAME_PLACEHOLDER' | translate }}"
                   class="campo-input">
@@ -287,7 +287,7 @@
                 <input 
                   type="text" 
                   id="dni" 
-                  [(ngModel)]="searchFilters.dni" 
+                  [(ngModel)]="filtrosBusqueda.dni" 
                   name="dni"
                   placeholder="{{ 'STUDENTS.DNI_PLACEHOLDER' | translate }}"
                   class="campo-input">
@@ -296,7 +296,7 @@
                 <label for="ciclo">{{ 'STUDENTS.CYCLE' | translate }}</label>
                 <select 
                   id="ciclo" 
-                  [(ngModel)]="searchFilters.ciclo" 
+                  [(ngModel)]="filtrosBusqueda.ciclo" 
                   name="ciclo"
                   class="campo-select">
                   <option [value]="0">{{ 'STUDENTS.ALL_CYCLES' | translate }}</option>
@@ -307,7 +307,7 @@
               </div>
             </div>
             <div class="acciones-busqueda">
-              <button type="submit" class="btn-principal" [disabled]="isSearching">
+              <button type="submit" class="btn-principal" [disabled]="estaBuscando">
                 <i class="bi bi-search"></i> {{ 'STUDENTS.SEARCH' | translate }}
               </button>
               <button type="button" class="btn-secundario" (click)="limpiarBusqueda()">
@@ -317,23 +317,23 @@
           </form>
 
           <!-- Resultados de busqueda -->
-          <div *ngIf="hasSearched" class="resultados-busqueda">
+          <div *ngIf="haBuscado" class="resultados-busqueda">
             <h6 class="titulo-resultados">
               <i class="bi bi-people"></i> 
-              {{ 'STUDENTS.RESULTS' | translate }}: {{ searchResults.length }}
+              {{ 'STUDENTS.RESULTS' | translate }}: {{ resultadosBusqueda.length }}
             </h6>
             
-            <div *ngIf="isSearching" class="estado-cargando">
+            <div *ngIf="estaBuscando" class="estado-cargando">
               <i class="bi bi-arrow-repeat girando"></i>
               <p>{{ 'STUDENTS.SEARCHING' | translate }}</p>
             </div>
 
-            <div *ngIf="!isSearching && searchResults.length === 0" class="estado-vacio">
+            <div *ngIf="!estaBuscando && resultadosBusqueda.length === 0" class="estado-vacio">
               <i class="bi bi-person-x"></i>
               <p>{{ 'STUDENTS.NO_RESULTS' | translate }}</p>
             </div>
 
-            <div *ngIf="!isSearching && searchResults.length > 0" class="tabla-responsive">
+            <div *ngIf="!estaBuscando && resultadosBusqueda.length > 0" class="tabla-responsive">
               <table class="tabla-alumnos">
                 <thead>
                   <tr>
@@ -346,23 +346,23 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let student of searchResults">
+                  <tr *ngFor="let alumno of resultadosBusqueda">
                     <td class="celda-foto">
                       <img 
-                        [src]="obtenerFotoAlumno(student)" 
-                        [alt]="student.nombre"
+                        [src]="obtenerFotoAlumno(alumno)" 
+                        [alt]="alumno.nombre"
                         (error)="onErrorFoto($event)"
                         class="avatar-alumno">
                     </td>
-                    <td>{{ student.nombre }}</td>
-                    <td>{{ student.apellidos }}</td>
-                    <td>{{ student.dni || '-' }}</td>
-                    <td>{{ student.email }}</td>
+                    <td>{{ alumno.nombre }}</td>
+                    <td>{{ alumno.apellidos }}</td>
+                    <td>{{ alumno.dni || '-' }}</td>
+                    <td>{{ alumno.email }}</td>
                     <td>
-                      <span *ngIf="student.matriculaciones && student.matriculaciones.length > 0">
-                        {{ student.matriculaciones[0].ciclo?.nombre_eus || student.matriculaciones[0].ciclo?.nombre || '-' }}
+                      <span *ngIf="alumno.matriculaciones && alumno.matriculaciones.length > 0">
+                        {{ alumno.matriculaciones[0].ciclo?.nombre_eus || alumno.matriculaciones[0].ciclo?.nombre || '-' }}
                       </span>
-                      <span *ngIf="!student.matriculaciones || student.matriculaciones.length === 0">-</span>
+                      <span *ngIf="!alumno.matriculaciones || alumno.matriculaciones.length === 0">-</span>
                     </td>
                   </tr>
                 </tbody>
