@@ -1,0 +1,257 @@
+================================================================================
+                    ELORADMIN - PROIEKTUAREN DOKUMENTAZIOA
+================================================================================
+
+CIFP Elorrieta-Erreka Mari
+2. Erronka - Web Aplikazioa
+Data: 2026ko Otsaila
+
+================================================================================
+1. SARRERA
+================================================================================
+
+ElorAdmin ikastetxe baten kudeaketa sistema bat da. Aplikazio honek erabiltzaileak kudeatzeko, ordutegiak ikusteko eta bilerak antolatzeko aukera ematen du. Lau rol desberdin daude: Superadmin (God), Admin, Irakaslea eta Ikaslea.
+
+Proiektua bi zatitan banatuta dago: Frontend (Angular) eta Backend (Node.js + Express).
+
+>> KAPTURA 1: Login pantailaren irudi bat
+
+================================================================================
+2. ERABILITAKO TEKNOLOGIAK
+================================================================================
+
+FRONTEND:
+- Angular 19 (standalone components)
+- TypeScript
+- Bootstrap 5 (diseinu responsive-rako)
+- Bootstrap Icons
+- MapLibre GL (mapa interaktiboak)
+
+BACKEND:
+- Node.js
+- Express
+- TypeORM (ORM datu-baserako)
+- Socket.IO (denbora errealeko komunikazioa)
+- MySQL
+
+>> KAPTURA 2: package.json fitxategia dependentziekin (frontend edo backend)
+
+================================================================================
+3. PROIEKTUAREN EGITURA
+================================================================================
+
+Proiektuak bi karpeta nagusi ditu:
+
+BACKEND/ karpetan:
+- src/entities/     --> Datu-baseko entitateak (User, Ciclo, Modulo, Horario, Reunion, Tipo, Matriculacion)
+- src/routes/       --> API endpoint-ak
+- src/index.ts      --> Zerbitzariaren sarrera puntua
+- src/data-source.ts --> Datu-base konexioa
+
+FRONTEND/ karpetan:
+- src/app/pages/    --> Orrialdeak (login, home-god, home-admin, home-teacher, home-student)
+- src/app/services/ --> Angular zerbitzuak API deietarako
+- src/app/shared/   --> Konponente partekatuak (navbar, footer, centro-selector)
+- src/assets/i18n/  --> Itzulpen fitxategiak (eu.json, es.json, en.json)
+
+>> KAPTURA 3: VS Code-n proiektuaren karpeta egitura (Explorer panela)
+
+================================================================================
+4. DATU-BASEA
+================================================================================
+
+MySQL datu-basea erabili dut. TypeORM erabiliz, entitate bakoitza JavaScript klase bat bezala definitu nuen.
+
+Taula nagusiak:
+- users           --> Erabiltzaileak (id, nombre, apellidos, email, password, tipo_id, centro_id)
+- tipos           --> Erabiltzaile motak (god, admin, teacher, student)
+- ciclos          --> Zikloak
+- modulos         --> Moduloak
+- horarios        --> Ordutegiak
+- reuniones       --> Bilerak
+- matriculaciones --> Matrikulazioak
+
+>> KAPTURA 4: phpMyAdmin-en datu-basearen taulak
+
+================================================================================
+5. BACKEND-A
+================================================================================
+
+Backend-ak REST API bat eskaintzen du. Express erabiliz, endpoint desberdinak sortu nituen:
+
+- GET /api/users      --> Erabiltzaile guztiak lortu
+- POST /api/users     --> Erabiltzaile berria sortu
+- PUT /api/users/:id  --> Erabiltzailea eguneratu
+- DELETE /api/users/:id --> Erabiltzailea ezabatu
+
+Gauza bera reuniones, horarios, ciclos eta beste entitateetarako.
+
+Socket.IO ere gehitu nuen bileren jakinarazpenetarako denbora errealean.
+
+>> KAPTURA 5: Backend-aren index.ts fitxategia VS Code-n
+
+================================================================================
+6. FRONTEND-A
+================================================================================
+
+Angular 19 erabili nuen standalone components-ekin. Orrialde nagusiak:
+
+| Orrialdea     | Erabiltzailea | Funtzioak                           |
+|---------------|---------------|-------------------------------------|
+| login         | Guztiak       | Saioa hasi                          |
+| home-god      | Superadmin    | Erabiltzaile GUZTIAK kudeatu        |
+| home-admin    | Admin         | Bere zentroko erabiltzaileak kudeatu|
+| home-teacher  | Irakaslea     | Ordutegia ikusi, bilerak sortu      |
+| home-student  | Ikaslea       | Ordutegia ikusi, bilerak ikusi      |
+
+>> KAPTURA 6: home-god pantaila erabiltzaileen taularekin
+
+================================================================================
+7. ZERBITZUAK (SERVICES)
+================================================================================
+
+Backend-arekin komunikatzeko Angular zerbitzuak sortu nituen:
+
+- autenticacion.ts --> Login/logout kudeaketa, localStorage-n erabiltzailea gordetzeko
+- usuarios.ts      --> Erabiltzaileen CRUD eragiketak
+- reuniones.ts     --> Bileren kudeaketa
+- horarios.ts      --> Ordutegiak lortzeko
+- ciclos.ts        --> Zikloen informazioa
+- traduccion.ts    --> Itzulpen zerbitzua
+
+Adibidez, erabiltzaile bat gordetzeko:
+
+    this.servicioUsuarios.crearUsuario(datuak).subscribe(...)
+
+>> KAPTURA 7: services/ karpetako fitxategiak VS Code-n
+
+================================================================================
+8. AUTENTIFIKAZIOA
+================================================================================
+
+Login sistema localStorage-n oinarritzen da:
+
+1. Erabiltzaileak email eta pasahitza sartzen ditu
+2. Backend-ak datu-basean bilatzen du
+3. Baliozkoa bada, erabiltzailea "currentUser" gakoarekin localStorage-n gordetzen da
+4. Erabiltzailea bere rolaren arabera orrialde desberdinera bideratzen da
+
+AuthGuard bat sortu nuen orrialde babestuetara sarbidea kontrolatzeko. Erabiltzaileak saioa hasi gabe orrialde batera sartzen saiatzen bada, login-era bideratzen da.
+
+>> KAPTURA 8: Login pantaila email eta pasahitz eremuekin
+
+================================================================================
+9. ITZULPEN SISTEMA (i18n)
+================================================================================
+
+Aplikazioak hiru hizkuntza onartzen ditu: Euskara, Gaztelania eta Ingelesa.
+
+Hizkuntza bakoitzarentzat JSON fitxategi bat dago assets/i18n/ karpetan. Adibidez:
+
+    {
+      "LOGIN": {
+        "TITLE": "Saioa hasi",
+        "EMAIL": "Posta elektronikoa"
+      }
+    }
+
+TranslatePipe bat sortu nuen HTML-n erabiltzeko: {{ 'LOGIN.TITLE' | translate }}
+
+Navbar-an hizkuntza hautatzailea dago erabiltzaileak hizkuntza aldatu ahal izateko.
+
+>> KAPTURA 9: Navbar-a hizkuntza hautatzailearekin (EU/ES/EN botoiak)
+
+================================================================================
+10. KONPONENTE PARTEKATUAK
+================================================================================
+
+NAVBAR: 
+Orrialde guztietan agertzen da. Erakusten du:
+- Aplikazioaren logoa
+- Hizkuntza hautatzailea
+- Erabiltzailearen izena eta rola
+- Logout botoia
+
+FOOTER: 
+Orri-oina copyright informazioarekin.
+
+CENTRO-SELECTOR: 
+MapLibre erabiliz mapa interaktibo bat du zentroak hautatzeko.
+
+>> KAPTURA 10: Aplikazioa navbar eta footer-ekin (orrialde osoa)
+
+================================================================================
+11. FUNTZIONALITATE NAGUSIAK
+================================================================================
+
+ERABILTZAILEEN KUDEAKETA (CRUD):
+God eta Admin erabiltzaileek beste erabiltzaileak sortu, editatu eta ezabatu ditzakete. Taula bat dago erabiltzaile guztiekin eta formulario bat sortu/editatzeko.
+
+BILEREN SISTEMA:
+Irakasleek ikasleekin bilerak antola ditzakete. Bilera sortzeko: ikaslea hautatu, data eta gaia sartu.
+
+ORDUTEGIAK:
+Erabiltzaile bakoitzak bere asteko ordutegia ikus dezake taula batean.
+
+>> KAPTURA 11: Erabiltzaile berria sortzeko formularioa
+
+>> KAPTURA 12: Bileren taula irakaslearen panelean
+
+================================================================================
+12. DISEINUA (CSS)
+================================================================================
+
+Bootstrap 5 erabili nuen oinarri bezala, baina CSS pertsonalizatua gehitu nuen:
+
+- Kolore nagusia: #00a19a (berde turkesa)
+- Txartelak border-radius handiekin (20px)
+- Itzal leunak (box-shadow)
+- Hover efektuak animazioekin
+- Diseinu responsive-a mugikorretan ondo ikusteko
+
+>> KAPTURA 13: Estatistika txartelak (Total Alumnos, Total Profesores...)
+
+================================================================================
+13. APLIKAZIOA ABIARAZTEA
+================================================================================
+
+Backend abiarazteko:
+
+    cd backend
+    npm run dev
+
+Frontend abiarazteko:
+
+    cd frontend
+    ng serve
+
+Backend-a http://localhost:3000 portuan eta frontend-a http://localhost:4200 portuan exekutatzen dira.
+
+>> KAPTURA 14: Bi terminalak (backend eta frontend) martxan
+
+================================================================================
+14. ONDORIOAK
+================================================================================
+
+Proiektu honetan web aplikazio oso bat garatu dut, frontend eta backend bereiziz. Teknologia modernoak erabili ditut: Angular standalone components, TypeORM, Socket.IO eta Bootstrap. Aplikazioak rol sistema bat du, itzulpen sistema bat eta diseinu profesional bat.
+
+================================================================================
+KAPTURA ZERRENDA LABURRA
+================================================================================
+
+1.  Login pantaila
+2.  package.json fitxategia
+3.  Proiektuaren karpeta egitura VS Code-n
+4.  phpMyAdmin datu-base taulak
+5.  Backend index.ts kodea
+6.  home-god pantaila erabiltzaile taularekin
+7.  services/ karpeta
+8.  Login pantaila osoa
+9.  Navbar hizkuntza botoiekin
+10. Orrialde osoa navbar+footer-ekin
+11. Erabiltzaile sortzeko formularioa
+12. Bileren taula
+13. Estatistika txartelak
+14. Terminalak martxan
+
+================================================================================
