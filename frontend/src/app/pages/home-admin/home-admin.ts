@@ -2,8 +2,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
-import { UsersService, User, Tipo } from '../../services/users';
-import { ReunionesService } from '../../services/meetings';
+import { ServicioUsuarios, Usuario, Tipo } from '../../services/usuarios';
+import { ServicioReuniones } from '../../services/reuniones';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 
 @Component({
@@ -16,24 +16,24 @@ import { TranslatePipe } from '../../pipes/translate.pipe';
 export class HomeAdmin implements OnInit {
   
   // Contadores
-  studentCount: number = 0;
-  teacherCount: number = 0;
-  todayMeetings: number = 0;
+  contadorAlumnos: number = 0;
+  contadorProfesores: number = 0;
+  reunionesHoy: number = 0;
 
   // Lista de usuarios
-  users: User[] = [];
-  filteredUsers: User[] = [];
+  usuarios: Usuario[] = [];
+  usuariosFiltrados: Usuario[] = [];
   tipos: Tipo[] = [];
-  searchTerm: string = '';
+  terminoBusqueda: string = '';
 
   // Control del formulario
-  showForm: boolean = false;
-  isEditing: boolean = false;
-  userForm: Partial<User> = this.obtenerUsuarioVacio();
+  mostrarFormulario: boolean = false;
+  estaEditando: boolean = false;
+  formularioUsuario: Partial<Usuario> = this.obtenerUsuarioVacio();
 
   constructor(
-    private usersService: UsersService,
-    private reunionesService: ReunionesService,
+    private servicioUsuarios: ServicioUsuarios,
+    private servicioReuniones: ServicioReuniones,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -44,23 +44,23 @@ export class HomeAdmin implements OnInit {
 
   // Carga usuarios y contadores
   cargarDatos() {
-    this.usersService.obtenerUsuarios().subscribe(users => {
-      this.users = users;
+    this.servicioUsuarios.obtenerUsuarios().subscribe(usuarios => {
+      this.usuarios = usuarios;
       this.filtrarUsuarios();
-      this.studentCount = this.users.filter(u => u.tipo_id === 4).length;
-      this.teacherCount = this.users.filter(u => u.tipo_id === 3).length;
+      this.contadorAlumnos = this.usuarios.filter(u => u.tipo_id === 4).length;
+      this.contadorProfesores = this.usuarios.filter(u => u.tipo_id === 3).length;
       this.cdr.detectChanges();
     });
     
-    this.reunionesService.contarReunionesHoy().subscribe(count => {
-      this.todayMeetings = count;
+    this.servicioReuniones.contarReunionesHoy().subscribe(contador => {
+      this.reunionesHoy = contador;
       this.cdr.detectChanges();
     });
   }
 
   // Carga los tipos (sin God)
   cargarTipos() {
-    this.usersService.obtenerTipos().subscribe(tipos => {
+    this.servicioUsuarios.obtenerTipos().subscribe(tipos => {
       this.tipos = tipos.filter(t => t.id !== 1); // Quitar God
       this.cdr.detectChanges();
     });
@@ -68,69 +68,69 @@ export class HomeAdmin implements OnInit {
 
   // Elimina usuario (no se puede eliminar God ni Admin)
   onEliminarUsuario(id: number) {
-    const user = this.users.find(u => u.id === id);
-    if (user && (user.tipo_id === 1 || user.tipo_id === 2)) {
+    const usuario = this.usuarios.find(u => u.id === id);
+    if (usuario && (usuario.tipo_id === 1 || usuario.tipo_id === 2)) {
       alert('No puedes eliminar administradores');
       return;
     }
     
     if (confirm('¿Eliminar este usuario?')) {
-      this.usersService.eliminarUsuario(id).subscribe(success => {
-        if (success) this.cargarDatos();
+      this.servicioUsuarios.eliminarUsuario(id).subscribe(exito => {
+        if (exito) this.cargarDatos();
         else alert('Error al eliminar');
       });
     }
   }
 
   abrirFormularioCrear() {
-    this.isEditing = false;
-    this.userForm = this.obtenerUsuarioVacio();
-    this.showForm = true;
+    this.estaEditando = false;
+    this.formularioUsuario = this.obtenerUsuarioVacio();
+    this.mostrarFormulario = true;
   }
 
-  abrirFormularioEditar(user: User) {
-    this.isEditing = true;
-    this.userForm = { ...user };
-    this.showForm = true;
+  abrirFormularioEditar(usuario: Usuario) {
+    this.estaEditando = true;
+    this.formularioUsuario = { ...usuario };
+    this.mostrarFormulario = true;
   }
 
   // Envía el formulario (no puede crear God)
   onSubmit() {
-    if (this.userForm.tipo_id === 1) {
+    if (this.formularioUsuario.tipo_id === 1) {
       alert('No puedes crear un God');
       return;
     }
 
-    if (this.isEditing && this.userForm.id) {
-      this.usersService.actualizarUsuario(this.userForm.id, this.userForm).subscribe(() => {
-        this.showForm = false;
+    if (this.estaEditando && this.formularioUsuario.id) {
+      this.servicioUsuarios.actualizarUsuario(this.formularioUsuario.id, this.formularioUsuario).subscribe(() => {
+        this.mostrarFormulario = false;
         this.cargarDatos();
       });
     } else {
-      this.usersService.crearUsuario(this.userForm).subscribe(() => {
-        this.showForm = false;
+      this.servicioUsuarios.crearUsuario(this.formularioUsuario).subscribe(() => {
+        this.mostrarFormulario = false;
         this.cargarDatos();
       });
     }
   }
 
   cancelarFormulario() {
-    this.showForm = false;
+    this.mostrarFormulario = false;
   }
 
   filtrarUsuarios() {
-    this.filteredUsers = this.users.filter(user => 
-      (user.nombre?.toLowerCase() || '').includes(this.searchTerm.toLowerCase()) ||
-      (user.apellidos?.toLowerCase() || '').includes(this.searchTerm.toLowerCase()) ||
-      (user.username?.toLowerCase() || '').includes(this.searchTerm.toLowerCase())
+    this.usuariosFiltrados = this.usuarios.filter(usuario => 
+      (usuario.nombre?.toLowerCase() || '').includes(this.terminoBusqueda.toLowerCase()) ||
+      (usuario.apellidos?.toLowerCase() || '').includes(this.terminoBusqueda.toLowerCase()) ||
+      (usuario.username?.toLowerCase() || '').includes(this.terminoBusqueda.toLowerCase())
     );
   }
 
-  obtenerUsuarioVacio(): Partial<User> {
+  obtenerUsuarioVacio(): Partial<Usuario> {
     return { username: '', password: '123456', nombre: '', apellidos: '', email: '', tipo_id: 4 };
   }
 
   obtenerNombreRol(tipoId: number): string {
-    return this.usersService.obtenerNombreRol(tipoId);
+    return this.servicioUsuarios.obtenerNombreRol(tipoId);
   }
 }

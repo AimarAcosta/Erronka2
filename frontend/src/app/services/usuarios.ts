@@ -7,8 +7,8 @@ import { environment } from '../../environments/environment';
 // Interfaces
 export interface Tipo {
   id: number;
-  name: string;
-  name_eu: string;
+  nombre: string;
+  nombre_eu: string;
 }
 
 export interface Ciclo {
@@ -22,7 +22,7 @@ export interface Matriculacion {
   ciclo?: Ciclo;
 }
 
-export interface User {
+export interface Usuario {
   id: number;
   email: string;
   username: string;
@@ -44,91 +44,91 @@ export interface User {
 @Injectable({
   providedIn: 'root',
 })
-export class UsersService {
-  private apiUrl = `${environment.apiUrl}/users`;
+export class ServicioUsuarios {
+  private urlApi = `${environment.apiUrl}/users`;
 
   constructor(private http: HttpClient) {}
 
   // Login de usuario
-  login(username: string, password: string): Observable<User | undefined> {
-    return this.http.post<User>(`${this.apiUrl}/login`, { username, password }).pipe(
+  login(username: string, password: string): Observable<Usuario | undefined> {
+    return this.http.post<Usuario>(`${this.urlApi}/login`, { username, password }).pipe(
       catchError(() => of(undefined))
     );
   }
 
   // Obtiene todos los usuarios
-  obtenerUsuarios(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl).pipe(
+  obtenerUsuarios(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(this.urlApi).pipe(
       catchError(() => of([]))
     );
   }
 
   // Obtiene usuario por ID
-  obtenerUsuarioPorId(id: number): Observable<User | undefined> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`).pipe(
+  obtenerUsuarioPorId(id: number): Observable<Usuario | undefined> {
+    return this.http.get<Usuario>(`${this.urlApi}/${id}`).pipe(
       catchError(() => of(undefined))
     );
   }
 
-  // Obtiene usuarios por tipo (1=God, 2=Admin, 3=Teacher, 4=Student)
-  obtenerUsuariosPorTipo(tipoId: number): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/role/${tipoId}`).pipe(
+  // Obtiene usuarios por tipo (1=God, 2=Admin, 3=Profesor, 4=Alumno)
+  obtenerUsuariosPorTipo(tipoId: number): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.urlApi}/role/${tipoId}`).pipe(
       catchError(() => of([]))
     );
   }
 
   // Busca usuarios por nombre
-  buscarUsuarios(query: string): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}/search/${query}`).pipe(
+  buscarUsuarios(consulta: string): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(`${this.urlApi}/search/${consulta}`).pipe(
       catchError(() => of([]))
     );
   }
 
   // Busca alumnos con filtros (para profesores)
-  buscarAlumnos(filters: { nombre?: string; apellidos?: string; dni?: string; ciclo?: number }): Observable<User[]> {
+  buscarAlumnos(filtros: { nombre?: string; apellidos?: string; dni?: string; ciclo?: number }): Observable<Usuario[]> {
     let params: any = {};
-    if (filters.nombre) params.nombre = filters.nombre;
-    if (filters.apellidos) params.apellidos = filters.apellidos;
-    if (filters.dni) params.dni = filters.dni;
-    if (filters.ciclo) params.ciclo = filters.ciclo.toString();
+    if (filtros.nombre) params.nombre = filtros.nombre;
+    if (filtros.apellidos) params.apellidos = filtros.apellidos;
+    if (filtros.dni) params.dni = filtros.dni;
+    if (filtros.ciclo) params.ciclo = filtros.ciclo.toString();
     
-    return this.http.get<User[]>(`${this.apiUrl}/students/search`, { params }).pipe(
+    return this.http.get<Usuario[]>(`${this.urlApi}/students/search`, { params }).pipe(
       catchError(() => of([]))
     );
   }
 
   // Obtiene contadores para estadisticas
   obtenerContadores(): Observable<{ students: number; teachers: number; admins: number; total: number }> {
-    return this.http.get<{ students: number; teachers: number; admins: number; total: number }>(`${this.apiUrl}/count/all`).pipe(
+    return this.http.get<{ students: number; teachers: number; admins: number; total: number }>(`${this.urlApi}/count/all`).pipe(
       catchError(() => of({ students: 0, teachers: 0, admins: 0, total: 0 }))
     );
   }
 
   // Obtiene todos los tipos de usuario
   obtenerTipos(): Observable<Tipo[]> {
-    return this.http.get<Tipo[]>(`${this.apiUrl}/tipos/all`).pipe(
+    return this.http.get<Tipo[]>(`${this.urlApi}/tipos/all`).pipe(
       catchError(() => of([]))
     );
   }
 
   // Elimina un usuario
   eliminarUsuario(id: number): Observable<boolean> {
-    return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`).pipe(
+    return this.http.delete<{ message: string }>(`${this.urlApi}/${id}`).pipe(
       map(() => true),
       catchError(() => of(false))
     );
   }
 
   // Crea un usuario nuevo
-  crearUsuario(user: Partial<User>): Observable<User | undefined> {
-    return this.http.post<User>(this.apiUrl, user).pipe(
+  crearUsuario(usuario: Partial<Usuario>): Observable<Usuario | undefined> {
+    return this.http.post<Usuario>(this.urlApi, usuario).pipe(
       catchError(() => of(undefined))
     );
   }
 
   // Actualiza un usuario
-  actualizarUsuario(id: number, userData: Partial<User>): Observable<User | undefined> {
-    return this.http.put<User>(`${this.apiUrl}/${id}`, userData).pipe(
+  actualizarUsuario(id: number, datosUsuario: Partial<Usuario>): Observable<Usuario | undefined> {
+    return this.http.put<Usuario>(`${this.urlApi}/${id}`, datosUsuario).pipe(
       catchError(() => of(undefined))
     );
   }
@@ -142,8 +142,8 @@ export class UsersService {
     return '/assets/perfil.jpg';
   }
 
-  obtenerFotoConFallback(user: User | string): string {
-    const username = typeof user === 'string' ? user : user.username;
+  obtenerFotoConFallback(usuario: Usuario | string): string {
+    const username = typeof usuario === 'string' ? usuario : usuario.username;
     return this.obtenerUrlFoto(username);
   }
 
@@ -168,4 +168,3 @@ export class UsersService {
     }
   }
 }
-

@@ -5,48 +5,48 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  private userKey = 'currentUser';
+export class ServicioAutenticacion {
+  private claveUsuario = 'currentUser';
 
   constructor(private router: Router) {}
 
   // Guarda el usuario en localStorage
-  guardarUsuario(user: any) {
-    localStorage.setItem(this.userKey, JSON.stringify(user));
+  guardarUsuario(usuario: any) {
+    localStorage.setItem(this.claveUsuario, JSON.stringify(usuario));
   }
 
   // Cierra sesion y redirige a login
   cerrarSesion() {
-    localStorage.removeItem(this.userKey);
+    localStorage.removeItem(this.claveUsuario);
     this.router.navigate(['/login']);
   }
 
   // Devuelve el usuario actual o null
   obtenerUsuario() {
-    const userStr = localStorage.getItem(this.userKey);
-    return userStr ? JSON.parse(userStr) : null;
+    const usuarioStr = localStorage.getItem(this.claveUsuario);
+    return usuarioStr ? JSON.parse(usuarioStr) : null;
   }
 
   // Comprueba si hay usuario logueado
   estaAutenticado(): boolean {
-    return !!localStorage.getItem(this.userKey);
+    return !!localStorage.getItem(this.claveUsuario);
   }
 
   // Comprueba si el usuario tiene el rol esperado
   // God (tipo_id=1) tiene acceso a todo
-  tieneRol(expectedRole: string): boolean {
-    const user = this.obtenerUsuario();
-    if (!user) return false;
+  tieneRol(rolEsperado: string): boolean {
+    const usuario = this.obtenerUsuario();
+    if (!usuario) return false;
     
-    if (user.tipo_id === 1) return true; // God puede todo
+    if (usuario.tipo_id === 1) return true; // God puede todo
     
-    const roleMap: { [key: string]: number } = {
+    const mapaRoles: { [key: string]: number } = {
       'god': 1,
       'admin': 2,
       'teacher': 3,
       'student': 4
     };
     
-    return user.tipo_id === roleMap[expectedRole];
+    return usuario.tipo_id === mapaRoles[rolEsperado];
   }
 }

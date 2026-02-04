@@ -2,8 +2,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { CommonModule } from '@angular/common'; 
-import { AuthService } from '../../services/auth';
-import { TranslationService, Language } from '../../services/translation';
+import { ServicioAutenticacion } from '../../services/autenticacion';
+import { ServicioTraduccion, Idioma } from '../../services/traduccion';
 import { TranslatePipe } from '../../pipes/translate.pipe';
 import { Subscription } from 'rxjs';
 
@@ -16,43 +16,43 @@ import { Subscription } from 'rxjs';
 })
 export class Navbar implements OnInit, OnDestroy {
   
-  currentLang: Language = 'eu';
+  idiomaActual: Idioma = 'eu';
   
-  languages = [
-    { code: 'eu' as Language, name: 'Euskara', flag: '🇪🇺' },
-    { code: 'es' as Language, name: 'Español', flag: '🇪🇸' },
-    { code: 'en' as Language, name: 'English', flag: '🇬🇧' }
+  idiomas = [
+    { codigo: 'eu' as Idioma, nombre: 'Euskara', bandera: '🇪🇺' },
+    { codigo: 'es' as Idioma, nombre: 'Español', bandera: '🇪🇸' },
+    { codigo: 'en' as Idioma, nombre: 'English', bandera: '🇬🇧' }
   ];
   
-  private langSubscription?: Subscription;
+  private suscripcionIdioma?: Subscription;
   
-  get currentUser() {
-    return this.authService.obtenerUsuario();
+  get usuarioActual() {
+    return this.servicioAuth.obtenerUsuario();
   }
 
   constructor(
-    private authService: AuthService, 
+    private servicioAuth: ServicioAutenticacion, 
     private router: Router,
-    private translationService: TranslationService
+    private servicioTraduccion: ServicioTraduccion
   ) {}
 
   ngOnInit() {
-    this.currentLang = this.translationService.lang;
-    this.langSubscription = this.translationService.currentLang$.subscribe(lang => {
-      this.currentLang = lang;
+    this.idiomaActual = this.servicioTraduccion.idioma;
+    this.suscripcionIdioma = this.servicioTraduccion.idiomaActual$.subscribe(idioma => {
+      this.idiomaActual = idioma;
     });
   }
 
   ngOnDestroy() {
-    this.langSubscription?.unsubscribe();
+    this.suscripcionIdioma?.unsubscribe();
   }
 
-  cambiarIdioma(lang: Language) {
-    this.translationService.cambiarIdioma(lang);
+  cambiarIdioma(idioma: Idioma) {
+    this.servicioTraduccion.cambiarIdioma(idioma);
   }
 
   cerrarSesion() {
-    this.authService.cerrarSesion(); 
+    this.servicioAuth.cerrarSesion(); 
     this.router.navigate(['/login']); 
   }
 }
