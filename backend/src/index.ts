@@ -55,27 +55,27 @@ io.on("connection", (socket) => {
   console.log("🔌 Cliente conectado (ElorES):", socket.id);
 
   socket.on("teacher:login", (data) => {
-    console.log("👨‍🏫 Profesor conectado:", data.teacherId);
+    console.log("Profesor conectado:", data.teacherId);
     socket.join(`teacher_${data.teacherId}`);
     socket.emit("login:success", { message: "Conectado correctamente" });
   });
 
   socket.on("reunion:request", (data) => {
-    console.log("📅 Nueva solicitud de reunión:", data);
+    console.log("Nueva solicitud de reunión:", data);
     io.to(`teacher_${data.teacherId}`).emit("reunion:new", data);
   });
 
   socket.on("reunion:response", (data) => {
-    console.log("📝 Respuesta a reunión:", data);
+    console.log("Respuesta a reunión:", data);
     io.emit("reunion:updated", data);
   });
 
   socket.on("schedule:request", (data) => {
-    console.log("📋 Solicitud de horario:", data.teacherId);
+    console.log("Solicitud de horario:", data.teacherId);
   });
 
   socket.on("disconnect", () => {
-    console.log("🔌 Cliente desconectado:", socket.id);
+    console.log("Cliente desconectado:", socket.id);
   });
 });
 
