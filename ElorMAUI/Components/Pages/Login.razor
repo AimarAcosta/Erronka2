@@ -9,7 +9,7 @@
 <div class="container mt-5">
     <div class="card shadow p-4 mx-auto" style="max-width: 400px;">
         <div class="mb-3">
-            <h2 class="text-center">ElorMAUI Login</h2>
+            <h2 class="text-center">ElorMaui</h2>
             <label>Erabiltzaile:</label>
             <input type="text" class="form-control" @bind="erabiltzaile" />
         </div>
@@ -62,6 +62,8 @@
                 if (response.IsSuccessStatusCode)
                 {
                     var jsonString = await response.Content.ReadAsStringAsync();
+
+                    Console.WriteLine("Respuesta de la API: " + jsonString);
 
                     if (string.IsNullOrWhiteSpace(jsonString))
                     {

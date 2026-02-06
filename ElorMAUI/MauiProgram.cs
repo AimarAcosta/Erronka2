@@ -21,12 +21,10 @@ namespace ElorMAUI
             builder.Services.AddBlazorWebViewDeveloperTools();
             builder.Logging.AddDebug();
 #endif
-
-            // Sin esto, el @inject fallará y la app no abrirá
             builder.Services.AddSingleton<CentroService>();
             builder.Services.AddSingleton<SesionService>();
 
-            // Para poder hacer peticiones a la API (Http)
+            // Para hacer las peticiones a la API
             builder.Services.AddScoped(sp => new HttpClient());
 
             return builder.Build();

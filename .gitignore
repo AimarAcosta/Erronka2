@@ -1,0 +1,21 @@
+# .NET (MAUI, WebAPI)
+bin/
+obj/
+*.user
+*.userprefs
+.vs/
+.vscode/
+
+# Java
+*.class
+*.jar
+*.war
+.gradle/
+build/
+.settings/
+.classpath
+.project
+
+# OS
+.DS_Store
+Thumbs.db
