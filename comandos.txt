@@ -54,5 +54,33 @@ npm install --save-dev @types/mapbox-gl
 # ngx-translate
 npm install @ngx-translate/core @ngx-translate/http-loader
 
+# Proceso para cambiar las consultas de API remota (IP de otro equipo) a local (localhost)
+
+1. Cambia la URL de la API en el frontend:
+   - Ve a `frontend/src/environments/environment.ts` y `frontend/src/environments/environment.prod.ts`.
+   - Busca la línea que contiene `apiUrl`.
+   - Reemplaza la IP remota (por ejemplo, `http://10.5.104.124:8080`) por `http://localhost:8080`.
+   - Ejemplo:
+     apiUrl: 'http://localhost:8080'
+
+2. Cambia la configuración de la base de datos en el backend:
+   - Ve a `backend/src/data-source.ts`.
+   - Busca la propiedad `host` en la configuración de la base de datos.
+   - Reemplaza la IP remota (por ejemplo, `10.5.104.124`) por `localhost`.
+   - Ejemplo:
+     host: 'localhost'
+
+3. Reinicia el backend y el frontend:
+   - Asegúrate de que el backend esté corriendo en tu máquina local (puerto 8080).
+   - Inicia el frontend normalmente.
+
+4. Verifica que las consultas se hagan a tu propio equipo:
+   - Accede a la aplicación y comprueba que los datos se obtienen desde tu backend local.
+
+# Resumen rápido:
+- Cambia la IP por `localhost` en los archivos de configuración.
+- Reinicia ambos servicios.
+- Comprueba que todo funciona localmente.
+
 
 
