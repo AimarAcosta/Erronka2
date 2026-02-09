@@ -62,7 +62,6 @@ export class CentrosService {
   constructor(private http: HttpClient) {}
 
   // Transforma datos del JSON al formato de la app
-  // NOTA: En el JSON LATITUD y LONGITUD estan intercambiados
   private transformarCentro(raw: CentroRaw): Centro {
     return {
       CCODIGO: raw.CCEN.toString(),

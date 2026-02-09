@@ -7,7 +7,7 @@ import { HomeGod } from './pages/home-god/home-god';
 import { HomeAdmin } from './pages/home-admin/home-admin';
 import { HomeTeacher } from './pages/home-teacher/home-teacher';
 import { HomeStudent } from './pages/home-student/home-student';
-import { authGuard } from './services/auth.guard';
+import { guardAutenticacion } from './services/autenticacion.guard';
 
 export const routes: Routes = [
   // Ruta por defecto -> login
@@ -17,16 +17,16 @@ export const routes: Routes = [
   { path: 'login', component: Login },
 
   // God - Panel de superadmin (puede hacer todo)
-  { path: 'god', component: HomeGod, canActivate: [authGuard], data: { role: 'god' } },
+  { path: 'god', component: HomeGod, canActivate: [guardAutenticacion], data: { role: 'god' } },
 
   // Admin - Panel de administrador (gestiona usuarios)
-  { path: 'admin', component: HomeAdmin, canActivate: [authGuard], data: { role: 'admin' } },
+  { path: 'admin', component: HomeAdmin, canActivate: [guardAutenticacion], data: { role: 'admin' } },
 
   // Teacher - Panel de profesor (ve horario y reuniones)
-  { path: 'teacher', component: HomeTeacher, canActivate: [authGuard], data: { role: 'teacher' } },
+  { path: 'teacher', component: HomeTeacher, canActivate: [guardAutenticacion], data: { role: 'teacher' } },
 
   // Student - Panel de alumno (solo ve sus datos)
-  { path: 'student', component: HomeStudent, canActivate: [authGuard], data: { role: 'student' } },
+  { path: 'student', component: HomeStudent, canActivate: [guardAutenticacion], data: { role: 'student' } },
 
   // Cualquier otra ruta -> login
   { path: '**', redirectTo: 'login' },

@@ -33,7 +33,7 @@ export class TranslationService {
     });
   }
 
-  // Carga traducciones (uso interno)
+  // Carga traducciones 
   private cargarTraducciones(lang: Language) {
     this.http.get<any>(`/assets/i18n/${lang}.json`).subscribe({
       next: (data) => {
@@ -44,7 +44,7 @@ export class TranslationService {
     });
   }
 
-  // Traduce una clave (ej: 'HOME.TITLE')
+  // Traduce una clave 
   traducir(key: string): string {
     const keys = key.split('.');
     let result: any = this.translations;

@@ -8,20 +8,20 @@
     <div class="acciones-nav">
       <div class="botones-idioma">
         <button 
-          *ngFor="let lang of languages"
+          *ngFor="let idioma of idiomas"
           class="btn-idioma"
-          [class.activo]="currentLang === lang.code"
-          (click)="cambiarIdioma(lang.code)">
-          {{ lang.code | uppercase }}
+          [class.activo]="idiomaActual === idioma.codigo"
+          (click)="cambiarIdioma(idioma.codigo)">
+          {{ idioma.codigo | uppercase }}
         </button>
       </div>
 
-      <div *ngIf="currentUser" class="info-usuario">
-        <div class="nombre-usuario">{{ currentUser.nombre }} {{ currentUser.apellidos }}</div>
-        <div class="etiqueta-rol">{{ currentUser.role | uppercase }}</div>
+      <div *ngIf="usuarioActual" class="info-usuario">
+        <div class="nombre-usuario">{{ usuarioActual.nombre }} {{ usuarioActual.apellidos }}</div>
+        <div class="etiqueta-rol">{{ usuarioActual.role | uppercase }}</div>
       </div>
 
-      <button *ngIf="currentUser" class="btn-salir" (click)="cerrarSesion()">
+      <button *ngIf="usuarioActual" class="btn-salir" (click)="cerrarSesion()">
         <i class="bi bi-box-arrow-right"></i> {{ 'NAV.LOGOUT' | translate }}
       </button>
     </div>

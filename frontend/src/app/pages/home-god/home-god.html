@@ -1,4 +1,4 @@
-<div class="container">
+<div class="contenedor">
   <div class="row">
     <div class="col-12">
       <h2><i class="bi bi-speedometer2"></i>{{ 'HOME.GOD_PANEL' | translate }}</h2>
@@ -8,97 +8,89 @@
 
   <div class="row">
     <div class="col-md-4">
-      <div class="card stat-card">
-        <div class="card-body">
-          <div class="icon-circle">
+      <div class="tarjeta tarjeta-estadistica">
+        <div class="tarjeta-cuerpo">
+          <div class="icono-circulo">
             <i class="bi bi-mortarboard-fill"></i>
           </div>
           <h5>{{ 'HOME.STUDENTS' | translate }}</h5>
-          <h2>{{ studentCount }}</h2>
+          <h2>{{ contadorAlumnos }}</h2>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card stat-card">
-        <div class="card-body">
-          <div class="icon-circle">
+      <div class="tarjeta tarjeta-estadistica">
+        <div class="tarjeta-cuerpo">
+          <div class="icono-circulo">
             <i class="bi bi-person-video3"></i>
           </div>
           <h5>{{ 'HOME.TEACHERS' | translate }}</h5>
-          <h2>{{ teacherCount }}</h2>
+          <h2>{{ contadorProfesores }}</h2>
         </div>
       </div>
     </div>
     <div class="col-md-4">
-      <div class="card stat-card">
-        <div class="card-body">
-          <div class="icon-circle">
+      <div class="tarjeta tarjeta-estadistica">
+        <div class="tarjeta-cuerpo">
+          <div class="icono-circulo">
             <i class="bi bi-calendar-event-fill"></i>
           </div>
           <h5>{{ 'HOME.MEETINGS_TODAY' | translate }}</h5>
-          <h2>{{ todayMeetings }}</h2>
+          <h2>{{ reunionesHoy }}</h2>
         </div>
       </div>
     </div>
   </div>
 
-  <div *ngIf="showForm" class="card form-card">
-    <div class="card-header">
+  <div *ngIf="mostrarFormulario" class="tarjeta tarjeta-formulario">
+    <div class="tarjeta-cabecera">
       <h5>
-        <i class="bi" [ngClass]="isEditing ? 'bi-pencil-square' : 'bi-plus-circle'"></i>
-        {{ isEditing ? ('USER.EDIT' | translate) : ('USER.CREATE' | translate) }}
+        <i class="bi" [ngClass]="estaEditando ? 'bi-pencil-square' : 'bi-plus-circle'"></i>
+        {{ estaEditando ? ('USER.EDIT' | translate) : ('USER.CREATE' | translate) }}
       </h5>
     </div>
-    <div class="card-body">
+    <div class="tarjeta-cuerpo">
       <form (ngSubmit)="onSubmit()">
-        <div class="row">
-          <div class="col-md-6">
+        <div class="fila-formulario">
+          <div class="grupo-campo">
             <label>{{ 'USER.USERNAME' | translate }}</label>
-            <input type="text" [(ngModel)]="userForm.username" name="username" required />
+            <input type="text" [(ngModel)]="formularioUsuario.username" name="username" required />
           </div>
-
-          <div class="col-md-6">
+          <div class="grupo-campo">
             <label>{{ 'USER.EMAIL' | translate }}</label>
-            <input type="email" [(ngModel)]="userForm.email" name="email" required />
+            <input type="email" [(ngModel)]="formularioUsuario.email" name="email" required />
           </div>
-
-          <div class="col-md-6">
+          <div class="grupo-campo">
             <label>{{ 'USER.NAME' | translate }}</label>
-            <input type="text" [(ngModel)]="userForm.nombre" name="nombre" required />
+            <input type="text" [(ngModel)]="formularioUsuario.nombre" name="nombre" required />
           </div>
-
-          <div class="col-md-6">
+          <div class="grupo-campo">
             <label>{{ 'USER.SURNAME' | translate }}</label>
-            <input type="text" [(ngModel)]="userForm.apellidos" name="apellidos" required />
+            <input type="text" [(ngModel)]="formularioUsuario.apellidos" name="apellidos" required />
           </div>
-
-          <div class="col-md-6">
+          <div class="grupo-campo">
             <label>{{ 'USER.PASSWORD' | translate }}</label>
-            <input type="text" [(ngModel)]="userForm.password" name="password" required />
+            <input type="text" [(ngModel)]="formularioUsuario.password" name="password" required />
           </div>
-
-          <div class="col-md-6">
+          <div class="grupo-campo">
             <label>{{ 'USER.ROLE' | translate }}</label>
-            <select [(ngModel)]="userForm.tipo_id" name="tipo_id" required>
+            <select [(ngModel)]="formularioUsuario.tipo_id" name="tipo_id" required>
               <option [value]="4">{{ 'USER.STUDENT' | translate }}</option>
               <option [value]="3">{{ 'USER.TEACHER' | translate }}</option>
               <option [value]="2">{{ 'USER.ADMIN' | translate }}</option>
               <option [value]="1">{{ 'USER.GOD' | translate }}</option>
             </select>
           </div>
-
-          <div class="col-md-6">
+          <div class="grupo-campo">
             <label>{{ 'USER.DNI' | translate }}</label>
-            <input type="text" [(ngModel)]="userForm.dni" name="dni" />
+            <input type="text" [(ngModel)]="formularioUsuario.dni" name="dni" />
           </div>
-
-          <div class="col-md-6">
+          <div class="grupo-campo">
             <label>{{ 'USER.PHONE' | translate }}</label>
-            <input type="text" [(ngModel)]="userForm.telefono1" name="telefono1" />
+            <input type="text" [(ngModel)]="formularioUsuario.telefono1" name="telefono1" />
           </div>
         </div>
-
-        <div class="form-actions">
+        <div class="acciones-formulario">
           <button type="button" (click)="cancelarFormulario()">{{ 'USER.CANCEL' | translate }}</button>
           <button type="submit">{{ 'USER.SAVE' | translate }}</button>
         </div>
@@ -108,27 +100,21 @@
 
   <div class="row">
     <div class="col-12">
-      <div class="card">
-        <div class="card-header">
+      <div class="tarjeta">
+        <div class="tarjeta-cabecera">
           <h5><i class="bi bi-people-fill"></i>{{ 'USER.USER_MANAGEMENT' | translate }}</h5>
-          <div class="header-actions">
-            <div class="input-group">
-              <span class="input-group-text"><i class="bi bi-search"></i></span>
-              <input
-                type="text"
-                [placeholder]="'USER.SEARCH' | translate"
-                [(ngModel)]="searchTerm"
-                (input)="filtrarUsuarios()"
-              />
+          <div class="acciones-cabecera">
+            <div class="grupo-busqueda">
+              <span class="icono-busqueda"><i class="bi bi-search"></i></span>
+              <input type="text" [placeholder]="'USER.SEARCH' | translate" [(ngModel)]="terminoBusqueda" (input)="filtrarUsuarios()" />
             </div>
-            <button class="btn btn-primary" (click)="abrirFormularioCrear()" *ngIf="!showForm">
+            <button class="btn-principal" (click)="abrirFormularioCrear()" *ngIf="!mostrarFormulario">
               <i class="bi bi-plus-lg"></i> {{ 'USER.NEW' | translate }}
             </button>
           </div>
         </div>
-
-        <div class="card-body">
-          <div class="table-responsive">
+        <div class="tarjeta-cuerpo">
+          <div class="tabla-responsive">
             <table>
               <thead>
                 <tr>
@@ -139,41 +125,26 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let user of filteredUsers">
+                <tr *ngFor="let usuario of usuariosFiltrados">
                   <td>
-                    <div class="user-info">
-                      <div class="avatar-circle">{{ user.nombre.charAt(0) || '?' }}</div>
+                    <div class="info-usuario">
+                      <div class="avatar-circulo">{{ usuario.nombre.charAt(0) || '?' }}</div>
                       <div>
-                        <div>{{ user.username }}</div>
-                        <div>{{ user.email }}</div>
+                        <div>{{ usuario.username }}</div>
+                        <div>{{ usuario.email }}</div>
                       </div>
                     </div>
                   </td>
-
-                  <td>{{ user.nombre }} {{ user.apellidos }}</td>
-
+                  <td>{{ usuario.nombre }} {{ usuario.apellidos }}</td>
+                  <td><span>{{ obtenerNombreRol(usuario.tipo_id) | uppercase }}</span></td>
                   <td>
-                    <span>{{ obtenerNombreRol(user.tipo_id) | uppercase }}</span>
-                  </td>
-
-                  <td>
-                    <button class="btn" (click)="abrirFormularioEditar(user)" [title]="'USER.EDIT' | translate">
-                      <i class="bi bi-pencil"></i>
-                    </button>
-                    <button
-                      class="btn"
-                      (click)="onEliminarUsuario(user.id)"
-                      [disabled]="user.tipo_id === 1"
-                      [title]="'USER.DELETE' | translate"
-                    >
-                      <i class="bi bi-trash"></i>
-                    </button>
+                    <button class="btn" (click)="abrirFormularioEditar(usuario)" [title]="'USER.EDIT' | translate"><i class="bi bi-pencil"></i></button>
+                    <button class="btn" (click)="onEliminarUsuario(usuario.id)" [disabled]="usuario.tipo_id === 1" [title]="'USER.DELETE' | translate"><i class="bi bi-trash"></i></button>
                   </td>
                 </tr>
               </tbody>
             </table>
-
-            <div *ngIf="filteredUsers.length === 0">{{ 'USER.NO_USERS_FOUND' | translate }}</div>
+            <div *ngIf="usuariosFiltrados.length === 0" class="estado-vacio">{{ 'USER.NO_USERS_FOUND' | translate }}</div>
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, catchError, map } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { User } from './users';
+import { Usuario } from './usuarios';
 
 export interface Ciclo {
   id: number;
@@ -16,7 +16,7 @@ export interface Matriculacion {
   ciclo_id: number;
   curso: number;
   fecha: Date;
-  alumno?: User;
+  alumno?: Usuario;
   ciclo?: Ciclo;
 }
 

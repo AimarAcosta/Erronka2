@@ -1,38 +1,38 @@
 // Pipe de traduccion - Usa TranslationService para i18n
 import { Pipe, PipeTransform, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { TranslationService } from '../services/translation';
+import { ServicioTraduccion } from '../services/traduccion';
 import { Subscription } from 'rxjs';
 
 @Pipe({
   name: 'translate',
   standalone: true,
-  pure: false // Importante: se actualiza cuando cambia el idioma
+  pure: false // Se actualiza cuando cambia el idioma
 })
 export class TranslatePipe implements PipeTransform, OnDestroy {
-  private langSubscription: Subscription;
-  private currentLang = '';
+  private suscripcionIdioma: Subscription;
+  private idiomaActual = '';
 
   constructor(
-    private translationService: TranslationService,
+    private servicioTraduccion: ServicioTraduccion,
     private cdr: ChangeDetectorRef
   ) {
     // Se suscribe a cambios de idioma
-    this.langSubscription = this.translationService.currentLang$.subscribe(lang => {
-      this.currentLang = lang;
+    this.suscripcionIdioma = this.servicioTraduccion.idiomaActual$.subscribe(idioma => {
+      this.idiomaActual = idioma;
       this.cdr.markForCheck();
     });
   }
 
-  // Traduce la clave (ej: 'HOME.WELCOME')
-  transform(key: string): string {
-    if (!key) return '';
-    return this.translationService.traducir(key);
+  // Traduce la clave 
+  transform(clave: string): string {
+    if (!clave) return '';
+    return this.servicioTraduccion.traducir(clave);
   }
 
   // Limpia la suscripcion al destruirse
   ngOnDestroy() {
-    if (this.langSubscription) {
-      this.langSubscription.unsubscribe();
+    if (this.suscripcionIdioma) {
+      this.suscripcionIdioma.unsubscribe();
     }
   }
 }

@@ -3,10 +3,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../services/auth';
-import { UsersService } from '../../services/users';
+import { ServicioAutenticacion } from '../../services/autenticacion';
+import { ServicioUsuarios } from '../../services/usuarios';
 import { TranslatePipe } from '../../pipes/translate.pipe';
-import { TranslationService, Language } from '../../services/translation';
+import { ServicioTraduccion, Idioma } from '../../services/traduccion';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -20,46 +20,46 @@ export class Login implements OnInit, OnDestroy {
   username = '';
   password = '';
   errorMessage = '';
-  currentLang: Language = 'eu';
-  private langSubscription?: Subscription;
+  idiomaActual: Idioma = 'eu';
+  private suscripcionIdioma?: Subscription;
 
   constructor(
-    private authService: AuthService,
-    private usersService: UsersService,
+    private servicioAuth: ServicioAutenticacion,
+    private servicioUsuarios: ServicioUsuarios,
     private router: Router,
-    private translationService: TranslationService
+    private servicioTraduccion: ServicioTraduccion
   ) {}
 
   ngOnInit() {
-    this.currentLang = this.translationService.lang;
-    this.langSubscription = this.translationService.currentLang$.subscribe((lang) => {
-      this.currentLang = lang;
+    this.idiomaActual = this.servicioTraduccion.idioma;
+    this.suscripcionIdioma = this.servicioTraduccion.idiomaActual$.subscribe((idioma) => {
+      this.idiomaActual = idioma;
     });
   }
 
   ngOnDestroy() {
-    this.langSubscription?.unsubscribe();
+    this.suscripcionIdioma?.unsubscribe();
   }
 
   // Cambia el idioma de la aplicación
-  cambiarIdioma(lang: Language) {
-    this.translationService.cambiarIdioma(lang);
+  cambiarIdioma(idioma: Idioma) {
+    this.servicioTraduccion.cambiarIdioma(idioma);
   }
 
   // Envía el formulario de login
   onLogin() {
-    this.usersService.login(this.username, this.password).subscribe((user) => {
-      if (user) {
-        this.authService.guardarUsuario(user);
+    this.servicioUsuarios.login(this.username, this.password).subscribe((usuario) => {
+      if (usuario) {
+        this.servicioAuth.guardarUsuario(usuario);
         // Redirigir según el tipo de usuario
-        switch (user.tipo_id) {
+        switch (usuario.tipo_id) {
           case 1: this.router.navigate(['/god']); break;      // God
           case 2: this.router.navigate(['/admin']); break;    // Admin
           case 3: this.router.navigate(['/teacher']); break;  // Profesor
           case 4: this.router.navigate(['/student']); break;  // Estudiante
         }
       } else {
-        this.errorMessage = this.translationService.traducir('LOGIN.ERROR');
+        this.errorMessage = this.servicioTraduccion.traducir('LOGIN.ERROR');
       }
     });
   }
